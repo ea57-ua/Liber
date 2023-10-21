@@ -3,8 +3,11 @@
 namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-
+use Illuminate\Auth\Notifications\VerifyEmail;
+use Illuminate\Notifications\Messages\MailMessage;
+use App\Models\User;
 class AuthServiceProvider extends ServiceProvider
 {
     /**
@@ -23,6 +26,29 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        VerifyEmail::toMailUsing(function (object $notifiable, string $url) {
+            return (new MailMessage)
+                ->subject('Verify Email Address AAA')
+                ->markdown('mails.verifyMail', ['url' => $url]);
+                /*
+                ->line('Click the button below to verify your email address.')
+                ->action('Verify Email Address', $url);
+                */
+        });
+
+        ResetPassword::createUrlUsing(function (User $user, string $token) {
+            return 'http://127.0.0.1:8000/reset-password?token='.$token;
+        });
+
+        ResetPassword::toMailUsing(function (object $notifiable, string $url) {
+            return (new MailMessage)
+                ->subject('Reset Password Notification AA')
+                ->line('You are receiving this email because we received a password reset request for your account.')
+                ->action('Reset Password', $url);
+            //->markdown('mails.resetPasswordConfirmation', ['url' => $url]);
+
+        });
+
+
     }
 }
