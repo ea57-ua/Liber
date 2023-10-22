@@ -36,10 +36,12 @@ class AuthServiceProvider extends ServiceProvider
                 */
         });
 
+
         ResetPassword::createUrlUsing(function (User $user, string $token) {
-            return 'http://127.0.0.1:8000/reset-password?token='.$token;
+            return 'http://127.0.0.1:8000/reset-password/'.$token;
         });
 
+        /*
         ResetPassword::toMailUsing(function (object $notifiable, string $url) {
             return (new MailMessage)
                 ->subject('Reset Password Notification AA')
@@ -48,7 +50,7 @@ class AuthServiceProvider extends ServiceProvider
             //->markdown('mails.resetPasswordConfirmation', ['url' => $url]);
 
         });
-
+        */
 
     }
 }
