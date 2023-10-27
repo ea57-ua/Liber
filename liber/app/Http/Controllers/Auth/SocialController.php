@@ -16,7 +16,7 @@ class SocialController extends Controller
 
     public function googleLoginOrRegister()
     {
-        $user = Socialite::driver('google')->user();
+        $user = Socialite::driver('google')->stateless()->user();
         $this->_registerOrLoginGoogleUser($user);
         return redirect()->route('dashboard');
     }
@@ -33,6 +33,7 @@ class SocialController extends Controller
             $user->password = bcrypt('123456dummy'); // TODO ?
             $user->save();
         }
+        $user->sendEmailVerificationNotification();
         Auth::login($user);
     }
 }
