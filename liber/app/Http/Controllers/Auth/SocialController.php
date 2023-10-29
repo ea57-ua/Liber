@@ -24,7 +24,9 @@ class SocialController extends Controller
     protected function _registerOrLoginGoogleUser($incomingUser)
     {
         $user = User::where('google_id',$incomingUser->id)->first();
-        if (!$user) {
+        $userAlreadyRegistered = User::where('email', $incomingUser->email)->exists();
+
+        if (!$user && !$userAlreadyRegistered) {
             $user = new User();
             $user->name = $incomingUser->name;
             $user->email = $incomingUser->email;
@@ -33,7 +35,9 @@ class SocialController extends Controller
             $user->password = bcrypt('123456dummy'); // TODO ?
             $user->save();
         }
-        $user->sendEmailVerificationNotification();
+        if (!$userAlreadyRegistered) {
+            $user->sendEmailVerificationNotification();
+        }
         Auth::login($user);
     }
 }
