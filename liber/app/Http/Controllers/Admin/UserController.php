@@ -74,4 +74,9 @@ class UserController extends Controller
         $userDto->setAdmin($request->has('admin'));
         return $userDto;
     }
+
+    public function showUser($id){
+        $user = $this->userService->getUserById($id);
+        return view('admin.userDetails', ['user' => $user]);
+    }
 }

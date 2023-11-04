@@ -29,11 +29,18 @@
                     <td><input type="checkbox" value="1" {{ $user->admin == '1' ? 'checked' : '' }} disabled></td>
 
                     <td>
-                        <form method="POST" action="{{ route('admin.users.destroy', ['id' => $user->id]) }}">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </form>
+                        <div style="display: flex;">
+                            <div style="margin-right: 10px">
+                                <a href="{{ route('admin.users.show', ['id' => $user->id]) }}" class="btn btn-primary">See details</a>
+                            </div>
+                            <div>
+                                <form method="POST" action="{{ route('admin.users.destroy', ['id' => $user->id]) }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            </div>
+                        </div>
                     </td>
                 </tr>
                 @endforeach
