@@ -33,12 +33,15 @@
                             <div style="margin-right: 10px">
                                 <a href="{{ route('admin.users.show', ['id' => $user->id]) }}" class="btn btn-primary">See details</a>
                             </div>
-                            <div>
+                            <div style="margin-right: 10px">
                                 <form method="POST" action="{{ route('admin.users.destroy', ['id' => $user->id]) }}">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-danger">Delete</button>
                                 </form>
+                            </div>
+                            <div>
+                                <a href="{{ route('admin.users.edit', ['id' => $user->id]) }}" class="btn btn-info">Edit</a>
                             </div>
                         </div>
                     </td>

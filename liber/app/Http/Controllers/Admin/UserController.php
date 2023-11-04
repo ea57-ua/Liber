@@ -15,8 +15,7 @@ class UserController extends Controller
     private $rules = [
             'name' => 'required|max:255',
             'surname' => 'required|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|max: 30',
+            'password' => 'required|max: 100',
             'biography' => 'max: 500',
             'admin' => 'boolean',
             'image' => 'image|mimes:png,jpeg,jpg|max:2048',
@@ -40,6 +39,9 @@ class UserController extends Controller
 
     public function createUser(Request $request){
         request()->validate($this->rules);
+        request()->validate([
+            'email' => 'required|email|unique:users,email',
+        ]);
         $this->userService->createUser($this->getUserFromRequest($request));
         return redirect()->route('admin.users');
     }
@@ -78,5 +80,26 @@ class UserController extends Controller
     public function showUser($id){
         $user = $this->userService->getUserById($id);
         return view('admin.userDetails', ['user' => $user]);
+    }
+
+    public function showEditUser($id){
+        $user = $this->userService->getUserById($id);
+        return view('admin.editUserForm', ['user' => $user]);
+    }
+
+    public function editUser(Request $request, $id) {
+        request()->validate($this->rules);
+        $user = $this->userService->getUserById($id);
+        if ($request->has('email') && $user->email == $request->input('email')) {
+            // do nothing
+        } else {
+            $request->validate([
+                'email' => 'required|email|unique:users,email',
+            ]);
+        }
+
+        $this->userService->editUser($id, $this->getUserFromRequest($request));
+
+        return redirect()->route('admin.users');
     }
 }

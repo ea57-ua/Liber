@@ -14,7 +14,7 @@ class UserDTO
     public string $password;
     public string $biography;
     public bool $admin;
-    public UploadedFile $image;
+    public ?UploadedFile $image;
 
     public function __construct()
     {
@@ -24,7 +24,7 @@ class UserDTO
         $this->password = '';
         $this->biography = '';
         $this->admin = false;
-        //$this->image = '';
+        $this->image = null;
     }
 
     public function setName(string $name)

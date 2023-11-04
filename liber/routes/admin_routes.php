@@ -14,5 +14,7 @@ Route::prefix('/admin')->group(function () {
         Route::get('/create', [AdminUserController::class, 'showCreateUser'])->name('admin.users.create');
         Route::post('/create', [AdminUserController::class, 'createUser'])->name('admin.users.create.save');
         Route::get('/{id}', [AdminUserController::class, 'showUser'])->name('admin.users.show');
+        Route::get('/{id}/edit', [AdminUserController::class, 'showEditUser'])->name('admin.users.edit');
+        Route::post('/{id}/edit', [AdminUserController::class, 'editUser'])->name('admin.users.edit.save');
     });
 });

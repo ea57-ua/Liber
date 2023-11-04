@@ -1,11 +1,10 @@
 @extends('layouts.admin')
 @section('content')
     <div class="container">
-        <h1 class="display-3">Create user</h1>
+        <h1 class="display-3">Edit user</h1>
         <div class="row" >
-            <form  action="{{route('admin.users.create.save')}}" method="POST" enctype="multipart/form-data">
+            <form  action="{{route('admin.users.edit.save', ['id' => $user->id])}}" method="POST" enctype="multipart/form-data">
                 @csrf
-
                 <div class="form-group">
                     <label for="input-name">Name</label>
                     @if ($errors->has('name'))
@@ -15,7 +14,7 @@
                     @endif
                     <input id="input-name" name="name" type="text" class="form-control"
                            placeholder="Name of the user" required
-                           value="{{ old('name') }}">
+                           value="{{ old('name', $user->name) }}">
                     <br>
                 </div>
 
@@ -28,7 +27,7 @@
                     @endif
                     <input id="input-surname" name="surname" type="text" class="form-control"
                            placeholder="Surname of the user" required
-                           value="{{ old('surname') }}">
+                           value="{{ old('surname', $user->surname) }}">
                     <br>
                 </div>
 
@@ -40,7 +39,7 @@
                         @endforeach
                     @endif
                     <input type="email" class="form-control" id="input-email" name="email" aria-describedby="emailHelp"
-                           placeholder="Enter email" required value="{{old('email')}}">
+                           placeholder="Enter email" required value="{{old('email', $user->email)}}">
                     <small id="emailHelp" class="form-text text-muted">Example: alexander@gmail.com</small>
                     <br>
                 </div>
@@ -54,7 +53,7 @@
                     @endif
                     <input id="input-biography" name="biography" type="text" class="form-control"
                            placeholder="Information about the user"
-                           value="{{ old('biography') }}">
+                           value="{{ old('biography', $user->biography) }}">
                     <br>
                 </div>
 
@@ -68,13 +67,20 @@
                     @endif
                     <input type="password" class="form-control" id="input-password"
                            placeholder="Password" name="password"
-                        required value="{{old('password')}}">
+                           required value="{{old('password', $user->password)}}">
                     <br>
                 </div>
 
                 <div class="form-group">
-                    <label for="input-image">Profile image</label>
+                    <label for="input-image">Profile image:</label>
+                    @if ($user->image)
+                        <img src="{{asset($user->image) }}" alt="Actual profile image" class="img-thumbnail"
+                             style="max-width: 200px; max-height: 200px;">
+                    @else
+                        <p> No image associated with the user.</p>
+                    @endif
                     <br>
+                    <label for="input-new-image">New profile image</label>
                     <input type="file" class="form-control-file" id="input-image" name="image"
                            accept="image/png, image/jpeg, image/jpg">
                     <br>
@@ -82,22 +88,16 @@
                 </div>
 
                 <div class="form-check">
-                    @if ($errors->has('admin'))
-                        @foreach($errors->get('admin') as $error)
-                            <p class="alert alert-danger"> {{ $error }}</p>
-                        @endforeach
-                    @endif
-                    <input type="checkbox" class="form-check-input" id="input-admin" name="admin"
-                           value="1" {{ old('admin') == '1' ? 'checked' : '' }}>
+                    <input type="checkbox" class="form-check-input" id="admin" name="admin"
+                           value="1" {{ old('admin', $user->admin) == '1' ? 'checked' : '' }}>
                     <label class="form-check-label" for="input-admin">Admin privileges</label>
                     <br>
                 </div>
                 <br>
-                <button type="submit" class="btn btn-primary">Create</button>
+                <button type="submit" class="btn btn-primary">Edit</button>
                 <a href="{{route('admin.users')}}" class="btn btn-danger">Cancel</a>
             </form>
 
         </div>
     </div>
 @endsection
-

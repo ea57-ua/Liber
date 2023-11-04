@@ -32,7 +32,7 @@ class UserService
         $user->admin = $userDto->admin;
         $user->save();
 
-        if ($userDto->image != ''){
+        if ($userDto->image != null){
             $this->addImageToUser($user->id, $userDto->image);
         }
     }
@@ -49,5 +49,34 @@ class UserService
         $image->move(public_path('images/user_images'), $imageName);
         $user->image = 'images/user_images/' . $imageName;
         $user->save();
+    }
+
+    public function editUser($id, UserDTO $userDto) {
+        $user = User::findOrFail($id);
+        if ($user->name != $userDto->name) {
+            $user->name = $userDto->name;
+        }
+        if ($user->surname != $userDto->surname) {
+            $user->surname = $userDto->surname;
+        }
+
+        if ($user->email != $userDto->email) {
+            $user->email = $userDto->email;
+        }
+
+        if ($user->biography != $userDto->biography) {
+            $user->biography = $userDto->biography;
+        }
+
+        if ($userDto->password != '') {
+            $user->password = Hash::make($userDto->password);
+        }
+
+        $user->admin = $userDto->admin;
+        $user->save();
+
+        if ($userDto->image != null && $userDto->image != $user->image){
+            $this->addImageToUser($user->id, $userDto->image);
+        }
     }
 }
