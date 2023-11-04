@@ -3,17 +3,23 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    private $userService;
+    private UserService $userService;
     public function __construct(){
         $this->userService = new UserService();
     }
     public function showUsersAdminPanel(Request $request){
-        $this->userService->prueba();
-        return view('admin.users');
+        $users = User::paginate(8);
+        return view('admin.users', ['users' => $users]);
+    }
+
+    public function destroyUser($id){
+        $this->userService->deleteUser($id);
+        return redirect()->route('admin.users');
     }
 }
