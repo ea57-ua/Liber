@@ -11,5 +11,7 @@ Route::prefix('/admin')->group(function () {
     Route::prefix('/users')->group(function () {
         Route::get('/', [AdminUserController::class, 'showUsersAdminPanel'])->name('admin.users');
         Route::delete('/{id}', [AdminUserController::class, 'destroyUser'])->name('admin.users.destroy');
+        Route::get('/create', [AdminUserController::class, 'showCreateUser'])->name('admin.users.create');
+        Route::post('/create', [AdminUserController::class, 'createUser'])->name('admin.users.create.save');
     });
 });

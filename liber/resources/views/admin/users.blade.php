@@ -4,7 +4,7 @@
         <div class="recentOrders">
             <div class="cardHeader">
                 <h2>Users</h2>
-                <a href="#" class="btn">View All</a>
+                <a href="{{route('admin.users.create')}}" class="btn">Create user</a>
             </div>
 
             <table>
@@ -13,6 +13,8 @@
                     <td>Name</td>
                     <td>Surname</td>
                     <td>Email</td>
+                    <td>Biography</td>
+                    <td>Admin</td>
                     <td>Actions</td>
                 </tr>
                 </thead>
@@ -23,6 +25,9 @@
                     <td>{{$user->name}}</td>
                     <td>{{$user->surname}}</td>
                     <td>{{$user->email}}</td>
+                    <td>{{$user->biography}}</td>
+                    <td><input type="checkbox" value="1" {{ $user->admin == '1' ? 'checked' : '' }} disabled></td>
+
                     <td>
                         <form method="POST" action="{{ route('admin.users.destroy', ['id' => $user->id]) }}">
                             @csrf

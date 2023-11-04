@@ -8,9 +8,9 @@
     <title>Liber Admin</title>
     <link rel="shortcut icon" href="<?= asset('images/admin/adminIcon.png') ?>" type="image/x-icon">
     <!-- ======= Styles ====== -->
+    <link rel="stylesheet" type="text/css" href="<?= asset('css/admin/adminLayout.css') ?>" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="<?= asset('css/admin/adminLayout.css') ?>" />
 
 </head>
 
