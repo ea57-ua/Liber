@@ -3,7 +3,7 @@
     <div class="details">
         <div class="recentOrders">
             <div class="cardHeader">
-                <h2>Recent Orders</h2>
+                <h2>Users</h2>
                 <a href="#" class="btn">View All</a>
             </div>
 
@@ -11,69 +11,33 @@
                 <thead>
                 <tr>
                     <td>Name</td>
-                    <td>Price</td>
-                    <td>Payment</td>
-                    <td>Status</td>
+                    <td>Surname</td>
+                    <td>Email</td>
+                    <td>Actions</td>
                 </tr>
                 </thead>
 
                 <tbody>
+                @foreach($users as $user)
                 <tr>
-                    <td>Star Refrigerator</td>
-                    <td>$1200</td>
-                    <td>Paid</td>
-                    <td><span class="status delivered">Delivered</span></td>
+                    <td>{{$user->name}}</td>
+                    <td>{{$user->surname}}</td>
+                    <td>{{$user->email}}</td>
+                    <td>
+                        <form method="POST" action="{{ route('admin.users.destroy', ['id' => $user->id]) }}">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
                 </tr>
+                @endforeach
 
-                <tr>
-                    <td>Dell Laptop</td>
-                    <td>$110</td>
-                    <td>Due</td>
-                    <td><span class="status pending">Pending</span></td>
-                </tr>
-
-                <tr>
-                    <td>Apple Watch</td>
-                    <td>$1200</td>
-                    <td>Paid</td>
-                    <td><span class="status return">Return</span></td>
-                </tr>
-
-                <tr>
-                    <td>Addidas Shoes</td>
-                    <td>$620</td>
-                    <td>Due</td>
-                    <td><span class="status inProgress">In Progress</span></td>
-                </tr>
-
-                <tr>
-                    <td>Star Refrigerator</td>
-                    <td>$1200</td>
-                    <td>Paid</td>
-                    <td><span class="status delivered">Delivered</span></td>
-                </tr>
-
-                <tr>
-                    <td>Dell Laptop</td>
-                    <td>$110</td>
-                    <td>Due</td>
-                    <td><span class="status pending">Pending</span></td>
-                </tr>
-
-                <tr>
-                    <td>Apple Watch</td>
-                    <td>$1200</td>
-                    <td>Paid</td>
-                    <td><span class="status return">Return</span></td>
-                </tr>
-
-                <tr>
-                    <td>Addidas Shoes</td>
-                    <td>$620</td>
-                    <td>Due</td>
-                    <td><span class="status inProgress">In Progress</span></td>
-                </tr>
                 </tbody>
             </table>
+            {{-- Pagination --}}
+            {!! $users->links() !!}
         </div>
 @endsection
+
+

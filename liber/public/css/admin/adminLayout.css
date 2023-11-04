@@ -22,13 +22,13 @@ body {
     overflow-x: hidden;
 }
 
-.container {
+.custom-container {
     position: relative;
     width: 100%;
 }
 
 /* =============== Navigation ================ */
-.navigation {
+.custom-navigation {
     position: fixed;
     width: 300px;
     height: 100%;
@@ -37,18 +37,18 @@ body {
     transition: 0.5s;
     overflow: hidden;
 }
-.navigation.active {
+.custom-navigation.active {
     width: 80px;
 }
 
-.navigation ul {
-    position: absolute;
+.custom-navigation ul {
+    position:fixed ; /* absolute */
     top: 0;
     left: 0;
     width: 100%;
 }
 
-.navigation ul li {
+.custom-navigation ul li {
     position: relative;
     width: 100%;
     list-style: none;
@@ -56,17 +56,17 @@ body {
     border-bottom-left-radius: 30px;
 }
 
-.navigation ul li:hover,
-.navigation ul li.hovered {
+.custom-navigation ul li:hover,
+.custom-navigation ul li.hovered {
     background-color: var(--white);
 }
 
-.navigation ul li:nth-child(1) {
+.custom-navigation ul li:nth-child(1) {
     margin-bottom: 40px;
     pointer-events: none;
 }
 
-.navigation ul li a {
+.custom-navigation ul li a {
     position: relative;
     display: block;
     width: 100%;
@@ -74,12 +74,12 @@ body {
     text-decoration: none;
     color: var(--white);
 }
-.navigation ul li:hover a,
-.navigation ul li.hovered a {
+.custom-navigation ul li:hover a,
+.custom-navigation ul li.hovered a {
     color: var(--blue);
 }
 
-.navigation ul li a .icon {
+.custom-navigation ul li a .icon {
     position: relative;
     display: block;
     min-width: 60px;
@@ -87,11 +87,11 @@ body {
     line-height: 75px;
     text-align: center;
 }
-.navigation ul li a .icon ion-icon {
+.custom-navigation ul li a .icon ion-icon {
     font-size: 1.75rem;
 }
 
-.navigation ul li a .title {
+.custom-navigation ul li a .title {
     position: relative;
     display: block;
     padding: 0 10px;
@@ -102,8 +102,8 @@ body {
 }
 
 /* --------- curve outside ---------- */
-.navigation ul li:hover a::before,
-.navigation ul li.hovered a::before {
+.custom-navigation ul li:hover a::before,
+.custom-navigation ul li.hovered a::before {
     content: "";
     position: absolute;
     right: 0;
@@ -115,8 +115,8 @@ body {
     box-shadow: 35px 35px 0 10px var(--white);
     pointer-events: none;
 }
-.navigation ul li:hover a::after,
-.navigation ul li.hovered a::after {
+.custom-navigation ul li:hover a::after,
+.custom-navigation ul li.hovered a::after {
     content: "";
     position: absolute;
     right: 0;
