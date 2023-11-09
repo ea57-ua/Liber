@@ -34,6 +34,11 @@ class UserListLayout extends Table
                 ->filter(Input::make())
                 ->render(fn (User $user) => new Persona($user->presenter())),
 
+            TD::make('surname', __('Surname'))
+                ->sort()
+                ->cantHide()
+                ->filter(Input::make()),
+
             TD::make('email', __('Email'))
                 ->sort()
                 ->cantHide()
@@ -55,6 +60,7 @@ class UserListLayout extends Table
             TD::make('updated_at', __('Last edit'))
                 ->usingComponent(DateTimeSplit::class)
                 ->align(TD::ALIGN_RIGHT)
+                ->defaultHidden()
                 ->sort(),
 
             TD::make(__('Actions'))

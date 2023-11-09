@@ -91,6 +91,7 @@ class User extends Authenticatable implements MustVerifyEmail
             'email'       => $email,
             'password'    => Hash::make($password),
             'permissions' => Dashboard::getAllowAllPermission(),
+            'email_verified_at' => now(),
         ]);
     }
 }
