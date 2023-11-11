@@ -19,7 +19,7 @@
     <div class="custom-navigation">
         <ul>
             <li>
-                <a href="#">
+                <a href="{{route('admin')}}">
                         <span class="icon">
                             <ion-icon name="bar-chart-outline"></ion-icon>
                         </span>
@@ -28,7 +28,7 @@
             </li>
 
             <li>
-                <a href="#">
+                <a href="{{route('admin')}}">
                         <span class="icon">
                             <ion-icon name="home-outline"></ion-icon>
                         </span>
@@ -37,7 +37,7 @@
             </li>
 
             <li>
-                <a href="#">
+                <a href="{{route('admin.users')}}">
                         <span class="icon">
                             <ion-icon name="people-outline"></ion-icon>
                         </span>
