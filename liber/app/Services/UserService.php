@@ -24,16 +24,16 @@ class UserService
 
     public function createUser(UserDTO $userDto) {
         $user = new User();
-        $user->name = $userDto->name;
-        $user->surname = $userDto->surname;
-        $user->email = $userDto->email;
-        $user->password = Hash::make($userDto->password);
-        $user->biography = $userDto->biography;
-        $user->admin = $userDto->admin;
+        $user->name = $userDto->getName();
+        $user->surname = $userDto->getSurname();
+        $user->email = $userDto->getEmail();
+        $user->password = Hash::make($userDto->getPassword());
+        $user->biography = $userDto->getBiography();
+        $user->admin = $userDto->getAdmin();
         $user->save();
 
-        if ($userDto->image != null){
-            $this->addImageToUser($user->id, $userDto->image);
+        if ($userDto->getImage() != null){
+            $this->addImageToUser($user->id, $userDto->getImage());
         }
     }
 
@@ -53,30 +53,30 @@ class UserService
 
     public function editUser($id, UserDTO $userDto) {
         $user = User::findOrFail($id);
-        if ($user->name != $userDto->name) {
-            $user->name = $userDto->name;
+        if ($user->name != $userDto->getName()) {
+            $user->name = $userDto->getName();
         }
-        if ($user->surname != $userDto->surname) {
-            $user->surname = $userDto->surname;
-        }
-
-        if ($user->email != $userDto->email) {
-            $user->email = $userDto->email;
+        if ($user->surname != $userDto->getSurname()) {
+            $user->surname = $userDto->getSurname();
         }
 
-        if ($user->biography != $userDto->biography) {
-            $user->biography = $userDto->biography;
+        if ($user->email != $userDto->getEmail()) {
+            $user->email = $userDto->getEmail();
         }
 
-        if ($userDto->password != '') {
-            $user->password = Hash::make($userDto->password);
+        if ($user->biography != $userDto->getBiography()) {
+            $user->biography = $userDto->getBiography();
         }
 
-        $user->admin = $userDto->admin;
+        if ($userDto->getPassword() != '') {
+            $user->password = Hash::make($userDto->getPassword());
+        }
+
+        $user->admin = $userDto->getAdmin();
         $user->save();
 
-        if ($userDto->image != null && $userDto->image != $user->image){
-            $this->addImageToUser($user->id, $userDto->image);
+        if ($userDto->getImage() != null && $userDto->getImage() != $user->image){
+            $this->addImageToUser($user->id, $userDto->getImage());
         }
     }
 }
