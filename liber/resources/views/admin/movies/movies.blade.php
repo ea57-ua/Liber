@@ -4,7 +4,7 @@
         <div class="recentOrders">
             <div class="cardHeader">
                 <h2>Movies</h2>
-                <a href="" class="btn">Create movie</a>
+                <a href="{{route('admin.movies.create')}}" class="btn">Create movie</a>
             </div>
 
             <table>
@@ -32,7 +32,7 @@
                                     <a href="" class="btn btn-primary">See details</a>
                                 </div>
                                 <div style="margin-right: 10px">
-                                    <form method="POST" action="">
+                                    <form method="POST" action="{{route('admin.movies.destroy', ['id' => $movie->id])}}">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger">Delete</button>
