@@ -8,10 +8,6 @@ use Illuminate\Support\Facades\Hash;
 
 class UserService
 {
-    public function prueba() {
-        //dd("Aqui estoy");
-    }
-
     public function getUsers() {
         $users = User::all();
         return $users;
