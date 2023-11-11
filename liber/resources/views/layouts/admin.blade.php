@@ -46,11 +46,12 @@
             </li>
 
             <li>
-                <a href="#">
-                        <span class="icon">
-                            <ion-icon name="chatbubble-outline"></ion-icon>
+                <a href="{{route('admin.movies')}}">
+                        <span class="icon ">
+                            <!-- <ion-icon name="videocam-outline"></ion-icon> -->
+                            <img class="custom-icon" src="{{ asset('images/admin/movie.png') }}" alt="Movie icon">
                         </span>
-                    <span class="title">Messages</span>
+                    <span class="title">Movies</span>
                 </a>
             </li>
 

@@ -25,16 +25,16 @@ class UserController extends Controller
     }
     public function showUsersAdminPanel(Request $request){
         $users = User::paginate(8);
-        return view('admin.users', ['users' => $users]);
+        return view('admin.users.users', ['users' => $users]);
     }
 
     public function destroyUser($id){
         $this->userService->deleteUser($id);
-        return redirect()->route('admin.users');
+        return redirect()->route('admin.users.users');
     }
 
     public function showCreateUser(){
-        return view('admin.createUserForm');
+        return view('admin.users.createUserForm');
     }
 
     public function createUser(Request $request){
@@ -43,7 +43,7 @@ class UserController extends Controller
             'email' => 'required|email|unique:users,email',
         ]);
         $this->userService->createUser($this->getUserFromRequest($request));
-        return redirect()->route('admin.users');
+        return redirect()->route('admin.users.users');
     }
 
     private function getUserFromRequest(Request $request)
@@ -79,12 +79,12 @@ class UserController extends Controller
 
     public function showUser($id){
         $user = $this->userService->getUserById($id);
-        return view('admin.userDetails', ['user' => $user]);
+        return view('admin.users.userDetails', ['user' => $user]);
     }
 
     public function showEditUser($id){
         $user = $this->userService->getUserById($id);
-        return view('admin.editUserForm', ['user' => $user]);
+        return view('admin.users.editUserForm', ['user' => $user]);
     }
 
     public function editUser(Request $request, $id) {
@@ -100,6 +100,6 @@ class UserController extends Controller
 
         $this->userService->editUser($id, $this->getUserFromRequest($request));
 
-        return redirect()->route('admin.users');
+        return redirect()->route('admin.users.users');
     }
 }

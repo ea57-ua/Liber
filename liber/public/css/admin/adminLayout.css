@@ -101,6 +101,11 @@ body {
     white-space: nowrap;
 }
 
+.custom-icon {
+    width: 25px;
+    height: 25px;
+    vertical-align: 0;
+}
 /* --------- curve outside ---------- */
 .custom-navigation ul li:hover a::before,
 .custom-navigation ul li.hovered a::before {
