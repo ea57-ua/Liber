@@ -8,13 +8,13 @@ use Illuminate\Http\UploadedFile;
 
 class UserDTO
 {
-    public string $name;
-    public string $surname;
-    public string $email;
-    public string $password;
-    public string $biography;
-    public bool $admin;
-    public ?UploadedFile $image;
+    private string $name;
+    private string $surname;
+    private string $email;
+    private string $password;
+    private string $biography;
+    private bool $admin;
+    private ?UploadedFile $image;
 
     public function __construct()
     {
@@ -62,5 +62,38 @@ class UserDTO
         $this->image = $image;
     }
 
+    public function getName(): string
+    {
+        return $this->name;
+    }
 
+    public function getSurname(): string
+    {
+        return $this->surname;
+    }
+
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    public function getBiography(): string
+    {
+        return $this->biography;
+    }
+
+    public function getAdmin(): bool
+    {
+        return $this->admin;
+    }
+
+    public function getImage(): ?UploadedFile
+    {
+        return $this->image;
+    }
 }
