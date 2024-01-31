@@ -2,6 +2,8 @@
 
 namespace App\DTO;
 
+use Illuminate\Http\UploadedFile;
+
 class MovieDTO
 {
     private string $title;
@@ -14,6 +16,8 @@ class MovieDTO
     private string $country;
     private float $rating;
 
+    private ?UploadedFile $poster;
+
     public function __construct()
     {
         $this->title = '';
@@ -25,6 +29,7 @@ class MovieDTO
         $this->duration = 0;
         $this->country = '';
         $this->rating = 0.0;
+        $this->poster = null;
     }
 
     public function setTitle(string $title)
@@ -75,6 +80,16 @@ class MovieDTO
     public function getTitle(): string
     {
         return $this->title;
+    }
+
+    public function setPoster($image)
+    {
+        $this->poster = $image;
+    }
+
+    public function getPoster(): ?UploadedFile
+    {
+        return $this->poster;
     }
 
     public function getDirector(): string

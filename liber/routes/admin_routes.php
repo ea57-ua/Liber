@@ -23,5 +23,6 @@ Route::prefix('/admin')->group(function () {
         Route::get('/', [AdminMovieController::class, 'showMoviesAdminPanel'])->name('admin.movies');
         Route::delete('/{id}', [AdminMovieController::class, 'destroyMovie'])->name('admin.movies.destroy');
         Route::get('/create', [AdminMovieController::class, 'showCreateMovie'])->name('admin.movies.create');
+        Route::post('/create', [AdminMovieController::class, 'createMovie'])->name('admin.movies.create.save');
     });
 });

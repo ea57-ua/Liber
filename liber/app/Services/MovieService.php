@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\DTO\MovieDTO;
 use App\Models\Movie;
 
 class MovieService
@@ -12,7 +13,7 @@ class MovieService
         $movie->delete();
     }
 
-    public function createMovie($movieDto)
+    public function createMovie(MovieDTO $movieDto)
     {
         $movie = new Movie();
         $movie->title = $movieDto->getTitle();
@@ -23,17 +24,21 @@ class MovieService
         $movie->duration = $movieDto->getDuration();
         $movie->country = $movieDto->getCountry();
         $movie->rating = $movieDto->getRating();
-        $movie->poster_url = $movieDto->getPosterUrl();
         $movie->save();
 
-        if ($movieDto->getPosterUrl() != null) {
-            $this->addPosterToMovie($movie->id, $movieDto->getPosterUrl());
+        if ($movieDto->getPoster() != null) {
+            $this->addPosterToMovie($movie->id, $movieDto->getPoster());
         }
     }
 
-    public function addPosterToMovie($id, $getPosterUrl)
+    public function addPosterToMovie($id, $poster)
     {
-        //TODO: implement
+        $movie = Movie::findOrFail($id);
+        $extension = $poster->getClientOriginalExtension();
+        $imageName = $id . '_' . $movie->title  . '_movie.' . $extension;
+        $poster->move(public_path('images/movie_posters'), $imageName);
+        $movie->posterUrl = 'images/movie_posters/' . $imageName;
+        $movie->save();
     }
 
     public function getMovieById($id)
