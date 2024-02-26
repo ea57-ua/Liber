@@ -23,7 +23,6 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
-        'surname',
     ];
 
     /**
@@ -48,5 +47,10 @@ class User extends Authenticatable implements MustVerifyEmail
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new CustomResetPasswordNotification($token));
+    }
+
+    public function ratedMovies()
+    {
+        return $this->belongsToMany(Movie::class, 'ratings')->withPivot('rating');
     }
 }
