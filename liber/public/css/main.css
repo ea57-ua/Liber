@@ -20,7 +20,7 @@
 /* Colors */
 :root {
     --color-default: #222222;
-    --color-primary: #008374;
+    --color-primary: #00a995;
     --color-secondary: #f85a40;
 }
 
@@ -2664,4 +2664,24 @@ section {
 
 .footer .credits a {
     color: #fff;
+}
+
+.btn-custom {
+    display: inline-block;
+    padding: 6px 20px !important;
+    border-radius: 8px;
+    color: var(--color-primary) !important;
+    background: white;
+    border: 1px solid rgba(0, 131, 116, 0.2);
+    transition: none;
+    font-size: 20px;
+    font-weight: 600;
+    font-family: var(--font-primary);
+    transition: 0.3s;
+}
+
+.btn-custom:hover {
+    background: var(--color-primary);
+    color: white !important;
+    border: none;
 }
