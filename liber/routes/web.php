@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('/ejemplo', function () {
+    return view('ejemplo');
+});
 
 Route::get('/', function () {
     return view('welcome');
@@ -34,3 +37,7 @@ Route::get('auth/google', [SocialController::class, 'googleRedirect'])->name('lo
 Route::get('auth/google/callback', [SocialController::class, 'googleLoginOrRegister']);
 
 require __DIR__.'/auth.php';
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
