@@ -7,10 +7,10 @@
         </a>
         <nav id="navbar" class="navbar ms-5 me-5">
             <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Forum</a></li>
-                <li><a href="#">Movies</a></li>
-                <li><a href="#">Lists</a></li>
+                <li><a href="{{route('welcome')}}">Home</a></li>
+                <li><a href="{{route('forumPage')}}">Forum</a></li>
+                <li><a href="{{route('moviesPage')}}">Movies</a></li>
+                <li><a href="{{route('listsPage')}}">Lists</a></li>
             </ul>
             <!-- Search form -->
             <form class="d-flex ms-5">

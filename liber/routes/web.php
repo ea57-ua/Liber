@@ -4,16 +4,6 @@ use App\Http\Controllers\Auth\SocialController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 Route::get('/ejemplo', function () {
     return view('ejemplo');
 });
@@ -21,6 +11,18 @@ Route::get('/ejemplo', function () {
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
+
+Route::get('/movies', function () {
+    return view('movies.moviesPage');
+})->name('moviesPage');
+
+Route::get('/lists', function () {
+    return view('lists.listsPage');
+})->name('listsPage');
+
+Route::get('/forum', function () {
+    return view('forum.forumIndex');
+})->name('forumPage');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
