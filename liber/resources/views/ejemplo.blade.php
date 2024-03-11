@@ -153,11 +153,8 @@
                         <span data-purecounter-start="0" data-purecounter-end="453" data-purecounter-duration="1" class="purecounter"></span>
                         <p><strong>Hours Of Support</strong> aut commodi quaerat</p>
                     </div><!-- End Stats Item -->
-
                 </div>
-
             </div>
-
         </div>
     </section><!-- End Stats Counter Section -->
 

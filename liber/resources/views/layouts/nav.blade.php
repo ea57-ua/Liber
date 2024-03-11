@@ -13,7 +13,7 @@
                 <li><a href="{{route('listsPage')}}">Lists</a></li>
             </ul>
             <!-- Search form -->
-            <form class="d-flex ms-5">
+            <form class="d-flex ms-5" style="margin-top: 12px">
                 <input class="form-control me-2" type="search"
                        placeholder="Search"
                        aria-label="Search"

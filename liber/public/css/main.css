@@ -811,7 +811,7 @@ section {
 # Call To Action Section
 --------------------------------------------------------------*/
 .call-to-action .container {
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/cta-bg.jpg") center center;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/theater.png") center center;
     background-size: cover;
     padding: 100px 60px;
     border-radius: 15px;
@@ -2684,4 +2684,190 @@ section {
     background: var(--color-primary);
     color: white !important;
     border: none;
+}
+
+.movies .movieCard {
+    text-align: center;
+    background: #fff;
+    border-radius: 10px;
+    padding: 15px;
+    overflow: hidden;
+    box-shadow: 0px 2px 25px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+.movies .movieCard .movie-info {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgb(0, 169, 149, 0.2);
+    color: white;
+    padding: 20px;
+    box-sizing: border-box;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.movies .movieCard:hover .movie-info {
+    opacity: 1;
+}
+
+.movies .movieCard .movie-info .movie-ratings {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    background: white;
+    color: #e0b109;
+    padding: 4px 8px;
+    border-radius: 40%;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+}
+
+.movies .movieCard .movie-info .movie-ratings i {
+    font-size: 14px;
+}
+
+.movies .movieCard .movie-info .movie-ratings p {
+    margin: 0;
+    font-size: 14px;
+}
+
+.movies .movieCard img {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.movies .movieCard .member-content {
+    padding: 0 20px 30px 20px;
+}
+
+.movies .movieCard h4 {
+    font-weight: 700;
+    margin-top: 16px;
+    margin-bottom: 2px;
+    font-size: 20px;
+}
+
+.movies .movieCard span {
+    font-style: italic;
+    display: block;
+    font-size: 14px;
+    color: #6c757d;
+}
+
+.movies .movieCard p {
+    padding-top: 10px;
+    font-size: 14px;
+    font-style: italic;
+    color: #6c757d;
+}
+
+.movies .movieCard .social {
+    margin-top: 15px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.movies .movieCard .social a {
+    color: #a2a2a2;
+    transition: 0.3s;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #bbbbbb;
+}
+
+.movies .movieCard .social a:hover {
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+.movies .movieCard .social i {
+    font-size: 18px;
+    margin: 0 2px;
+}
+
+/* Estilo para la paginación */
+.pagination {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+}
+
+.pagination .page-item {
+    margin: 0 5px;
+}
+
+.pagination .page-link {
+    color: var(--color-default);
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 10px;
+}
+
+.pagination .page-item.disabled .page-link {
+    color: #999;
+    border-color: #ddd;
+}
+
+.pagination .page-item.active .page-link {
+    color: #fff;
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
+}
+
+.movie-search-form {
+    padding: 10px 100px;
+    font-size: large;
+}
+
+.search-movies .search-input,
+.search-movies .search-select {
+    border-radius: 20px;
+    border-color: #888;
+    box-shadow: none;
+    font-size: 14px;
+    margin: 0 10px;
+}
+
+.search-movies .search-input[type=text],
+.search-movies .search-select {
+    padding: 12px 15px;
+}
+
+.search-movies .search-input[type=text]:focus,
+.search-movies .search-select:focus {
+    border-color: var(--color-primary);
+}
+
+.search-movies .search-select {
+    padding: 10px 12px;
+}
+
+.search-movies .search-button[type=submit] {
+    background: var(--color-primary);
+    border: 0;
+    padding: 14px 45px;
+    color: #fff;
+    transition: 0.4s;
+    border-radius: 50px;
+}
+
+.search-movies .search-button[type=submit]:hover {
+    background: rgba(0, 131, 116, 0.8);
+}
+
+.title-input {
+    width: 400px;
 }
