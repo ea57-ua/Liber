@@ -63,7 +63,7 @@ class MovieController extends Controller
 
         if($request->has('streaming_service') && $request->input('streaming_service') != '') {
             $movies = $movies->whereHas('streamingServices', function ($query) use ($request) {
-                $query->where('streaming_services.id', $request->input('streaming-service'));
+                $query->where('streaming_services.id', $request->input('streaming_service'));
             });
         }
 
