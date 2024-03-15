@@ -12,4 +12,14 @@ class Rating extends Model
     protected $fillable = [
         'rating'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function movie()
+    {
+        return $this->belongsTo(Movie::class);
+    }
 }

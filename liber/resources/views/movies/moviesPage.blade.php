@@ -11,26 +11,35 @@
 </section>
 
 <div id="movies-search" class="container">
-    <form class="d-flex  search-movies movie-search-form" action="" method="get">
-        <input type="text" name="title" placeholder="Movie Title"
-               class="search-input title-input">
+    <form class="d-flex  search-movies movie-search-form" action="{{route('moviesPage')}}" method="GET">
+        <input type="text" name="movie-title" placeholder="Movie Title"
+               class="search-input title-input" value="{{request()->query('movie-title')}}">
         <select name="genre" class="search-select">
             <option value="">Genre</option>
-            <!-- Añade tus opciones de género aquí -->
-            <option value="action">Action</option>
-            <option value="comedy">Comedy</option>
+            @foreach($genres as $genre)
+                <option value="{{$genre->id}}"
+                    {{ request()->query('genre') == $genre->id ? 'selected' : '' }}>
+                    {{$genre->name}}
+                </option>
+            @endforeach
         </select>
-        <select name="year" class="search-select">
+        <select name="release-year" class="search-select">
             <option value="">Year</option>
-            <!-- Añade tus opciones de año aquí -->
-            <option value="2022">2022</option>
-            <option value="2021">2021</option>>
+            @foreach($years as $year)
+                <option value="{{ $year }}"
+                    {{ request()->query('release-year') == $year ? 'selected' : '' }}>
+                    {{ $year }}
+                </option>
+            @endforeach
         </select>
         <select name="country" class="search-select">
             <option value="">Country</option>
-            <!-- Añade tus opciones de país aquí -->
-            <option value="us">United States</option>
-            <option value="uk">United Kingdom</option>
+            @foreach($countries as $country)
+                <option value="{{ $country->id }}"
+                    {{ request()->query('country') == $country->id ? 'selected' : '' }}>
+                    {{ $country->name }}
+                </option>
+            @endforeach
         </select>
         <select name="streaming_service" class="search-select">
             <option value="">Streaming Service</option>
@@ -54,10 +63,22 @@
                     <h4>{{$movie->title}}</h4>
                     <div class="movie-info" style="display: none;">
                         <div class="movie-ratings">
-                            <i class="bi bi-star-fill"></i> <!-- Icono de estrella para la calificación -->
-                            <p class="critic-rating">8.5</p> <!-- Calificación de los críticos -->
-                            <i class="bi bi-star-fill"></i> <!-- Icono de estrella para la calificación -->
-                            <p class="user-rating">9.0</p> <!-- Calificación de los usuarios -->
+                            <i class="bi bi-star-fill"></i>
+                            <p class="critic-rating">
+                                @isset($movie->critic_average)
+                                    {{ $movie->critic_average }}
+                                @else
+                                    N/A
+                                @endisset
+                            </p>
+                            <i class="bi bi-star-fill"></i>
+                            <p class="user-rating">
+                                @isset($movie->average_rating)
+                                    {{$movie->average_rating}}
+                                @else
+                                    N/A
+                                @endisset
+                            </p>
                         </div>
                     </div>
                 </div>

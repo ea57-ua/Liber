@@ -49,8 +49,8 @@ class User extends Authenticatable implements MustVerifyEmail
         $this->notify(new CustomResetPasswordNotification($token));
     }
 
-    public function ratedMovies()
+    public function ratings()
     {
-        return $this->belongsToMany(Movie::class, 'ratings')->withPivot('rating');
+        return $this->hasMany(Rating::class);
     }
 }
