@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Country;
 use App\Models\Genre;
 use App\Models\Movie;
+use App\Models\StreamingService;
 use Carbon\Carbon;
 
 class MoviesService{
@@ -25,5 +26,9 @@ class MoviesService{
         $newestYear = Carbon::parse(Movie::max('releaseDate'))->year;
         $years = range($oldestYear, $newestYear);
         return $years;
+    }
+
+    public function getStreamingServicesList(){
+        return StreamingService::all();
     }
 }

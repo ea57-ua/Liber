@@ -52,4 +52,9 @@ class Movie extends Model
     {
         return $this->ratings()->avg('rating');
     }
+
+    public function streamingServices()
+    {
+        return $this->belongsToMany(StreamingService::class, 'movie_streaming_service');
+    }
 }

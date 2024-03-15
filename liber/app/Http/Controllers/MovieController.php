@@ -24,9 +24,10 @@ class MovieController extends Controller
         $countries = $this->moviesService->getCountriesWithMovies();
         $genres = $this->moviesService->getGenresList();
         $years = $this->moviesService->getMoviesReleaseYears();
+        $streamingServices = $this->moviesService->getStreamingServicesList();
         return view('movies.moviesPage',
             ['movies' => $movies, 'countries' => $countries,
-                'genres' => $genres, 'years' => $years]);
+                'genres' => $genres, 'years' => $years, 'streamingServices' => $streamingServices]);
     }
 
     public function showMovieInfo($id)
@@ -57,6 +58,12 @@ class MovieController extends Controller
         if($request->has('genre') && $request->input('genre') != '') {
             $movies = $movies->whereHas('genres', function ($query) use ($request) {
                 $query->where('genres.id', $request->input('genre'));
+            });
+        }
+
+        if($request->has('streaming_service') && $request->input('streaming_service') != '') {
+            $movies = $movies->whereHas('streamingServices', function ($query) use ($request) {
+                $query->where('streaming_services.id', $request->input('streaming-service'));
             });
         }
 

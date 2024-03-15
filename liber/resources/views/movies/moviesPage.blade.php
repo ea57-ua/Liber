@@ -43,9 +43,12 @@
         </select>
         <select name="streaming_service" class="search-select">
             <option value="">Streaming Service</option>
-            <!-- Añade tus opciones de servicio de streaming aquí -->
-            <option value="netflix">Netflix</option>
-            <option value="hulu">Hulu</option>
+            @foreach($streamingServices as $service)
+                <option value="{{ $service->id }}"
+                    {{ request()->query('streaming_service') == $service->id ? 'selected' : '' }}>
+                    {{ $service->name }}
+                </option>
+            @endforeach
         </select>
         <button type="submit" class="search-button">Search</button>
     </form>
