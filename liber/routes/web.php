@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\SocialController;
+use App\Http\Controllers\MovieController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -12,9 +13,9 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
-Route::get('/movies', function () {
-    return view('movies.moviesPage');
-})->name('moviesPage');
+Route::get('/movies', [MovieController::class, 'moviesPage'])->name('moviesPage');
+
+Route::get('/movies/{id}', [MovieController::class, 'showMovieInfo'])->name('movies.details');
 
 Route::get('/lists', function () {
     return view('lists.listsPage');

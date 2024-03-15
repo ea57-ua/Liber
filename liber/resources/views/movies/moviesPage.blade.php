@@ -46,67 +46,29 @@
 
 <div class="container" data-aos="fade-up">
     <div class="row gy-4">
-        <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="100">
-            <div class="movieCard">
-                <img src="https://m.media-amazon.com/images/I/61YsswH6vQL._AC_UF894,1000_QL80_.jpg" class="img-fluid" alt="">
-                <h4>Dune</h4>
-                <div class="movie-info" style="display: none;">
-                    <div class="movie-ratings">
-                        <i class="bi bi-star-fill"></i> <!-- Icono de estrella para la calificación -->
-                        <p class="critic-rating">8.5</p> <!-- Calificación de los críticos -->
-                        <i class="bi bi-star-fill"></i> <!-- Icono de estrella para la calificación -->
-                        <p class="user-rating">9.0</p> <!-- Calificación de los usuarios -->
+        @foreach($movies as $movie)
+            <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="100">
+                <a href="{{ route('movies.details', ['id' => $movie->id]) }}">
+                <div class="movieCard">
+                    <img src="{{$movie->posterURL}}" class="img-fluid" alt="">
+                    <h4>{{$movie->title}}</h4>
+                    <div class="movie-info" style="display: none;">
+                        <div class="movie-ratings">
+                            <i class="bi bi-star-fill"></i> <!-- Icono de estrella para la calificación -->
+                            <p class="critic-rating">8.5</p> <!-- Calificación de los críticos -->
+                            <i class="bi bi-star-fill"></i> <!-- Icono de estrella para la calificación -->
+                            <p class="user-rating">9.0</p> <!-- Calificación de los usuarios -->
+                        </div>
                     </div>
                 </div>
+                </a>
             </div>
-        </div>
-
-        <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="100">
-            <div class="movieCard">
-                <img src="https://sm.ign.com/ign_es/photo/d/dune-part-/dune-part-two-exclusive-new-poster-features-its-stellar-cast_aynf.jpg" class="img-fluid" alt="">
-                <h4>Dune</h4>
-            </div>
-        </div><!-- End Team Member -->
-
-        <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="100">
-            <div class="movieCard">
-                <img src="https://m.media-amazon.com/images/I/61YsswH6vQL._AC_UF894,1000_QL80_.jpg" class="img-fluid" alt="">
-                <h4>Dune</h4>
-            </div>
-        </div><!-- End Team Member -->
-
-        <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="100">
-            <div class="movieCard">
-                <img src="https://sm.ign.com/ign_es/photo/d/dune-part-/dune-part-two-exclusive-new-poster-features-its-stellar-cast_aynf.jpg" class="img-fluid" alt="">
-                <h4>Dune</h4>
-            </div>
-        </div><!-- End Team Member -->
-    </div>
+        @endforeach
 </div>
 </section><!-- End Team Section -->
 
-<nav aria-label="Page navigation example" class="d-flex justify-content-center mt-5">
-    <ul class="pagination">
-        <!-- Previous Page Link -->
-        <li class="page-item disabled"><span class="page-link">Previous</span></li>
-
-        <!-- Pagination Elements -->
-        <!-- "Three Dots" Separator -->
-        <li class="page-item disabled"><span class="page-link">...</span></li>
-
-        <!-- Array Of Links -->
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item active"><span class="page-link">2</span></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item"><a class="page-link" href="#">4</a></li>
-
-        <!-- "Three Dots" Separator -->
-        <li class="page-item disabled"><span class="page-link">...</span></li>
-
-        <!-- Next Page Link -->
-        <li class="page-item"><a class="page-link" href="#">Next</a></li>
-    </ul>
-</nav>
+{{-- Pagination --}}
+{{ $movies->links('components.pagination', ['paginator' => $movies]) }}
 @endsection
 
 <script>
