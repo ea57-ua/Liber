@@ -2871,3 +2871,29 @@ section {
 .title-input {
     width: 400px;
 }
+
+.btn-auth {
+    display: inline-block;
+    padding: 6px 20px;
+    border-radius: 8px;
+    color:  white;
+    background: var(--color-primary);
+    border: 1px solid rgba(0, 131, 116, 0.2);
+    font-size: 16px;
+    font-weight: 600;
+    font-family: var(--font-primary);
+    transition: 0.3s;
+}
+
+.btn-username {
+    display: inline-block;
+    padding: 6px 20px;
+    border-radius: 8px;
+    color:  var(--color-primary);
+    background: white;
+    border: 1px solid rgba(0, 131, 116, 0.2);
+    font-size: 16px;
+    font-weight: 600;
+    font-family: var(--font-primary);
+    transition: 0.3s;
+}

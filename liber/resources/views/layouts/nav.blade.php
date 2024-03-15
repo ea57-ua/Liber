@@ -24,12 +24,17 @@
                 @if(Auth::check())
                     <!-- Dropdown menu for logged in user -->
                     <div class="dropdown">
-                        <button class="btn btn-custom dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button class="btn btn-username btn-sm dropdown-toggle" type="button" id="dropdownMenuButton"
+                                data-bs-toggle="dropdown" aria-expanded="false">
                             {{ Auth::user()->name }}
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <!-- Add dropdown menu items here -->
-                            <li><a class="dropdown-item" href="{{ route('logout') }}">Sign Out</a></li>
+                            <li>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item" style="background: none; border: none; padding: 0; color: #212529;">Sign Out</button>
+                                </form>
+                            </li>
                         </ul>
                     </div>
                 @else
