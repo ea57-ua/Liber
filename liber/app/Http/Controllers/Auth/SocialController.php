@@ -31,7 +31,6 @@ class SocialController extends Controller
             $user->name = $incomingUser->name;
             $user->email = $incomingUser->email;
             $user->google_id = $incomingUser->id;
-            $user->surname = $incomingUser->user['family_name'];
             $user->password = bcrypt('123456dummy'); // TODO ?
             $user->save();
         }

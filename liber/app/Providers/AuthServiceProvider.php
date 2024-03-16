@@ -28,7 +28,7 @@ class AuthServiceProvider extends ServiceProvider
 
         VerifyEmail::toMailUsing(function (object $notifiable, string $url) {
             return (new MailMessage)
-                ->subject('Verify Email Address AAA')
+                ->subject('Liber - Verify Email Address')
                 ->markdown('mails.verifyMail', ['url' => $url]);
                 /*
                 ->line('Click the button below to verify your email address.')
@@ -36,7 +36,7 @@ class AuthServiceProvider extends ServiceProvider
                 */
         });
 
-
+        // TODO: cambiar la url de reset password
         ResetPassword::createUrlUsing(function (User $user, string $token) {
             return 'http://127.0.0.1:8000/reset-password/'.$token;
         });
