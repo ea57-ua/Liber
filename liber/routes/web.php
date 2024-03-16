@@ -26,15 +26,10 @@ Route::get('/forum', function () {
     return view('forum.forumIndex');
 })->name('forumPage');
 
-// TODO: Borrar esta ruta
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/profile', [ProfileController::class, 'showUserInfo'])->name('profile.edit');
+    Route::post('/user/uploadImage/{id}', [ProfileController::class, 'uploadImage'])->name('user.uploadImage');
+    Route::put('/profile/update/{id}', [ProfileController::class, 'update'])->name('profile.update');
 });
 
 //Google Authentication Routes
@@ -45,5 +40,7 @@ require __DIR__.'/auth.php';
 
 Auth::routes();
 
+/*
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
     ->middleware(['auth', 'verified'])->name('home');
+*/

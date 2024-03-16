@@ -35,6 +35,9 @@
                                     <button type="submit" class="dropdown-item" style="background: none; border: none; padding: 0; color: #212529;">Sign Out</button>
                                 </form>
                             </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('profile.edit') }}">Profile</a>
+                            </li>
                         </ul>
                     </div>
                 @else

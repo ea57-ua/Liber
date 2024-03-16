@@ -2897,3 +2897,107 @@ section {
     font-family: var(--font-primary);
     transition: 0.3s;
 }
+
+.profileImage{
+    width: 100%;
+    border-radius: 30px;
+}
+
+.vertical-align{
+    vertical-align: middle;
+}
+
+h1.user-text{
+    font-size: 50px;
+}
+
+h4.user-text{
+    font-size: 35px;
+}
+
+.profile-container{
+    margin-top: 100px;
+}
+
+.biography {
+    word-wrap: break-word;
+    text-align: justify;
+    line-height: 1.5;
+}
+
+.user-info{
+    display: flex;
+    align-items: center;
+}
+
+.user-info i{
+    margin-left: 10px;
+    font-size: 2.5rem;
+}
+
+.tooltip-container {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip-text {
+    visibility: hidden;
+    width: 120px;
+    background-color: var(--color-primary);
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+
+    position: absolute;
+    z-index: 1;
+    top: 100%;
+    left: 50%;
+    margin-left: -60px;
+
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip-container:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+.user-stats {
+    display: flex;
+    align-items: center;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    padding: 5px;
+    margin: 10px 0;
+}
+
+.user-stat {
+    margin-right: 40px;
+}
+
+.nav-link {
+    color: var(--color-primary); /* Cambia esto al color principal de tu web */
+    font-size: 1.2rem; /* Ajusta el tamaño de la fuente a tus necesidades */
+}
+
+.nav-item {
+    padding: 10px 20px; /* Ajusta el relleno a tus necesidades */
+}
+
+.custom-file-upload {
+    display: inline-block;
+    padding: 10px;
+    cursor: pointer;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+}
+
+.form-control-file {
+    display: none;
+}
+
+.form-input-label {
+    font-size: 1.2rem;
+}
