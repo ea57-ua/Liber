@@ -1,7 +1,7 @@
 <h1> Followers list </h1>
 <div class="row">
     @foreach ($followers as $follower)
-        <div class="col-md-6 p-1 follower-card">
+        <div class="col-md-6 p-1">
             <a href="{{ route('users.publicProfile', $follower->id) }}"
                class="list-group-item list-group-item-action">
                 <div class="d-flex align-items-center">
@@ -17,16 +17,8 @@
     @endforeach
 </div>
 
-<div id="load-more-container">
-    @if ($followers->hasMorePages())
-        <button id="load-more-button">Load more</button>
-    @endif
-</div>
-
 @push('scripts')
     <script>
-        document.getElementById('load-more-button').addEventListener('click', function() {
-            // Aquí va el código para cargar más seguidores
-        });
+
     </script>
 @endpush

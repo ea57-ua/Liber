@@ -18,13 +18,21 @@ class ProfileController extends Controller
     {
         $followersCount = $request->user()->followers()->count();
         $followingCount = $request->user()->follows()->count();
-        $followers = $request->user()->followers()->paginate(10);
+        $followers = $request->user()->followers()->get();
+        $watchedMoviesCount = $request->user()->watchedMovies()->count();
+        $movieListsCount = $request->user()->movieLists()->count();
+        $watchedMovies = $request->user()->watchedMovies()->get();
+        $lists = $request->user()->movieLists()->get();
 
         return view('profile.userProfile', [
             'user' => $request->user(),
             'followersCount' => $followersCount,
             'followingCount' => $followingCount,
             'followers' => $followers,
+            'watchedMoviesCount' => $watchedMoviesCount,
+            'movieListsCount' => $movieListsCount,
+            'watchedMovies' => $watchedMovies,
+            'lists' => $lists,
         ]);
     }
 
@@ -112,13 +120,21 @@ class ProfileController extends Controller
         $user = User::findOrFail($id);
         $followersCount = $user->followers()->count();
         $followingCount = $user->follows()->count();
-        $followers = $user->followers()->paginate(10);
+        $followers = $user->followers()->get();
+        $watchedMoviesCount = $user->watchedMovies()->count();
+        $movieListsCount = $user->movieLists()->count();
+        $watchedMovies = $user->watchedMovies()->get();
+        $lists = $user->movieLists()->get();
 
         return view('profile.userProfile', [
             'user' => $user,
             'followersCount' => $followersCount,
             'followingCount' => $followingCount,
             'followers' => $followers,
+            'watchedMoviesCount' => $watchedMoviesCount,
+            'movieListsCount' => $movieListsCount,
+            'watchedMovies' => $watchedMovies,
+            'lists' => $lists,
         ]);
     }
 

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\SocialController;
+use App\Http\Controllers\ListController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -22,6 +23,9 @@ Route::get('/movies/{id}', [MovieController::class, 'showMovieInfo'])->name('mov
 Route::get('/lists', function () {
     return view('lists.listsPage');
 })->name('listsPage');
+
+Route::get('/lists/{id}', [ListController::class, 'listDetailsShow'])
+    ->name('lists.details');
 
 Route::get('/forum', function () {
     return view('forum.forumIndex');
@@ -51,8 +55,3 @@ Route::get('auth/google/callback', [SocialController::class, 'googleLoginOrRegis
 require __DIR__.'/auth.php';
 
 Auth::routes();
-
-/*
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
-    ->middleware(['auth', 'verified'])->name('home');
-*/

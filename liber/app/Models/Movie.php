@@ -57,4 +57,14 @@ class Movie extends Model
     {
         return $this->belongsToMany(StreamingService::class, 'movie_streaming_service');
     }
+
+    public function watchedByUsers()
+    {
+        return $this->belongsToMany(User::class);
+    }
+
+    public function movieLists()
+    {
+        return $this->belongsToMany(MovieList::class, 'list_movies');
+    }
 }

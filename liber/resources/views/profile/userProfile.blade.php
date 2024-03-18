@@ -75,8 +75,8 @@
                     <div class="user-stats">
                         <span class="user-stat"><h4><strong>{{$followersCount}}</strong> Followers</h4></span>
                         <span class="user-stat"><h4><strong>{{$followingCount}}</strong> Following</h4></span>
-                        <span class="user-stat"><h4><strong>452</strong> Movies Watched</h4></span>
-                        <span class="user-stat"><h4><strong>12</strong> Lists</h4></span>
+                        <span class="user-stat"><h4><strong>{{$watchedMoviesCount}}</strong> Movies Watched</h4></span>
+                        <span class="user-stat"><h4><strong>{{$movieListsCount}}</strong> Lists</h4></span>
                     </div>
                 </div>
                 <div class="col-12">
@@ -219,25 +219,25 @@
             </div>
 
             <div class="tab-pane container" id="watchedMovies">
-                <div class="row">
+                <div class="row mt-2">
                     @include('profile.watchedMoviesList')
                 </div>
             </div>
 
             <div class="tab-pane container" id="userListsList">
-                <div class="row">
+                <div class="row mt-2">
                     @include('profile.userListsListComponent')
                 </div>
             </div>
 
             <div class="tab-pane container" id="userReviewsList">
-                <div class="row">
+                <div class="row mt-2">
                     <h1> reviews </h1>
                 </div>
             </div>
 
             <div class="tab-pane container" id="userFollowersList">
-                <div class="row">
+                <div class="row mt-2">
                     @include('profile.userFollowersList')
                 </div>
             </div>

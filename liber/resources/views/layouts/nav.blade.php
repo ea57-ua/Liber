@@ -30,10 +30,15 @@
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <li>
-                                <form method="POST" action="{{ route('logout') }}">
-                                    @csrf
-                                    <button type="submit" class="dropdown-item" style="background: none; border: none; padding: 0; color: #212529;">Sign Out</button>
-                                </form>
+                                <div>
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <button type="submit" class="dropdown-item navbarDropDownButton">
+                                            Sign Out
+                                        </button>
+                                    </form>
+                                </div>
+
                             </li>
                             <li>
                                 <a class="dropdown-item" href="{{ route('profile.edit') }}">Profile</a>

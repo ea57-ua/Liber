@@ -429,6 +429,14 @@ section {
         color: #006a5d;
     }
 
+    .navbarDropDownButton {
+        padding: 10px 20px;
+        font-size: 15px;
+        text-transform: none;
+        font-weight: 600;
+        color: #006a5d;
+    }
+
     .navbar .dropdown ul a i {
         font-size: 12px;
     }

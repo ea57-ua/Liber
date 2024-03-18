@@ -68,4 +68,14 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsToMany(User::class, 'follows', 'followed_id', 'follower_id')->withTimestamps();
     }
+
+    public function watchedMovies()
+    {
+        return $this->belongsToMany(Movie::class);
+    }
+
+    public function movieLists()
+    {
+        return $this->hasMany(MovieList::class);
+    }
 }
