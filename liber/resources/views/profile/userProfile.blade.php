@@ -127,7 +127,29 @@
                                             </form>
                                         </div>
                                         <div class="tab-pane fade" id="changePassword">
-                                            <!-- Aquí va el formulario para cambiar la contraseña -->
+                                            <form action="{{ route('profile.changePassword', $user->id) }}" method="POST">
+                                                @csrf
+                                                @method('PUT')
+                                                <div class="form-group">
+                                                    <label for="current_password" class="form-input-label">Current Password</label>
+                                                    <input type="password" id="current_password" required
+                                                           name="current_password" class="form-control">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="new_password" class="form-input-label">New Password</label>
+                                                    <input type="password" id="new_password" required
+                                                           name="new_password" class="form-control">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="new_password_confirmation" class="form-input-label">Confirm New Password</label>
+                                                    <input type="password" id="new_password_confirmation" required
+                                                           name="new_password_confirmation" class="form-control">
+                                                    <label id="password_error" class="alert alert-warning" style="display: none;">Passwords do not match</label>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="submit" class="btn-auth">Change Password</button>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -144,15 +166,58 @@
     <div class="row">
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link active" href="#">Lists</a>
+                <a class="nav-link" data-bs-toggle="tab" href="#watchedMovies">Movies</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Reviews</a>
+                <a class="nav-link" data-bs-toggle="tab" href="#userListsList">Lists</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Followers</a>
+                <a class="nav-link" data-bs-toggle="tab" href="#userReviewsList">Reviews</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="tab" href="#userFollowersList">Followers</a>
+            </li>
+            @if(auth()->check() && auth()->user()->email == $user->email)
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#criticStatusZone">Critics</a>
+                </li>
+            @endif
         </ul>
+
+        <div class="tab-content">
+
+            <div class="tab-pane container" id="criticStatusZone">
+                <div class="row">
+                    @include('profile.requestCriticStatusForm')
+                </div>
+            </div>
+
+            <div class="tab-pane container" id="watchedMovies">
+                <div class="row">
+                    @include('profile.watchedMoviesList')
+                </div>
+            </div>
+
+            <div class="tab-pane container" id="userListsList">
+                <div class="row">
+                    @include('profile.userListsListComponent')
+                </div>
+            </div>
+
+            <div class="tab-pane container" id="userReviewsList">
+                <div class="row">
+                    <h1> reviews </h1>
+                </div>
+            </div>
+
+            <div class="tab-pane container" id="userFollowersList">
+                <div class="row">
+                    @include('profile.userFollowersList')
+                </div>
+            </div>
+
+
+        </div>
     </div>
 </div>
 
@@ -168,6 +233,22 @@
         }
 
         reader.readAsDataURL(e.target.files[0]);
+    });
+
+    document.getElementById('changePassword').addEventListener('submit', function(e) {
+        var newPassword = document.getElementById('new_password').value;
+        var newPasswordConfirmation = document.getElementById('new_password_confirmation').value;
+
+        if (newPassword !== newPasswordConfirmation) {
+            e.preventDefault();
+            document.getElementById('password_error').style.display = 'block';
+        } else if (newPassword.length < 8) {
+            e.preventDefault();
+            document.getElementById('password_error').style.display = 'block';
+            document.getElementById('password_error').textContent = 'Password must be at least 8 characters long';
+        } else {
+            document.getElementById('password_error').style.display = 'none';
+        }
     });
 </script>
 @endpush

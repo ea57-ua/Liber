@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
@@ -74,5 +75,39 @@ class ProfileController extends Controller
             return redirect()->back()->with('message', "Image uploaded successfully");
         }
         return redirect()->back();
+    }
+
+    public function changePassword(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        $request->validate([
+            'current_password' => 'required',
+            'new_password' => 'required|min:8',
+            'new_password_confirmation' => 'required|same:new_password',
+        ]);
+
+        if (!Hash::check($request->current_password, $user->password)) {
+            return back()->withErrors(['current_password' => 'Current password is incorrect']);
+        }
+
+        // Check if new password and confirmation match
+        if ($request->new_password !== $request->new_password_confirmation) {
+            return back()->withErrors(['new_password' => 'New password and confirmation do not match']);
+        }
+
+        // Change password
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+
+        return back()->with('message', 'Password changed successfully');
+    }
+
+    public function showPublicUserInfo(Request $request, $id): View
+    {
+        $user = User::findOrFail($id);
+        return view('profile.userProfile', [
+            'user' => $user,
+        ]);
     }
 }

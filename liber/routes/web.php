@@ -30,7 +30,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'showUserInfo'])->name('profile.edit');
     Route::post('/user/uploadImage/{id}', [ProfileController::class, 'uploadImage'])->name('user.uploadImage');
     Route::put('/profile/update/{id}', [ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/profile/{id}/changePassword', [ProfileController::class, 'changePassword'])->name('profile.changePassword');
 });
+
+Route::get('users/{id}', [ProfileController::class, 'showPublicUserInfo'])->name('users.publicProfile');
 
 //Google Authentication Routes
 Route::get('auth/google', [SocialController::class, 'googleRedirect'])->name('login.google');
