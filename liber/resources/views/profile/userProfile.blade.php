@@ -184,7 +184,7 @@
             @endif
         </ul>
 
-        <div class="tab-content">
+        <div class="tab-content mb-3">
 
             <div class="tab-pane container" id="criticStatusZone">
                 <div class="row mt-2">
@@ -215,7 +215,6 @@
                     @include('profile.userFollowersList')
                 </div>
             </div>
-
 
         </div>
     </div>

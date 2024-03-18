@@ -14,9 +14,6 @@ use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
-    /**
-     * Display the user's profile form.
-     */
     public function showUserInfo(Request $request): View
     {
         return view('profile.userProfile', [
@@ -109,5 +106,32 @@ class ProfileController extends Controller
         return view('profile.userProfile', [
             'user' => $user,
         ]);
+    }
+
+    public function requestCriticStatus(Request $request) {
+        $validator = Validator::make($request->all(), [
+            'title' => 'required|max:255',
+            'description' => 'required',
+            'file' => 'nullable|mimes:pdf|max:2048',
+        ]);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        }
+
+        $file = $request->file('file');
+        $filename = null;
+        if ($file) {
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('uploads'), $filename);
+        }
+
+        $request->user()->criticRequests()->create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'file' => $filename,
+        ]);
+
+        return back()->with('message', 'Critic status requested successfully');
     }
 }
