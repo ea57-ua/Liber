@@ -70,6 +70,20 @@
                             </div>
                         </div>
                     @endif
+                    @if(auth()->check() && auth()->user()->id != $user->id)
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button"
+                                    id="userOptionsDropDown" data-bs-toggle="dropdown"
+                                    aria-expanded="false" aria-label="User Options">
+                                <i class="bi bi-gear-fill"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="userOptionsDropDown">
+                                <a class="dropdown-item"
+                                   href="{{ route('users.blockUnblock', $user->id) }}">
+                                    Block/Unblock User</a>
+                            </div>
+                        </div>
+                    @endif
                 </div>
                 <div class="col-12">
                     <div class="user-stats">
@@ -281,6 +295,5 @@
             }
         });
     }
-
 </script>
 @endpush

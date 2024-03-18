@@ -78,4 +78,14 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(MovieList::class);
     }
+
+    public function blockedUsers()
+    {
+        return $this->belongsToMany(User::class, 'user_blocks', 'user_id', 'blocked_user_id');
+    }
+
+    public function blockingUsers()
+    {
+        return $this->belongsToMany(User::class, 'user_blocks', 'blocked_user_id', 'user_id');
+    }
 }

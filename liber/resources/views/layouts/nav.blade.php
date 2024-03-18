@@ -22,7 +22,6 @@
             <div class="d-flex ms-5">
                 <!-- TODO: comprobar con usuario logeado -->
                 @if(Auth::check())
-                    <!-- Dropdown menu for logged in user -->
                     <div class="dropdown">
                         <button class="btn btn-username btn-sm dropdown-toggle" type="button" id="dropdownMenuButton"
                                 data-bs-toggle="dropdown" aria-expanded="false">
@@ -38,7 +37,6 @@
                                         </button>
                                     </form>
                                 </div>
-
                             </li>
                             <li>
                                 <a class="dropdown-item" href="{{ route('profile.edit') }}">Profile</a>

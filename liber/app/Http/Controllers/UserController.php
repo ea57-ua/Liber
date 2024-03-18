@@ -34,4 +34,9 @@ class UserController extends Controller
 
         return back()->with('message', 'You have unfollowed this user');
     }
+
+    public function blockUnblock(Request $request, $id)
+    {
+       //TODO
+    }
 }

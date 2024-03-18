@@ -44,6 +44,7 @@ Route::middleware('auth')->group(function () {
         ->name('profile.requestCriticStatus');
     Route::post('/users/{id}/follow', [UserController::class, 'follow'])->name('users.follow');
     Route::post('/users/{id}/unfollow', [UserController::class, 'unfollow'])->name('users.unfollow');
+    Route::put('/users/{id}/blockUnblock', [UserController::class, 'blockUnblock'])->name('users.blockUnblock');
 });
 
 Route::get('users/{id}', [ProfileController::class, 'showPublicUserInfo'])->name('users.publicProfile');
