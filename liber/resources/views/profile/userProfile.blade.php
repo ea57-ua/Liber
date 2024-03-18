@@ -44,11 +44,37 @@
                             <span class="tooltip-text">Critic user</span>
                         </div>
                     @endif
+                    @if(auth()->check() && auth()->user()->id != $user->id && !auth()->user()->follows->contains($user->id))
+                        <div class="row">
+                            <div class="tooltip-container ms-5">
+                                <form action="{{ route('users.follow', $user->id) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn-auth btn-auth-follow d-flex justify-content-center align-items-center">
+                                        <i class="bi bi-person-plus"></i>
+                                        <span class="ms-2" style="font-size: 1.3rem">Follow</span>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    @endif
+                    @if(auth()->check() && auth()->user()->id != $user->id && auth()->user()->follows->contains($user->id))
+                        <div class="row">
+                            <div class="tooltip-container ms-5">
+                                <form action="{{ route('users.unfollow', $user->id) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn-auth btn-auth-follow d-flex justify-content-center align-items-center">
+                                        <i class="bi bi-person-dash"></i>
+                                        <span class="ms-2" style="font-size: 1.3rem">Unfollow</span>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    @endif
                 </div>
                 <div class="col-12">
                     <div class="user-stats">
-                        <span class="user-stat"><h4><strong>120</strong> Followers</h4></span>
-                        <span class="user-stat"><h4><strong>50</strong> Following</h4></span>
+                        <span class="user-stat"><h4><strong>{{$followersCount}}</strong> Followers</h4></span>
+                        <span class="user-stat"><h4><strong>{{$followingCount}}</strong> Following</h4></span>
                         <span class="user-stat"><h4><strong>452</strong> Movies Watched</h4></span>
                         <span class="user-stat"><h4><strong>12</strong> Lists</h4></span>
                     </div>
@@ -224,30 +250,37 @@
 
 @push('scripts')
 <script>
-    document.getElementById('image-input').addEventListener('change', function(e) {
-        var reader = new FileReader();
-        reader.onload = function(event) {
-            document.getElementById('preview-image').src = event.target.result;
-            document.getElementById('preview-image').style.display = 'block';
-        }
+    var imageInput = document.getElementById('image-input');
+    if (imageInput) {
+        imageInput.addEventListener('change', function(e) {
+            var reader = new FileReader();
+            reader.onload = function(event) {
+                document.getElementById('preview-image').src = event.target.result;
+                document.getElementById('preview-image').style.display = 'block';
+            }
 
-        reader.readAsDataURL(e.target.files[0]);
-    });
+            reader.readAsDataURL(e.target.files[0]);
+        });
+    }
 
-    document.getElementById('changePassword').addEventListener('submit', function(e) {
-        var newPassword = document.getElementById('new_password').value;
-        var newPasswordConfirmation = document.getElementById('new_password_confirmation').value;
+    var changePasswordForm = document.getElementById('changePassword');
+    if (changePasswordForm) {
+        changePasswordForm.addEventListener('submit', function(e) {
+            var newPassword = document.getElementById('new_password').value;
+            var newPasswordConfirmation = document.getElementById('new_password_confirmation').value;
 
-        if (newPassword !== newPasswordConfirmation) {
-            e.preventDefault();
-            document.getElementById('password_error').style.display = 'block';
-        } else if (newPassword.length < 8) {
-            e.preventDefault();
-            document.getElementById('password_error').style.display = 'block';
-            document.getElementById('password_error').textContent = 'Password must be at least 8 characters long';
-        } else {
-            document.getElementById('password_error').style.display = 'none';
-        }
-    });
+            if (newPassword !== newPasswordConfirmation) {
+                e.preventDefault();
+                document.getElementById('password_error').style.display = 'block';
+            } else if (newPassword.length < 8) {
+                e.preventDefault();
+                document.getElementById('password_error').style.display = 'block';
+                document.getElementById('password_error').textContent = 'Password must be at least 8 characters long';
+            } else {
+                document.getElementById('password_error').style.display = 'none';
+            }
+        });
+    }
+
 </script>
 @endpush

@@ -2885,6 +2885,10 @@ section {
     transition: 0.3s;
 }
 
+.btn-auth-follow {
+    padding: 0px 2px;
+}
+
 .btn-username {
     display: inline-block;
     padding: 6px 20px;
@@ -3004,4 +3008,13 @@ h4.user-text{
 
 p .text-primary-strong {
     color: var(--color-primary);
+}
+
+.follower-img {
+    width: 100px;
+    border-radius: 50%;
+}
+
+.follower-card {
+
 }

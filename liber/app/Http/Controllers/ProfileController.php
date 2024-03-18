@@ -16,8 +16,15 @@ class ProfileController extends Controller
 {
     public function showUserInfo(Request $request): View
     {
+        $followersCount = $request->user()->followers()->count();
+        $followingCount = $request->user()->follows()->count();
+        $followers = $request->user()->followers()->paginate(10);
+
         return view('profile.userProfile', [
             'user' => $request->user(),
+            'followersCount' => $followersCount,
+            'followingCount' => $followingCount,
+            'followers' => $followers,
         ]);
     }
 
@@ -103,8 +110,15 @@ class ProfileController extends Controller
     public function showPublicUserInfo(Request $request, $id): View
     {
         $user = User::findOrFail($id);
+        $followersCount = $user->followers()->count();
+        $followingCount = $user->follows()->count();
+        $followers = $user->followers()->paginate(10);
+
         return view('profile.userProfile', [
             'user' => $user,
+            'followersCount' => $followersCount,
+            'followingCount' => $followingCount,
+            'followers' => $followers,
         ]);
     }
 

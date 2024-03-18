@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\SocialController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -37,6 +38,8 @@ Route::middleware('auth')->group(function () {
         ->name('profile.changePassword');
     Route::post('/profile/requestCriticStatus', [ProfileController::class, 'requestCriticStatus'])
         ->name('profile.requestCriticStatus');
+    Route::post('/users/{id}/follow', [UserController::class, 'follow'])->name('users.follow');
+    Route::post('/users/{id}/unfollow', [UserController::class, 'unfollow'])->name('users.unfollow');
 });
 
 Route::get('users/{id}', [ProfileController::class, 'showPublicUserInfo'])->name('users.publicProfile');
