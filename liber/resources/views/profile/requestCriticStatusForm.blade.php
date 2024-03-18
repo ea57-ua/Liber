@@ -26,7 +26,7 @@
                    data-bs-placement="right" title="Only PDF files are accepted. Maximum file size is 2MB."></i>
                 <input type="file" id="file" name="file" class="form-control" accept="application/pdf">
                 <label id="file_error" class="alert alert-danger mt-2"
-                       style="/display: none;">File must be less than 2MB</label>
+                       style="display: none;">File must be less than 2MB</label>
             </div>
             <div class="d-flex justify-content-center mt-3">
                 <button id="criticRequestSubmit" type="submit" class="btn-auth">Request Critic Status</button>
