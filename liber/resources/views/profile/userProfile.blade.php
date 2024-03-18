@@ -187,7 +187,7 @@
         <div class="tab-content">
 
             <div class="tab-pane container" id="criticStatusZone">
-                <div class="row">
+                <div class="row mt-2">
                     @include('profile.requestCriticStatusForm')
                 </div>
             </div>
