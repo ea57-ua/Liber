@@ -1,7 +1,6 @@
 <header id="header" class="header d-flex align-items-center">
     <div class="container-fluid container-xl d-flex align-items-center ">
         <a href="{{route('welcome')}}" class="logo d-flex align-items-center me-5">
-            <!-- Uncomment the line below if you also wish to use an image logo justify-content-between -->
             <!-- <img src="assets/img/logo.png" alt=""> -->
             <h1>Liber<span>.</span></h1>
         </a>
