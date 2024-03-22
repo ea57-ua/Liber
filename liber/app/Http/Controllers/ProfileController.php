@@ -23,6 +23,7 @@ class ProfileController extends Controller
         $movieListsCount = $request->user()->movieLists()->count();
         $watchedMovies = $request->user()->watchedMovies()->get();
         $lists = $request->user()->movieLists()->get();
+        $reviews = $request->user()->reviews()->get();
 
         return view('profile.userProfile', [
             'user' => $request->user(),
@@ -33,6 +34,8 @@ class ProfileController extends Controller
             'movieListsCount' => $movieListsCount,
             'watchedMovies' => $watchedMovies,
             'lists' => $lists,
+            'isBlocked' => null,
+            'reviews' => $reviews,
         ]);
     }
 
@@ -125,6 +128,8 @@ class ProfileController extends Controller
         $movieListsCount = $user->movieLists()->count();
         $watchedMovies = $user->watchedMovies()->get();
         $lists = $user->movieLists()->get();
+        $isBlocked =  $user->blockedUsers()->get()->contains($user);
+        $reviews = $user->reviews()->get();
 
         return view('profile.userProfile', [
             'user' => $user,
@@ -135,6 +140,8 @@ class ProfileController extends Controller
             'movieListsCount' => $movieListsCount,
             'watchedMovies' => $watchedMovies,
             'lists' => $lists,
+            'isBlocked' => $isBlocked,
+            'reviews' => $reviews,
         ]);
     }
 

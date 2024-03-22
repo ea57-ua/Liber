@@ -1,5 +1,18 @@
 <h1> Followers list </h1>
 <div class="row">
+    @if(count($followers) == 0)
+        <div class="alert alert-info" role="alert">
+            <h4>No followers yet.</h4>
+        </div>
+        <div class="col-md-12 d-flex justify-content-center ">
+
+            <a href="{{ route('forumPage') }}"
+               class="btn btn-auth alert-link">
+                Interact with other users to get followers
+            </a>
+        </div>
+    @endif
+
     @foreach ($followers as $follower)
         <div class="col-md-6 p-1">
             <a href="{{ route('users.publicProfile', $follower->id) }}"

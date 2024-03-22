@@ -2893,6 +2893,20 @@ section {
     transition: 0.3s;
 }
 
+.btn-auth-dropdown {
+    display: inline-block;
+    padding: 0px 10px;
+    border-radius: 8px;
+    color:  white;
+    background: var(--color-primary);
+    border: 1px solid rgba(0, 131, 116, 0.2);
+    font-size: 16px;
+    font-weight: 600;
+    font-family: var(--font-primary);
+    transition: 0.3s;
+    margin-left: 10px;
+}
+
 .btn-auth-follow {
     padding: 0px 2px;
 }

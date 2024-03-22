@@ -1,4 +1,7 @@
 <div class="row">
+    @if(auth()->user()->critic == true)
+        <h1> you are a critic </h1>
+    @else
     <div class="col-md-2"></div>
     <div class="col-md-8">
         <h1 class="text-center display-6"> Request Critic Status </h1>
@@ -34,23 +37,28 @@
         </form>
     </div>
     <div class="col-md-2"></div>
+    @endif
 </div>
 
 @push('scripts')
     <script>
-        document.getElementById('file').addEventListener('change', function(e) {
-            var fileSize = e.target.files[0].size;
-            var maxSize = 2 * 1024 * 1024; // 2MB
-            var submitButton = document.getElementById('criticRequestSubmit')
+        var file = document.getElementById('file');
+        if (file) {
+            file.addEventListener('change', function(e) {
+                var fileSize = e.target.files[0].size;
+                var maxSize = 2 * 1024 * 1024; // 2MB
+                var submitButton = document.getElementById('criticRequestSubmit')
 
-            if (fileSize > maxSize) {
-                e.preventDefault();
-                document.getElementById('file_error').style.display = 'block';
-                submitButton.disabled = true;
-            } else {
-                document.getElementById('file_error').style.display = 'none';
-                submitButton.disabled = false;
-            }
-        });
+                if (fileSize > maxSize) {
+                    e.preventDefault();
+                    document.getElementById('file_error').style.display = 'block';
+                    submitButton.disabled = true;
+                } else {
+                    document.getElementById('file_error').style.display = 'none';
+                    submitButton.disabled = false;
+                }
+            });
+        }
+
     </script>
 @endpush

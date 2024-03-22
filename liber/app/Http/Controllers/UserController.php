@@ -37,6 +37,17 @@ class UserController extends Controller
 
     public function blockUnblock(Request $request, $id)
     {
-       //TODO
+        $userToBlockUnblock = User::find($id);
+        if (!$userToBlockUnblock) {
+            return back()->withErrors(['message' => 'User not found']);
+        }
+
+        if ($request->user()->blockedUsers()->get()->contains($userToBlockUnblock)) {
+            $request->user()->blockedUsers()->detach($userToBlockUnblock);
+            return back()->with('message', 'You have unblocked this user');
+        } else {
+            $request->user()->blockedUsers()->attach($userToBlockUnblock);
+            return back()->with('message', 'You have blocked this user');
+        }
     }
 }

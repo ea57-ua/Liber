@@ -1,4 +1,17 @@
 <div class="row">
+    @if(count($lists) == 0)
+        <div class="alert alert-info" role="alert">
+            <h4>No lists created yet.</h4>
+        </div>
+        <div class="col-md-12 d-flex justify-content-center ">
+
+            <a href="{{ route('listsPage') }}"
+               class="btn btn-auth alert-link">
+                Browse users lists to inspire yourself
+            </a>
+        </div>
+    @endif
+
     @foreach ($lists as $list)
         <div class="col-md-3">
             <a href="{{ route('lists.details', $list->id) }}" class="text-decoration-none">

@@ -72,15 +72,25 @@
                     @endif
                     @if(auth()->check() && auth()->user()->id != $user->id)
                         <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button"
+                            <button class="btn-auth-dropdown" type="button"
                                     id="userOptionsDropDown" data-bs-toggle="dropdown"
                                     aria-expanded="false" aria-label="User Options">
-                                <i class="bi bi-gear-fill"></i>
+                                <i class="bi bi-gear-fill" style="margin:auto"></i>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="userOptionsDropDown">
-                                <a class="dropdown-item"
-                                   href="{{ route('users.blockUnblock', $user->id) }}">
-                                    Block/Unblock User</a>
+                                <form action="{{ route('users.blockUnblock', $user->id) }}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <input type="hidden" name="_method" value="PUT">
+                                    <button type="submit" class="dropdown-item">
+                                        @if($isBlocked)
+                                            Unblock User
+                                        @else
+                                            Block User
+                                        @endif
+                                    </button>
+                                    <a class="dropdown-item"> REPORT USER</a>
+                                </form>
                             </div>
                         </div>
                     @endif
@@ -203,10 +213,10 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row" style="margin-bottom: 50px">
         <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link" data-bs-toggle="tab" href="#watchedMovies">Movies</a>
+                <a class="nav-link active" data-bs-toggle="tab" href="#watchedMovies">Movies</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" data-bs-toggle="tab" href="#userListsList">Lists</a>
@@ -232,7 +242,7 @@
                 </div>
             </div>
 
-            <div class="tab-pane container" id="watchedMovies">
+            <div class="tab-pane container show active" id="watchedMovies">
                 <div class="row mt-2">
                     @include('profile.watchedMoviesList')
                 </div>
@@ -246,7 +256,7 @@
 
             <div class="tab-pane container" id="userReviewsList">
                 <div class="row mt-2">
-                    <h1> reviews </h1>
+                    @include('profile.userReviewsList')
                 </div>
             </div>
 
