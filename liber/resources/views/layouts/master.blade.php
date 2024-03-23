@@ -30,6 +30,7 @@
     <script src="{{ asset('assets/vendor/swiper/swiper-bundle.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
     <script src="{{ asset('assets/js/main.js') }}"></script>
-    @stack('scripts')
+{{--   <script src="{{ asset('assets/vendor/masonry/masonry.pkgd.min.js') }}"></script> --}}
+ @stack('scripts')
 </body>
 </html>

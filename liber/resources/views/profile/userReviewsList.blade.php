@@ -1,8 +1,8 @@
 <section id="testimonials" class="testimonials">
     <div class="container" data-aos="fade-up">
-        <div class="row">
-            @foreach($reviews as $review)
-                <div class="col-12 col-sm-6 col-lg-4 mb-4">
+        @foreach($reviews as $review)
+            <div class="row">
+                <div class="col-12">
                     <div class="testimonial-wrap">
                         <div class="testimonial-item">
                             <div class="d-flex align-items-center">
@@ -21,7 +21,8 @@
                         </div>
                     </div>
                 </div>
-            @endforeach
-        </div>
+            </div>
+        @endforeach
     </div>
 </section>
+

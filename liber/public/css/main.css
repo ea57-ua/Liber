@@ -3004,12 +3004,12 @@ h4.user-text{
 }
 
 .nav-link {
-    color: var(--color-primary); /* Cambia esto al color principal de tu web */
-    font-size: 1.2rem; /* Ajusta el tamaño de la fuente a tus necesidades */
+    color: var(--color-primary);
+    font-size: 1.2rem;
 }
 
 .nav-item {
-    padding: 10px 20px; /* Ajusta el relleno a tus necesidades */
+    padding: 10px 20px;
 }
 
 .custom-file-upload {
@@ -3035,8 +3035,4 @@ p .text-primary-strong {
 .follower-img {
     width: 100px;
     border-radius: 50%;
-}
-
-.follower-card {
-
 }

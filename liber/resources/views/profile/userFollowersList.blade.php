@@ -1,4 +1,3 @@
-<h1> Followers list </h1>
 <div class="row">
     @if(count($followers) == 0)
         <div class="alert alert-info" role="alert">
