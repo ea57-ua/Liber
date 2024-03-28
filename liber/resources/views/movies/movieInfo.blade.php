@@ -239,7 +239,7 @@
                                     <div class="testimonial-wrap">
                                         <div class="testimonial-item d-flex">
                                             <div class="align-items-center">
-                                                <img src="{{ asset('img/testimonials/testimonials-1.jpg') }}"
+                                                <img src="{{$actor->photo}}"
                                                      class="img-fluid" alt=""
                                                      style="border-radius: 10px; overflow: hidden;">
                                                 <div class="d-flex justify-content-center align-items-center">
