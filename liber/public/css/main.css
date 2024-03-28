@@ -3036,3 +3036,129 @@ p .text-primary-strong {
     width: 100px;
     border-radius: 50%;
 }
+
+.movie-details-container {
+    margin-top: 120px;
+    margin-bottom: 100px;
+}
+.movie-poster{
+    width: 100%;
+    border-radius: 30px;
+}
+
+.movie-details {
+    text-align: left;
+    padding-bottom: 0.7em;
+    font-size: 30px;
+}
+
+.movie-details h1{
+    font-size: 50px;
+}
+
+.movie-details span{
+    font-size: 24px;
+}
+
+.director-name {
+    color: var(--color-primary);
+    text-decoration: underline;
+    font-size: 24px;
+}
+
+.movies-details-separator {
+    position: relative;
+    height: 1px;
+    width: 100%;
+    background-color: #333;
+    margin-top: 10px;
+}
+
+.movie-release-year {
+    font-size: 0.8em;
+    text-decoration: underline;
+    color: black;
+}
+
+.movie-ratings-text {
+    font-size: 1.2em;
+    margin-bottom: -5px;
+}
+
+.movie-rating-legend {
+    font-size: 0.7em;
+}
+
+.movie-synopsis {
+    font-size: 20px;
+    max-height: 200px;
+    padding: 10px;
+    color: #333;
+}
+
+
+.movie-details-badge {
+    display: inline-block;
+    margin-right: 5px;
+    text-decoration: none;
+    background: #4c505d;
+    border-radius: 3px;
+    box-shadow: inset 0 1px 0 hsla(0,0%,100%,.05);
+    color: #bdcce0;
+    line-height: 1.5;
+    padding: 3px 6px;
+    white-space: nowrap;
+    font-size: 0.6em;
+}
+
+.movie-details-badge:hover {
+    color: white;
+}
+
+.movies-details-label {
+    font-size: 0.7em;
+    margin-right: 7px;
+}
+
+.movies-details-stats {
+    font-size: 1.6em;
+    color: #333;
+    margin-right: 40px;
+}
+
+.user-actions {
+    background-color: var(--color-primary);
+    border-radius: 30px;
+    color: #ffffff;
+    margin-top: 20px;
+}
+
+.user-actions ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.user-actions li {
+    font-size: 35px;
+    border-bottom: 1px solid #ffffff;
+}
+
+.user-actions li:first-child {
+    padding-top: 0;
+}
+
+.user-actions li:last-child {
+    padding-bottom: 0;
+}
+
+.user-actions .btn {
+    width: 100%;
+    color: #ffffff;
+    background-color: transparent;
+    border: none;
+    font-size: 0.55em;
+}
+
+.user-actions .btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}

@@ -16,9 +16,18 @@ Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
 
-Route::get('/movies', [MovieController::class, 'moviesPage'])->name('moviesPage');
-
-Route::get('/movies/{id}', [MovieController::class, 'showMovieInfo'])->name('movies.details');
+Route::get('/movies', [MovieController::class, 'moviesPage'])
+    ->name('moviesPage');
+Route::get('/movies/{id}', [MovieController::class, 'showMovieInfo'])
+    ->name('movies.details');
+Route::post('/movies/{id}/watched', [MovieController::class, 'markAsWatched'])
+    ->name('movies.watched');
+Route::post('/movies/{id}/rate', [MovieController::class, 'rate'])
+    ->name('movies.rate');
+Route::post('/movies/{id}/review', [MovieController::class, 'review'])
+    ->name('movies.review');
+Route::post('/movies/{idMovie}/lists/{idList}/toggle', [MovieController::class, 'toggleInList'])
+    ->name('movies.toggleToList');
 
 Route::get('/lists', function () {
     return view('lists.listsPage');
@@ -26,6 +35,10 @@ Route::get('/lists', function () {
 
 Route::get('/lists/{id}', [ListController::class, 'listDetailsShow'])
     ->name('lists.details');
+
+Route::get('/actors/{id}', function () {
+    return view('actors.actorDetails');
+})->name('actors.details');
 
 Route::get('/forum', function () {
     return view('forum.forumIndex');
