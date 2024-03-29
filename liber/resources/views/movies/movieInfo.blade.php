@@ -1,23 +1,34 @@
 @extends('layouts.master')
 @section('title', 'Liber - Movie Information')
-@section('content')
+@section('head')
+    <meta property="og:title" content="{{ $movie->title }}"/>
+    <meta property="og:description" content="Directed by
+        @foreach($movie->directors as $key => $director)
+            {{$director->name}}{{ $key < count($movie->directors) - 1 ? ', ' : '' }}
+        @endforeach"/>
+    <meta property="og:image" content="{{ $movie->posterURL }}"/>
+    <meta property="og:url" content="{{ url()->current() }}"/>
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:title" content="{{ $movie->title }}"/>
+    <meta name="twitter:description" content="Directed by
+        @foreach($movie->directors as $key => $director)
+            {{$director->name}}{{ $key < count($movie->directors) - 1 ? ', ' : '' }}
+        @endforeach"/>
+    <meta name="twitter:image" content="{{ $movie->posterURL }}"/>
+@endsection
 
-    @section('head')
-        <meta property="og:title" content="{{ $movie->title }}" />
-        <meta property="og:description" content="Directed by
-        @foreach($movie->directors as $key => $director)
-            {{$director->name}}{{ $key < count($movie->directors) - 1 ? ', ' : '' }}
-        @endforeach" />
-        <meta property="og:image" content="{{ $movie->posterURL }}" />
-        <meta property="og:url" content="{{ url()->current() }}" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="{{ $movie->title }}" />
-        <meta name="twitter:description" content="Directed by
-        @foreach($movie->directors as $key => $director)
-            {{$director->name}}{{ $key < count($movie->directors) - 1 ? ', ' : '' }}
-        @endforeach" />
-        <meta name="twitter:image" content="{{ $movie->posterURL }}" />
-    @endsection
+@section('content')
+    <style>
+        .movie-trailer-section {
+            background: linear-gradient(rgba(0, 0, 0, 0.5),
+            rgba(0, 0, 0, 0.5)),
+            url("{{ $movie->background_image_link }}") center center;
+            background-size: cover;
+            padding: 100px 60px;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+    </style>
 
     <div class="container movie-details-container">
         <div class="row">
@@ -68,7 +79,7 @@
                             <span class="movie-release-year">
                                 {{ date('Y', strtotime($movie->releaseDate)) }}
                             </span>
-                        </a> </h1>
+                        </a></h1>
                     <span>Directed by</span>
                     @foreach($movie->directors as $key => $director)
                         <a href="#" class="director-name">
@@ -174,15 +185,18 @@
                                     <div class="modal-dialog">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="rateMovieModalLabel">Rate {{$movie->title}}</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                <h5 class="modal-title" id="rateMovieModalLabel">
+                                                    Rate {{$movie->title}}</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
                                                 <form method="POST" action="{{ route('movies.rate', $movie->id) }}">
                                                     @csrf
                                                     <div class="mb-3">
                                                         <label for="rating" class="form-label">Rating (0-10)</label>
-                                                        <input type="number" class="form-control" id="rating" name="rating"
+                                                        <input type="number" class="form-control" id="rating"
+                                                               name="rating"
                                                                min="0" max="10" step="0.1"
                                                                value="{{ $userRating }}" required>
                                                     </div>
@@ -200,14 +214,16 @@
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="reviewMovieModalLabel">Write a Review</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
                                                 <form method="POST" action="{{ route('movies.review', $movie->id) }}">
                                                     @csrf
                                                     <div class="mb-3">
                                                         <label for="review" class="form-label">Your Review</label>
-                                                        <textarea class="form-control" id="review" name="review" rows="3"
+                                                        <textarea class="form-control" id="review" name="review"
+                                                                  rows="3"
                                                                   required>{{$userReview}}</textarea>
                                                     </div>
                                                     <button type="submit" class="btn btn-primary">Submit</button>
@@ -292,7 +308,7 @@
                                         <div class="testimonial-item d-flex movie-actor-card">
                                             <div class="align-items-center">
                                                 <img src="{{$actor->photo}}"
-                                                     class="img-fluid" alt="" >
+                                                     class="img-fluid" alt="">
                                                 <div class="d-flex justify-content-center align-items-center">
                                                     <h3>{{$actor->name}}</h3>
                                                 </div>
@@ -307,13 +323,81 @@
                 </div>
             </section>
         </div>
+
+        <!-- Sección del trailer -->
+        <div class="row mt-0">
+            <section id="call-to-action" class="call-to-action">
+                <div class="text-center movie-trailer-section" data-aos="zoom-out">
+                    <a href="{{$movie->trailer_link}}" class="glightbox play-btn"></a>
+                    <h3>Watch the trailer</h3>
+                    <a class="cta-btn" href="{{$movie->trailer_link}}">Watch the trailer on Youtube</a>
+                </div>
+            </section>
+        </div>
+
+        <!-- Sección de reseñas -->
+        <section id="testimonials" class="testimonials">
+            <div class="container" data-aos="fade-up">
+                <div class="swiper reviews-swiper">
+                    <div class="swiper-wrapper">
+
+                        @foreach($reviews as $review)
+                            <div class="swiper-slide">
+                                <div class="testimonial-wrap">
+                                    <div class="testimonial-item">
+                                        <div class="d-flex align-items-center">
+                                            <img src="{{$review->user->image}}"
+                                                 class="testimonial-img flex-shrink-0" alt="">
+                                            <div>
+                                                <h3>{{$review->user->name}}</h3>
+                                                <div>
+                                                @if($review->user->admin)
+                                                    <div class="tooltip-container">
+                                                        <i class="bi bi-person-gear reviewer-icon"></i>
+                                                        <span class="tooltip-text">Admin user</span>
+                                                    </div>
+                                                @endif
+                                                @if($review->user->critic)
+                                                    <div class="tooltip-container">
+                                                        <i class="bi bi-person-check reviewer-icon"></i>
+                                                        <span class="tooltip-text">Critic user</span>
+                                                    </div>
+                                                @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p class="review-text">
+                                            <i class="bi bi-quote quote-icon-left"></i>
+                                            {{$review->text}}
+                                            <i class="bi bi-quote quote-icon-right"></i>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
     </div>
+    </section>
 @endsection
+
 @push('scripts')
     <script>
+        var swiper = new Swiper(".reviews-swiper", {
+            slidesPerView: 3,
+            spaceBetween: 30,
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+        });
+
         var shareButton = document.getElementById('share-button');
         if (shareButton) {
-            shareButton.addEventListener('click', function() {
+            shareButton.addEventListener('click', function () {
                 var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
                 console.log('Share button clicked');
                 var movieId = this.getAttribute('data-movie-id');
@@ -366,7 +450,7 @@
 
         var copyMovieLinkButton = document.getElementById('copy-movie-link-button');
         if (copyMovieLinkButton) {
-            copyMovieLinkButton.addEventListener('click', function() {
+            copyMovieLinkButton.addEventListener('click', function () {
                 var movieLink = document.getElementById('movie-link');
                 movieLink.select();
                 document.execCommand('copy');

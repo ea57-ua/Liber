@@ -59,6 +59,7 @@ class MovieController extends Controller
         }
 
         $actors = $movie->actors()->get();
+        $reviews = $movie->reviews()->get();
 
         return view('movies.movieInfo',
             ['movie' => $movie, 'averageCritics' => $averageCritics,
@@ -66,7 +67,7 @@ class MovieController extends Controller
                 'numberOfUsersWatched' => $numberOfUsersWatched,
                 'numberOfReviews' => $numberOfReviews, 'userRating' => $userRating,
                 'userReview' => $userReview, 'userMovieLists' => $userMovieLists,
-                'actors' => $actors]);
+                'actors' => $actors, 'reviews' => $reviews]);
     }
 
     private function filterMovies($request, $movies) {

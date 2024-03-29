@@ -3183,3 +3183,12 @@ p .text-primary-strong {
 .share-links-item {
     font-size: 28px;
 }
+
+.review-text {
+    width: 100%;
+    word-wrap: break-word;
+}
+
+.reviewer-icon {
+    font-size: 24px;
+}
