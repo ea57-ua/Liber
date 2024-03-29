@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\SocialController;
 use App\Http\Controllers\ListController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SocialShareButtonsController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -28,6 +29,8 @@ Route::post('/movies/{id}/review', [MovieController::class, 'review'])
     ->name('movies.review');
 Route::post('/movies/{idMovie}/lists/{idList}/toggle', [MovieController::class, 'toggleInList'])
     ->name('movies.toggleToList');
+Route::get('/movies/{id}/share', [SocialShareButtonsController::class, 'shareMovie'])
+    ->name('movies.share');
 
 Route::get('/lists', function () {
     return view('lists.listsPage');
@@ -61,6 +64,8 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('users/{id}', [ProfileController::class, 'showPublicUserInfo'])->name('users.publicProfile');
+
+Route::get('/social-media-share', SocialShareButtonsController::class);
 
 //Google Authentication Routes
 Route::get('auth/google', [SocialController::class, 'googleRedirect'])->name('login.google');

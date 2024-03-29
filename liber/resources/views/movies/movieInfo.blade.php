@@ -2,6 +2,23 @@
 @section('title', 'Liber - Movie Information')
 @section('content')
 
+    @section('head')
+        <meta property="og:title" content="{{ $movie->title }}" />
+        <meta property="og:description" content="Directed by
+        @foreach($movie->directors as $key => $director)
+            {{$director->name}}{{ $key < count($movie->directors) - 1 ? ', ' : '' }}
+        @endforeach" />
+        <meta property="og:image" content="{{ $movie->posterURL }}" />
+        <meta property="og:url" content="{{ url()->current() }}" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="{{ $movie->title }}" />
+        <meta name="twitter:description" content="Directed by
+        @foreach($movie->directors as $key => $director)
+            {{$director->name}}{{ $key < count($movie->directors) - 1 ? ', ' : '' }}
+        @endforeach" />
+        <meta name="twitter:image" content="{{ $movie->posterURL }}" />
+    @endsection
+
     <div class="container movie-details-container">
         <div class="row">
             @if (session('message'))
@@ -140,7 +157,14 @@
                                                 <strong>Review</strong>
                                             </button>
                                         </li>
-                                        <li><button class="btn btn-block"><strong>Share</strong></button></li>
+
+                                        <li>
+                                            <button id="share-button" class="btn btn-block"
+                                                    data-bs-toggle="#shareMovieModal"
+                                                    data-movie-id="{{ $movie->id }}">
+                                                <strong>Share</strong>
+                                            </button>
+                                        </li>
                                     </ul>
                                 </div>
 
@@ -221,6 +245,33 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <!-- Modal para compartir la película -->
+                                <div class="modal fade" id="shareMovieModal" tabindex="-1"
+                                     aria-labelledby="shareMovieModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="shareMovieModalLabel">
+                                                    Share {{$movie->title}}</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close">
+
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="input-group mb-3">
+                                                    <input type="text" id="movie-link" class="form-control" readonly>
+                                                    <button class="btn btn-outline-secondary" type="button"
+                                                            id="copy-movie-link-button">
+                                                        <i class="bi bi-clipboard"></i>
+                                                    </button>
+                                                </div>
+                                                <div id="share-links-container" class="share-links-container"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             @endauth
                         </div>
                     </div>
@@ -229,6 +280,7 @@
             </div>
         </div>
 
+        <!-- Sección de actores -->
         <div class="row mt-0">
             <section id="testimonials" class="testimonials">
                 <div class="container" data-aos="fade-up">
@@ -257,4 +309,68 @@
         </div>
     </div>
 @endsection
+@push('scripts')
+    <script>
+        var shareButton = document.getElementById('share-button');
+        if (shareButton) {
+            shareButton.addEventListener('click', function() {
+                var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                console.log('Share button clicked');
+                var movieId = this.getAttribute('data-movie-id');
 
+                fetch('/movies/' + movieId + '/share', {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken
+                    },
+                })
+                    .catch(error => console.error('Error:', error))
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.error) {
+                            console.error('Error sharing movie:', data.error);
+                        } else {
+                            var shareLinksContainer = document.getElementById('share-links-container');
+                            shareLinksContainer.innerHTML = '';
+
+                            document.getElementById('movie-link').value = data.url;
+
+                            for (var platform in data.shareComponent) {
+                                if (platform !== 'copy') {
+                                    var link = data.shareComponent[platform];
+                                    var button = document.createElement('a');
+                                    button.href = link;
+                                    button.target = '_blank'; // Abrir en una nueva pestaña
+                                    button.className = 'btn btn-auth m-2'; // Añadir clases de Bootstrap
+                                    button.innerHTML = '<i class="share-links-item bi bi-' + platform + '"></i>';
+                                    shareLinksContainer.appendChild(button);
+                                }
+                            }
+
+                            var shareModalElement = document.getElementById('shareMovieModal');
+                            var shareModal = bootstrap.Modal.getInstance(shareModalElement);
+                            if (!shareModal) {
+                                shareModal = new bootstrap.Modal(shareModalElement);
+                            }
+                            shareModal.show();
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            });
+        }
+
+        var copyMovieLinkButton = document.getElementById('copy-movie-link-button');
+        if (copyMovieLinkButton) {
+            copyMovieLinkButton.addEventListener('click', function() {
+                var movieLink = document.getElementById('movie-link');
+                movieLink.select();
+                document.execCommand('copy');
+            });
+        }
+    </script>
+@endpush

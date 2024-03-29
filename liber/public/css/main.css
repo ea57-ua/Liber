@@ -3171,3 +3171,15 @@ p .text-primary-strong {
     border-radius: 10px;
     overflow: hidden;
 }
+
+.share-links-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.share-links-item {
+    font-size: 28px;
+}
