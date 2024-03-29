@@ -237,11 +237,10 @@
                             @foreach($actors as $actor)
                                 <div class="swiper-slide">
                                     <div class="testimonial-wrap">
-                                        <div class="testimonial-item d-flex">
+                                        <div class="testimonial-item d-flex movie-actor-card">
                                             <div class="align-items-center">
                                                 <img src="{{$actor->photo}}"
-                                                     class="img-fluid" alt=""
-                                                     style="border-radius: 10px; overflow: hidden;">
+                                                     class="img-fluid" alt="" >
                                                 <div class="d-flex justify-content-center align-items-center">
                                                     <h3>{{$actor->name}}</h3>
                                                 </div>
@@ -250,17 +249,12 @@
                                     </div>
                                 </div>
                             @endforeach
-
                         </div>
                         <div class="swiper-pagination"></div>
                     </div>
-
                 </div>
             </section>
-
         </div>
-
     </div>
-
 @endsection
 

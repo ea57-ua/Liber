@@ -3162,3 +3162,12 @@ p .text-primary-strong {
 .user-actions .btn:hover {
     background-color: rgba(255, 255, 255, 0.1);
 }
+
+.movie-actor-card {
+}
+
+.movie-actor-card img {
+    object-fit: contain;
+    border-radius: 10px;
+    overflow: hidden;
+}
