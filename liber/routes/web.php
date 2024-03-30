@@ -43,6 +43,10 @@ Route::get('/actors/{id}', function () {
     return view('actors.actorDetails');
 })->name('actors.details');
 
+Route::get('/directors/{id}', function () {
+    return view('directors.directorDetails');
+})->name('directors.details');
+
 Route::get('/forum', function () {
     return view('forum.forumIndex');
 })->name('forumPage');

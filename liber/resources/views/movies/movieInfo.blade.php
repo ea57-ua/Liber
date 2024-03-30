@@ -53,8 +53,11 @@
 
         <div class="row">
             <div id="movie-poster-container" class="col-sm-12 col-md-12 col-lg-12 col-xl-4">
-                <img id="movie-poster" src="{{ asset($movie->posterURL) }}"
-                     class="movie-poster" alt="Film poster">
+                <a href="{{ asset($movie->posterURL) }}"
+                   data-gallery="portfolio-gallery-app" class="glightbox">
+                    <img id="movie-poster" src="{{ asset($movie->posterURL) }}"
+                         class="movie-poster" alt="Film poster">
+                </a>
                 <div class="d-flex justify-content-center align-items-center mt-2">
                     <p class="movies-details-stats" data-toggle="tooltip" title="Lists">
                         <i class="bi bi-list"></i>
@@ -75,14 +78,15 @@
             <div class="col-sm-12 col-md-12 col-lg-12 col-xl-8" id="movie-details-container">
                 <div class="movie-details">
                     <h1>{{$movie->title}}
-                        <a href="#">
+                        <a href="{{ route('moviesPage', ['release-year' => date('Y', strtotime($movie->releaseDate))]) }}">
                             <span class="movie-release-year">
                                 {{ date('Y', strtotime($movie->releaseDate)) }}
                             </span>
-                        </a></h1>
+                        </a>
+                    </h1>
                     <span>Directed by</span>
                     @foreach($movie->directors as $key => $director)
-                        <a href="#" class="director-name">
+                        <a href="{{route('directors.details', $director->id)}}" class="director-name">
                             <strong>{{$director->name}}</strong>
                         </a>{{ $key < count($movie->directors) - 1 ? ',' : '' }}
                     @endforeach
@@ -115,21 +119,30 @@
                             <div class="d-flex align-items-center">
                                 <p class="mb-0 movies-details-label">Genres:</p>
                                 @foreach($movie->genres as $genre)
-                                    <a href="#" class="movie-details-badge mr-1">{{$genre->name}}</a>
+                                    <a href="{{ route('moviesPage', ['genre' => $genre->id]) }}"
+                                       class="movie-details-badge mr-1">
+                                        {{ $genre->name }}
+                                    </a>
                                 @endforeach
                             </div>
 
                             <div class="d-flex align-items-center">
                                 <p class="mb-0 movies-details-label">Countries:</p>
                                 @foreach($movie->countries as $country)
-                                    <a href="#" class="movie-details-badge mr-1">{{$country->name}}</a>
+                                    <a href="{{ route('moviesPage', ['country' => $country->id]) }}"
+                                       class="movie-details-badge mr-1">
+                                        {{$country->name}}
+                                    </a>
                                 @endforeach
                             </div>
 
                             <div class="d-flex align-items-center">
                                 <p class="mb-0 movies-details-label">Streaming Services:</p>
                                 @foreach($movie->streamingServices as $service)
-                                    <a href="#" class="movie-details-badge mr-1">{{$service->name}}</a>
+                                    <a href="{{ route('moviesPage', ['streaming_service' => $service->id]) }}"
+                                       class="movie-details-badge mr-1">
+                                        {{$service->name}}
+                                    </a>
                                 @endforeach
                             </div>
                         </div>
@@ -307,11 +320,13 @@
                                     <div class="testimonial-wrap">
                                         <div class="testimonial-item d-flex movie-actor-card">
                                             <div class="align-items-center">
-                                                <img src="{{$actor->photo}}"
-                                                     class="img-fluid" alt="">
-                                                <div class="d-flex justify-content-center align-items-center">
-                                                    <h3>{{$actor->name}}</h3>
-                                                </div>
+                                                <a href="{{route('actors.details',$actor->id )}}">
+                                                    <img src="{{$actor->photo}}"
+                                                         class="img-fluid" alt="">
+                                                    <div class="d-flex justify-content-center align-items-center">
+                                                        <h3>{{$actor->name}}</h3>
+                                                    </div>
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
@@ -346,10 +361,14 @@
                                 <div class="testimonial-wrap">
                                     <div class="testimonial-item">
                                         <div class="d-flex align-items-center">
-                                            <img src="{{$review->user->image}}"
-                                                 class="testimonial-img flex-shrink-0" alt="">
+                                            <a href="{{route('users.publicProfile', $review->user->id)}}">
+                                                <img src="{{$review->user->image}}"
+                                                     class="testimonial-img flex-shrink-0" alt="">
+                                            </a>
                                             <div>
-                                                <h3>{{$review->user->name}}</h3>
+                                                <a href="{{route('users.publicProfile', $review->user->id)}}">
+                                                    <h3>{{$review->user->name}}</h3>
+                                                </a>
                                                 <div>
                                                 @if($review->user->admin)
                                                     <div class="tooltip-container">

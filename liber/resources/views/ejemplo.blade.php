@@ -404,7 +404,11 @@
 
                     <div class="col-xl-4 col-md-6 portfolio-item filter-app">
                         <div class="portfolio-wrap">
-                            <a  href="{{ asset('img/portfolio/app-1.jpg') }}" data-gallery="portfolio-gallery-app" class="glightbox"><img src="{{ asset('img/portfolio/app-1.jpg') }}" class="img-fluid" alt=""></a>
+                            <a  href="{{ asset('img/portfolio/app-1.jpg') }}"
+                                data-gallery="portfolio-gallery-app"
+                                class="glightbox">
+                                <img src="{{ asset('img/portfolio/app-1.jpg') }}" class="img-fluid" alt="">
+                            </a>
                             <div class="portfolio-info">
                                 <h4><a href="" title="More Details">App 1</a></h4>
                                 <p>Lorem ipsum, dolor sit amet consectetur</p>
