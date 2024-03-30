@@ -17,11 +17,12 @@ class ForumController extends Controller
 
     public function createNewPost(Request $request) {
         $request->validate([
-            'text' => 'required|max:280',
+            'text' => 'required_without:markdownContent|max:280',
+            'markdownContent' => 'nullable|string',
         ]);
 
         $post = new Post();
-        $post->text = $request->text;
+        $post->text = $request->markdownContent != '' ? $request->markdownContent : $request->text;
         $post->user_id = auth()->id();
         $post->save();
 
