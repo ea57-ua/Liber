@@ -109,7 +109,8 @@
                 @if(auth()->check() && auth()->user()->email == $user->email)
                     <div class="row justify-content-end" style="margin-top: 20px">
                         <div class="col-auto">
-                            <button type="button" class="btn-auth" data-bs-toggle="modal" data-bs-target="#popupChooseImage">
+                            <button type="button" class="btn-auth"
+                                    data-bs-toggle="modal" data-bs-target="#popupChooseImage">
                                 <i class="bi bi-pencil"></i> Edit Data
                             </button>
                         </div>

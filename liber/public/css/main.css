@@ -3218,3 +3218,15 @@ p .text-primary-strong {
     font-weight: bold;
     font-size: 18px;
 }
+
+.forum-post-btn {
+    padding: 12px 26px;
+    font-size: 20px;
+    border-radius: 24px;
+}
+
+.forum-post-input {
+    height: 130px;
+    font-size: 1.2em;
+    padding: 10px;
+}

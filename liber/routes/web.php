@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\SocialController;
+use App\Http\Controllers\ForumController;
 use App\Http\Controllers\ListController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\ProfileController;
@@ -47,9 +48,11 @@ Route::get('/directors/{id}', function () {
     return view('directors.directorDetails');
 })->name('directors.details');
 
-Route::get('/forum', function () {
-    return view('forum.forumIndex');
-})->name('forumPage');
+Route::get('/forum', [ForumController::class, 'index'])
+    ->name('forumPage');
+
+Route::post('/forum/create', [ForumController::class, 'createNewPost'])
+    ->name('forum.newPost');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'showUserInfo'])
