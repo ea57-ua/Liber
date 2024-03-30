@@ -1,3 +1,16 @@
+@if(count($reviews) == 0)
+    <div class="alert alert-info" role="alert">
+        <h4>No reviews redacted yet.</h4>
+    </div>
+    <div class="col-md-12 d-flex justify-content-center ">
+
+        <a href="{{ route('moviesPage') }}"
+           class="btn btn-auth alert-link">
+            Browse movies to start
+        </a>
+    </div>
+@endif
+
 <section id="testimonials" class="testimonials">
     <div class="container" data-aos="fade-up">
         @foreach($reviews as $review)

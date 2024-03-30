@@ -1,6 +1,28 @@
 <div class="row">
     @if(auth()->user()->critic == true)
-        <h1> you are a critic </h1>
+        <div class="container mt-3">
+            <table class="table table-striped table-responsive table-ratings">
+                <thead class="thead-dark">
+                <tr>
+                    <th scope="col" class="font-weight-bold text-center">Movie Name</th>
+                    <th scope="col" class="font-weight-bold text-center">Your Rating</th>
+                    <th scope="col" class="font-weight-bold text-center">Date</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach($ratings as $rating)
+                    <tr>
+                        <td class="text-center">
+                            <a href="{{ route('movies.details', $rating->movie->id) }}">
+                                {{ $rating->movie->title }}
+                            </a>
+                        </td>                        <td class="text-center">{{ $rating->rating }}</td>
+                        <td class="text-center">{{ $rating->created_at->format('d-m-Y') }}</td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
     @else
     <div class="col-md-2"></div>
     <div class="col-md-8">

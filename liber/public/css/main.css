@@ -3192,3 +3192,29 @@ p .text-primary-strong {
 .reviewer-icon {
     font-size: 24px;
 }
+
+.table-ratings {
+    border: 2px solid var(--color-primary);
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.table-ratings thead th {
+    color: white;
+    background-color: var(--color-primary);
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.table-ratings tbody tr {
+    color: #007bff;
+}
+
+.table-ratings tbody tr td {
+    font-size: 16px;
+}
+
+.table-ratings tbody tr td a:hover {
+    font-weight: bold;
+    font-size: 18px;
+}
