@@ -26,8 +26,8 @@
                                  contenteditable="true">
                             </div>
                             <input type="hidden" name="text" id="hiddenPostInput">
-                            <div id="imageGallery" class="image-gallery d-flex flex-wrap mt-2"></div>
-
+                            <div id="imageGallery" class="image-gallery d-flex flex-wrap">
+                            </div>
                         </div>
                     </div>
                     <div class="row justify-content-end">

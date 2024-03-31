@@ -3250,7 +3250,9 @@ p .text-primary-strong {
 }
 
 .image-gallery {
-    display: grid;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 }
 
