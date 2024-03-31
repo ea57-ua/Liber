@@ -388,7 +388,8 @@
                 <p>Quam sed id excepturi ccusantium dolorem ut quis dolores nisi llum nostrum enim velit qui ut et autem uia reprehenderit sunt deleniti</p>
             </div>
 
-            <div class="portfolio-isotope" data-portfolio-filter="*" data-portfolio-layout="masonry" data-portfolio-sort="original-order" data-aos="fade-up" data-aos-delay="100">
+            <div class="portfolio-isotope" data-portfolio-filter="*" data-portfolio-layout="masonry"
+                 data-portfolio-sort="original-order" data-aos="fade-up" data-aos-delay="100">
 
                 <div>
                     <ul class="portfolio-flters">
