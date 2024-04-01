@@ -3328,3 +3328,57 @@ p .text-primary-strong {
     font-size: 24px;
     font-weight: bold;
 }
+
+.post-image {
+    width: 100%;
+}
+
+.tribute-container {
+    border: 1px solid #ccc;
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.tribute-container ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.tribute-container li {
+    padding: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.tribute-container li:hover {
+    background-color: #d2eadc;
+    border-radius: 10px;
+}
+
+.tribute-list-img{
+    width: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.reply-input {
+    height: 50px;
+    font-size: 20px;
+}
+
+.btn-auth.reply-btn{
+    padding: 10px 20px;
+    font-size: 18px;
+}
+
+.reply-user-image {
+    width: 75px !important;
+    border-radius: 50% !important;
+}
+
+.reply-text {
+    font-size: 20px;
+}

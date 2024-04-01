@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -95,5 +96,26 @@ class ForumController extends Controller
             $post->likes()->attach(Auth::user()->id);
             return response()->json(['liked' => true]);
         }
+    }
+
+    public function searchUsers(Request $request)
+    {
+        $search = $request->get('search');
+        $users = User::where('name', 'like', '%' . $search . '%')->get();
+
+        return response()->json($users);
+    }
+
+    public function replyPost(Request $request, $id)
+    {
+        $post = Post::find($id);
+
+        $reply = new Post();
+        $reply->text = $request->input('reply');
+        $reply->user_id = Auth::user()->id;
+        $reply->parent_id = $post->id;
+        $reply->save();
+
+        return redirect()->back()->with('success', 'Reply added successfully.');
     }
 }

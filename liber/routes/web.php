@@ -57,6 +57,10 @@ Route::delete('/forum/{id}/delete', [ForumController::class, 'deletePost'])
     ->name('forum.deletePost');
 Route::post('/forum/{id}/like', [ForumController::class, 'likeUnlikePost'])
     ->name('forum.likeUnlikePost');
+Route::get('/forum/users', [ForumController::class, 'searchUsers'])
+    ->name('forum.searchUsers');
+Route::post('/forum/{id}/reply', [ForumController::class, 'replyPost'])
+    ->name('forum.replyPost');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'showUserInfo'])

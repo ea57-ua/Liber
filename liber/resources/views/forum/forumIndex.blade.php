@@ -91,6 +91,7 @@
                                                 <i class="bi bi-three-dots" style="font-size: 28px;"></i>
                                             </button>
                                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                @if(Auth::user()->id == $post->user->id)
                                                 <li><a class="dropdown-item navbarDropDownButton forum-post-options" href="#">Edit</a></li>
                                                 <li>
                                                     <button type="button" class="btn navbarDropDownButton forum-post-options" data-bs-toggle="modal"
@@ -98,6 +99,8 @@
                                                         Delete
                                                     </button>
                                                 </li>
+                                                @endif
+                                                    <li><a class="dropdown-item navbarDropDownButton forum-post-options" href="#">Report</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -126,7 +129,7 @@
                                                    class="glightbox rounded"
                                                    data-gallery="postImages{{$post->id}}">
                                                     <img id="movie-poster" src="{{ $image }}"
-                                                         class="movie-poster" alt="Post image">
+                                                         class="post-image" alt="Post image">
                                                 </a>
                                             </div>
                                         @endforeach
@@ -148,6 +151,42 @@
                                                title="Like post"></i>
                                         @endif
                                     </div>
+                                    <hr> <!-- Línea de separación -->
+
+                                    @foreach($post->replies as $reply)
+                                        <div class="row align-items-start">
+                                            <div class="col-auto">
+                                                <img src="{{ $reply->user->image }}"
+                                                     class="testimonial-img flex-shrink-0 reply-user-image"
+                                                     alt="">
+                                            </div>
+                                            <div class="col" style="margin-left: -25px;">
+                                                <h3 style="margin-bottom: -5px">{{$reply->user->name}}</h3>
+                                                <span class="forum-post text-muted reply-text">
+                                                    {!! \Illuminate\Support\Str::markdown($reply->text) !!}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    @endforeach
+
+                                    <!-- Formulario de respuesta -->
+                                    @auth
+                                        <form method="POST" action="{{ route('forum.replyPost', $post->id) }}"
+                                              class="mt-3">
+                                            @csrf
+                                            <div class="row">
+                                                <div class="col-12 col-md-9">
+                                                    <input type="text" name="reply" class="form-control reply-input"
+                                                           placeholder="Add a reply...">
+                                                </div>
+                                                <div class="col-12 col-md-3 mt-2 mt-md-0">
+                                                    <button type="submit" class="btn-auth reply-btn w-100">
+                                                        Reply
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    @endauth
                                 </div>
                             </div>
                         </div>
@@ -205,7 +244,7 @@
         </div>
     </div>
 @endsection
-
+<script src="https://unpkg.com/tributejs/dist/tribute.min.js"></script>
 @push('scripts')
     <script>
         var selectedImages = [];
@@ -352,6 +391,30 @@
                         });
                 });
             });
+
+            var tribute = new Tribute({
+                trigger: '@',
+                values: function (text, cb) {
+                    fetch('/forum/users?search=' + text, {
+                        headers: {
+                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                        }
+                    })
+                        .then(response => response.json())
+                        .then(data => cb(data))
+                        .catch(error => console.error(error));
+                },
+                menuItemTemplate: function (item) {
+                    return '<img class="tribute-list-img" src="'+item.original.image + '">' + item.original.name;
+                },
+                selectTemplate: function (item) {
+                    return '@' + item.original.name;
+                },
+                lookup: 'name',
+                fillAttr: 'name'
+            });
+
+            tribute.attach(document.getElementById('postInput'));
         });
     </script>
 @endpush
