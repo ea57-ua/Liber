@@ -10,7 +10,7 @@
 
     <div class="container mt-5">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-12 col-md-10 col-lg-10">
                 <div id="postError" class="alert alert-danger"
                      style="display: none;">
                 </div>
@@ -32,11 +32,13 @@
                     </div>
                     <div class="row justify-content-end">
                         <div class="col-auto mt-3">
+                            @auth()
                             <label for="imageUpload" class="btn-auth">
                                 <i class="bi bi-upload" style="font-size: 24px;"></i>
                             </label>
                             <input type="file" id="imageUpload" name="images[]" class="form-control"
                                    multiple accept="image/*" style="display: none;">
+                            @endauth
                         </div>
 
                         @auth()
@@ -60,13 +62,60 @@
                 </form>
             </div>
         </div>
+
+        <section id="testimonials" class="testimonials">
+            <div class="container" data-aos="fade-up">
+                @foreach($posts as $post)
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-md-10 col-lg-10">
+                            <div class="testimonial-wrap">
+                                <div class="testimonial-item">
+                                    <div class="d-flex align-items-center">
+                                        <img src="{{ $post->user->image}}"
+                                             class="testimonial-img flex-shrink-0" alt="">
+                                        <div>
+                                            <h3>{{$post->user->name}}</h3>
+                                        </div>
+                                    </div>
+                                    <span class="forum-post-text">
+                                        {!! \Illuminate\Support\Str::markdown($post->text) !!}
+                                    </span>
+
+                                    @php
+                                        $images = [];
+                                        for ($i = 1; $i <= 4; $i++) {
+                                            if ($post->{'image'.$i}) {
+                                                $images[] = $post->{'image'.$i};
+                                            }
+                                        }
+                                        $imageCount = count($images);
+                                        $colClass = 'col-12';
+                                        if ($imageCount != 1) {
+                                            $colClass = 'col-6 flex-grow-1';
+                                        }
+                                    @endphp
+                                    <div class="row">
+                                        @foreach($images as $index => $image)
+                                            <div class="{{ $colClass }} {{ $index >= 2 ? 'mt-3' : '' }}">
+                                                <a href="{{ $image }}"
+                                                   class="glightbox rounded"
+                                                   data-gallery="postImages{{$post->id}}">
+                                                    <img id="movie-poster" src="{{ $image }}"
+                                                         class="movie-poster" alt="Post image">
+                                                </a>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </section>
     </div>
 
-    <div class="" style="margin-bottom: 200px">
-    @foreach($posts as $post)
-        <h1> {{$post->user->name}} : {!! \Illuminate\Support\Str::markdown($post->text) !!}</h1>
-    @endforeach
-    </div>
+
 
     <div class="modal fade" id="advancedEditorModal" tabindex="-1"
          role="dialog" aria-labelledby="advancedEditorModalLabel" aria-hidden="true">
@@ -93,6 +142,22 @@
 @push('scripts')
     <script>
         var selectedImages = [];
+
+        const lightbox = GLightbox({
+            maxZoom: 1,  // Limit zoom to 100%
+        });
+
+        function updateFileInput() {
+            var imageUpload = document.getElementById('imageUpload');
+            var newFileList = new DataTransfer();
+
+            for (var i = 0; i < selectedImages.length; i++) {
+                newFileList.items.add(selectedImages[i]);
+            }
+
+            imageUpload.files = newFileList.files;
+        }
+
         document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('postInput').addEventListener('click', function () {
                 document.getElementById('advancedEditorOption').style.display = 'block';
@@ -123,6 +188,11 @@
                     imageGallery.innerHTML = '';
 
                     for (var i = 0; i < selectedImages.length; i++) {
+                        if (this.files[i].size > 2048 * 1024) {
+                            errorLabel.textContent = 'The file "' + this.files[i].name + '" exceeds the upload limit (2MB).';
+                            errorLabel.style.display = 'block';
+                            continue;
+                        }
                         // Create a card element
                         var card = document.createElement('div');
                         card.className = 'col-xl-6 col-md-12 col-sm-12';
@@ -168,6 +238,7 @@
                     var index = event.target.dataset.index;
                     // Remove the image from the selectedImages array
                     selectedImages.splice(index, 1);
+                    updateFileInput();
                     // Remove the image card from the gallery
                     event.target.parentElement.parentElement.remove();
                 }

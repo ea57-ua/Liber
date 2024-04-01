@@ -17,8 +17,8 @@ class ForumController extends Controller
 
     public function createNewPost(Request $request) {
         $request->validate([
-            'text' => 'required_without_all:markdownContent,images|nullable|max:280',
-            'markdownContent' => 'required_without_all:text,images|nullable|string',
+            'text' => 'required_without_all:markdownContent,images|nullable|max:1000',
+            'markdownContent' => 'required_without_all:text,images|nullable|string|max:1000',
             'images' => 'required_without_all:text,markdownContent|sometimes|array|max:4',
         ]);
 

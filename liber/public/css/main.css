@@ -3232,11 +3232,18 @@ p .text-primary-strong {
 }
 
 #postInput {
-    resize: both;
+    resize: vertical;
     overflow: auto;
     min-height: 50px;
     border-radius: 20px;
     font-size: 20px;
+    border: 3px solid #00a995;
+    background-color: #e4e7e5;
+}
+
+#postInput:focus {
+    outline: none;
+    box-shadow: 0 0 10px #1b7569;
 }
 
 .post-placeholder {
@@ -3297,4 +3304,9 @@ p .text-primary-strong {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.forum-post-text{
+    font-size: 22px;
+    overflow-wrap: break-word;
 }
