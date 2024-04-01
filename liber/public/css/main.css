@@ -3310,3 +3310,21 @@ p .text-primary-strong {
     font-size: 22px;
     overflow-wrap: break-word;
 }
+
+.forum-post-options{
+    font-size: 18px;
+}
+
+.post-like-button{
+    font-size: 32px;
+}
+
+.liked {
+    color: var(--color-primary);
+}
+
+.likes-count {
+    margin-right: 5px;
+    font-size: 24px;
+    font-weight: bold;
+}

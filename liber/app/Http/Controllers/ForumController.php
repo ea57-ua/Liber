@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ForumController extends Controller
 {
@@ -52,5 +53,47 @@ class ForumController extends Controller
         $post->save();
 
         return redirect()->route('forumPage');
+    }
+
+    public function deletePost($id)
+    {
+        $post = Post::find($id);
+
+        // Check if the authenticated user is the author of the post
+        if (Auth::user()->id !== $post->user_id) {
+            return redirect()->back()->with('error', 'You are not authorized to delete this post.');
+        }
+
+        for ($i = 1; $i <= 4; $i++) {
+            $imagePath = $post->{'image'.$i};
+            if ($imagePath) {
+                // Extract the file name from the image URL
+                $fileName = basename($imagePath);
+                // Build the full file path
+                $filePath = public_path('images/post_images/' . $fileName);
+                // Check if the file exists and delete it
+                if (file_exists($filePath)) {
+                    unlink($filePath);
+                }
+            }
+        }
+
+        $post->delete();
+        // TODO: borrar imagenes de public
+
+        return redirect()->route('forumPage')->with('success', 'Post deleted successfully.');
+    }
+
+    public function likeUnlikePost($id)
+    {
+        $post = Post::findOrFail($id);
+
+        if($post->likes->contains(Auth::user()->id)) {
+            $post->likes()->detach(Auth::user()->id);
+            return response()->json(['liked' => false]);
+        } else {
+            $post->likes()->attach(Auth::user()->id);
+            return response()->json(['liked' => true]);
+        }
     }
 }

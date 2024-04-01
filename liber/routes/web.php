@@ -53,6 +53,10 @@ Route::get('/forum', [ForumController::class, 'index'])
 
 Route::post('/forum/create', [ForumController::class, 'createNewPost'])
     ->name('forum.newPost');
+Route::delete('/forum/{id}/delete', [ForumController::class, 'deletePost'])
+    ->name('forum.deletePost');
+Route::post('/forum/{id}/like', [ForumController::class, 'likeUnlikePost'])
+    ->name('forum.likeUnlikePost');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'showUserInfo'])
