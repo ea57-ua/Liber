@@ -3329,6 +3329,15 @@ p .text-primary-strong {
     font-weight: bold;
 }
 
+.post-text{
+    color: black;
+}
+
+.post-text:hover{
+    color: inherit;
+}
+
+
 .post-image {
     width: 100%;
 }
@@ -3381,4 +3390,14 @@ p .text-primary-strong {
 
 .reply-text {
     font-size: 20px;
+}
+
+.replies-count{
+    font-size: 32px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.replies-count i{
+    color: var(--color-primary);
 }

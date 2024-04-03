@@ -11,7 +11,14 @@ class ForumController extends Controller
 {
     public function index()
     {
-        $posts = Post::orderBy('created_at', 'desc')->get();
+        $posts = Post::withCount('replies')
+            ->with(['replies' => function ($query) {
+                $query->withCount('likes')
+                    ->orderBy('likes_count', 'desc')
+                    ->orderBy('created_at', 'desc')
+                    ->take(3);
+            }])
+            ->get();
 
         return view('forum.forumIndex',
             ['posts' => $posts]);
@@ -109,7 +116,7 @@ class ForumController extends Controller
     public function replyPost(Request $request, $id)
     {
         $post = Post::find($id);
-
+        // TODO salta 500 sin texto
         $reply = new Post();
         $reply->text = $request->input('reply');
         $reply->user_id = Auth::user()->id;
@@ -117,5 +124,12 @@ class ForumController extends Controller
         $reply->save();
 
         return redirect()->back()->with('success', 'Reply added successfully.');
+    }
+
+    public function showPost($id)
+    {
+        $post = Post::find($id);
+
+        return view('forum.postDetails', ['post' => $post]);
     }
 }

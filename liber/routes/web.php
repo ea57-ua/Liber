@@ -61,6 +61,8 @@ Route::get('/forum/users', [ForumController::class, 'searchUsers'])
     ->name('forum.searchUsers');
 Route::post('/forum/{id}/reply', [ForumController::class, 'replyPost'])
     ->name('forum.replyPost');
+Route::get('/forum/{id}', [ForumController::class, 'showPost'])
+    ->name('forum.showPost');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'showUserInfo'])
