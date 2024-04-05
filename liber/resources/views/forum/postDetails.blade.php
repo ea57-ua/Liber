@@ -42,10 +42,10 @@
                                                     Delete
                                                 </button>
                                             </li>
+                                            <li>
+                                                <a class="dropdown-item navbarDropDownButton forum-post-options clickable-item"
+                                                   href="#">Report</a></li>
                                         @endif
-                                        <li>
-                                            <a class="dropdown-item navbarDropDownButton forum-post-options clickable-item"
-                                               href="#">Report</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -78,23 +78,43 @@
                                     </div>
                                 @endforeach
                             </div>
-
-                            <div class="mt-2 d-flex align-items-center ">
-                                @if ($post->likes->count() > 0)
-                                    <span class="likes-count" data-post-id="{{ $post->id }}">
-                                                {{ $post->likes->count() > 0 ? $post->likes->count() : '' }}
-                                            </span>
-                                @endif
-                                @if (Auth::user() && $post->likes->contains(Auth::user()->id))
-                                    <i class="bi bi-heart-fill like-button post-like-button liked clickable-item"
-                                       data-post-id="{{ $post->id }}"
-                                       title="Unlike post"></i>
-                                @else
-                                    <i class="bi bi-heart like-button post-like-button clickable-item"
-                                       data-post-id="{{ $post->id }}"
-                                       title="Like post"></i>
-                                @endif
+                            <div class="mt-2 d-flex align-items-center justify-content-center">
+                                <div class="col text-center">
+                                    @if ($post->likes->count() > 0)
+                                        <span class="likes-count" data-post-id="{{ $post->id }}">
+                                                    {{ $post->likes->count() > 0 ? $post->likes->count() : '' }}
+                                                </span>
+                                    @endif
+                                    @if (Auth::user() && $post->likes->contains(Auth::user()->id))
+                                        <i class="bi bi-heart-fill like-button post-like-button liked clickable-item"
+                                           data-post-id="{{ $post->id }}"
+                                           title="Unlike post"></i>
+                                    @else
+                                        <i class="bi bi-heart like-button post-like-button clickable-item"
+                                           data-post-id="{{ $post->id }}"
+                                           title="Like post"></i>
+                                    @endif
+                                </div>
+                                <div class="col text-center">
+                                    @if($post->replies_count == 0)
+                                        <div class="replies-count">
+                                            <i class="bi bi-chat" style="color: black"></i>
+                                        </div>
+                                    @endif
+                                    @if($post->replies_count > 0)
+                                        <div class="replies-count">
+                                                    <span class="replies-count">
+                                                        {{ $post->replies_count }}
+                                                    </span>
+                                            <i class="bi bi-chat-fill" title="Replies number"></i>
+                                        </div>
+                                    @endif
+                                </div>
+                                <div class="col text-center">
+                                    <!-- Espacio reservado para futuros elementos -->
+                                </div>
                             </div>
+
                             <hr> <!-- Línea de separación -->
 
                             @foreach($post->replies as $reply)
@@ -115,12 +135,28 @@
                                                     {!! \Illuminate\Support\Str::markdown($reply->text) !!}
                                                 </span>
                                     </div>
+                                    <div class="col-auto d-flex align-items-center align-middle">
+                                        @if (Auth::user() && $reply->likes->contains(Auth::user()->id))
+                                            <i class="bi bi-heart-fill like-button reply-like-button liked clickable-item"
+                                               data-post-id="{{ $reply->id }}"
+                                               title="Unlike this reply"></i>
+                                        @else
+                                            <i class="bi bi-heart like-button reply-like-button clickable-item"
+                                               data-post-id="{{ $reply->id }}"
+                                               title="Like this reply"></i>
+                                        @endif
+                                        @if ($reply->likes->count() > 0)
+                                            <span class="likes-count" data-post-id="{{ $reply->id }}">
+                                                        {{ $reply->likes->count() > 0 ? $reply->likes->count() : '' }}
+                                                    </span>
+                                        @endif
+                                    </div>
                                 </div>
                             @endforeach
 
-                            <!-- Formulario de respuesta -->
-                            @auth
-                                <form method="POST" action="{{ route('forum.replyPost', $post->id) }}"
+
+                        @auth  <!-- Formulario de respuesta -->
+                            <form method="POST" action="{{ route('forum.replyPost', $post->id) }}"
                                       class="mt-3">
                                     @csrf
                                     <div class="row">
@@ -146,3 +182,7 @@
     </section>
 
 @endsection
+
+@push('scripts')
+    <script src="{{asset('js/likePostAndReplay.js')}}"></script>
+@endpush

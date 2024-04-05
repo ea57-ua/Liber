@@ -223,7 +223,7 @@
                                     <!-- Formulario de respuesta -->
                                     @auth
                                         <form method="POST" action="{{ route('forum.replyPost', $post->id) }}"
-                                              class="mt-3" enctype="multipart/form-data" data-post-id="{{ $post->id }}">
+                                              class="mt-3" enctype="multipart/form-data">
                                             @csrf
                                             <div class="row">
                                                 <div class="col-12 col-md-9">
@@ -232,26 +232,10 @@
                                                            placeholder="Add a reply..." required>
                                                 </div>
                                                 <div class="col-12 col-md-3 mt-2 mt-md-0 d-flex flex-column flex-md-row justify-content-between">
-                                                    <label for="replyImageUpload"
-                                                           class="btn-auth mb-2 mb-md-0 mr-md-2 clickable-item"
-                                                           style="padding: 10px 15px;border-radius: 15px">
-                                                        <i class="bi bi-upload clickable-item" style="font-size: 34px;"></i>
-                                                    </label>
-                                                    <input type="file" name="images[]" id="replyImageUpload"
-                                                           class="form-control clickable-item replyImageUpload"
-                                                           multiple accept="image/*" style="display: none;"
-                                                           data-post-id="{{ $post->id }}">
                                                     <button type="submit"
                                                             class="btn-auth reply-btn w-100 clickable-item">
                                                         Reply
                                                     </button>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <div id="replyImageGallery"
-                                                         class="image-gallery d-flex flex-wrap"
-                                                         data-post-id="{{ $post->id }}"></div>
                                                 </div>
                                             </div>
                                         </form>
@@ -314,6 +298,10 @@
     </div>
 @endsection
 <script src="https://unpkg.com/tributejs/dist/tribute.min.js"></script>
+@push('scripts')
+    <script src="{{asset('js/likePostAndReplay.js')}}"></script>
+@endpush
+
 @push('scripts')
     <script>
         var selectedImages = [];
@@ -432,32 +420,6 @@
                 });
             });
 
-            var replyImageUploads = document.querySelectorAll('.replyImageUpload');
-
-            replyImageUploads.forEach(function(replyImageUpload) {
-                replyImageUpload.addEventListener('change', function () {
-                    var postId = this.parentElement.getAttribute('data-post-id');
-                    console.log("POST ID: " + postId);
-                    var imageGallery = document.querySelector('.image-gallery[data-post-id="' + postId + '"]');
-                    if (imageGallery) {
-                        imageGallery.innerHTML = '<h1> ' + postId + '  POST ID </h1>'; // Clear the gallery
-
-                        if (this.files.length > 4) {
-                            alert('You can only upload up to 4 images.');
-                            this.value = '';
-                        } else {
-                            for (var i = 0; i < this.files.length; i++) {
-                                var img = document.createElement('img');
-                                img.src = URL.createObjectURL(this.files[i]);
-                                img.className = 'img-fluid';
-                                img.alt = 'Preview';
-                                imageGallery.appendChild(img);
-                            }
-                        }
-                    }
-                });
-            });
-
             var deletePostModal = document.getElementById('deletePostModal');
             deletePostModal.addEventListener('show.bs.modal', function (event) {
                 var button = event.relatedTarget; // Button that triggered the modal
@@ -465,39 +427,6 @@
 
                 var deletePostForm = deletePostModal.querySelector('#deletePostForm');
                 deletePostForm.setAttribute('action', '/forum/' + postId + '/delete');
-            });
-
-            var likeButtons = document.querySelectorAll('.like-button');
-            likeButtons.forEach(function (button) {
-                button.addEventListener('click', function () {
-                    var postId = this.getAttribute('data-post-id');
-                    fetch('/forum/' + postId + '/like', {
-                        method: 'POST',
-                        headers: {
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                        }
-                    })
-                        .then(response => response.json())
-                        .then(data => {
-                            if (data.liked) {
-                                this.classList.remove('bi-heart');
-                                this.classList.add('bi-heart-fill', 'liked');
-                            } else {
-                                this.classList.remove('bi-heart-fill', 'liked');
-                                this.classList.add('bi-heart');
-                            }
-
-                            var likesCountElement = document.querySelector('.likes-count[data-post-id="' + postId + '"]');
-                            if (likesCountElement) {
-                                var currentLikesCount = parseInt(likesCountElement.textContent) || 0;
-                                if (data.liked) {
-                                    likesCountElement.textContent = currentLikesCount + 1;
-                                } else {
-                                    likesCountElement.textContent = currentLikesCount > 1 ? currentLikesCount - 1 : '';
-                                }
-                            }
-                        });
-                });
             });
 
             var tribute = new Tribute({
