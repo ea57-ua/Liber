@@ -12,11 +12,15 @@ window.bootstrap = bootstrap;
 import Editor from '@toast-ui/editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
 
-const editor = new Editor({
-    el: document.querySelector('#advancedEditor'),
-    height: '500px',
-    initialEditType: 'markdown',
-})
+var editorElement = document.querySelector('#advancedEditor');
+
+if (editorElement) {
+    const editor = new Editor({
+        el: editorElement,
+        height: '500px',
+        initialEditType: 'markdown',
+    });
+}
 
 var submitPostModal = document.getElementById('submitPostModal');
 

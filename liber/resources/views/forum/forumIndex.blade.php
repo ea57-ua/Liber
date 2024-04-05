@@ -35,8 +35,9 @@
                     <div class="row justify-content-end">
                         <div class="col-auto mt-3">
                             @auth()
-                                <label for="imageUpload" class="btn-auth">
-                                    <i class="bi bi-upload" style="font-size: 24px;"></i>
+                                <label for="imageUpload" class="btn-auth"
+                                       style="padding: 10px 15px;border-radius: 15px">
+                                    <i class="bi bi-upload" style="font-size: 34px;"></i>
                                 </label>
                                 <input type="file" id="imageUpload" name="images[]" class="form-control"
                                        multiple accept="image/*" style="display: none;">
@@ -106,10 +107,10 @@
                                                             Delete
                                                         </button>
                                                     </li>
+                                                    <li>
+                                                        <a class="dropdown-item navbarDropDownButton forum-post-options clickable-item"
+                                                           href="#">Report</a></li>
                                                 @endif
-                                                <li>
-                                                    <a class="dropdown-item navbarDropDownButton forum-post-options clickable-item"
-                                                       href="#">Report</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -143,29 +144,42 @@
                                         @endforeach
                                     </div>
 
-                                    <div class="mt-2 d-flex align-items-center ">
-                                        @if ($post->likes->count() > 0)
-                                            <span class="likes-count" data-post-id="{{ $post->id }}">
-                                                {{ $post->likes->count() > 0 ? $post->likes->count() : '' }}
-                                            </span>
-                                        @endif
-                                        @if (Auth::user() && $post->likes->contains(Auth::user()->id))
-                                            <i class="bi bi-heart-fill like-button post-like-button liked clickable-item"
-                                               data-post-id="{{ $post->id }}"
-                                               title="Unlike post"></i>
-                                        @else
-                                            <i class="bi bi-heart like-button post-like-button clickable-item"
-                                               data-post-id="{{ $post->id }}"
-                                               title="Like post"></i>
-                                        @endif
-                                        @if($post->replies_count > 0)
-                                            <div class=" replies-count">
-                                                <span class="replies-count">
-                                                    {{ $post->replies_count }}
+                                    <!-- Likes y comentarios -->
+                                    <div class="mt-2 d-flex align-items-center justify-content-center">
+                                        <div class="col text-center">
+                                            @if ($post->likes->count() > 0)
+                                                <span class="likes-count" data-post-id="{{ $post->id }}">
+                                                    {{ $post->likes->count() > 0 ? $post->likes->count() : '' }}
                                                 </span>
-                                                <i class="bi bi-chat-fill" title="Replies number"></i>
-                                            </div>
-                                        @endif
+                                            @endif
+                                            @if (Auth::user() && $post->likes->contains(Auth::user()->id))
+                                                <i class="bi bi-heart-fill like-button post-like-button liked clickable-item"
+                                                   data-post-id="{{ $post->id }}"
+                                                   title="Unlike post"></i>
+                                            @else
+                                                <i class="bi bi-heart like-button post-like-button clickable-item"
+                                                   data-post-id="{{ $post->id }}"
+                                                   title="Like post"></i>
+                                            @endif
+                                        </div>
+                                        <div class="col text-center">
+                                            @if($post->replies_count == 0)
+                                                <div class="replies-count">
+                                                    <i class="bi bi-chat" style="color: black"></i>
+                                                </div>
+                                            @endif
+                                            @if($post->replies_count > 0)
+                                                <div class="replies-count">
+                                                    <span class="replies-count">
+                                                        {{ $post->replies_count }}
+                                                    </span>
+                                                    <i class="bi bi-chat-fill" title="Replies number"></i>
+                                                </div>
+                                            @endif
+                                        </div>
+                                        <div class="col text-center">
+                                            <!-- Espacio reservado para futuros elementos -->
+                                        </div>
                                     </div>
                                     <hr> <!-- Línea de separación -->
 
@@ -187,13 +201,29 @@
                                                     {!! \Illuminate\Support\Str::markdown($reply->text) !!}
                                                 </span>
                                             </div>
+                                            <div class="col-auto d-flex align-items-center align-middle">
+                                                @if (Auth::user() && $reply->likes->contains(Auth::user()->id))
+                                                    <i class="bi bi-heart-fill like-button reply-like-button liked clickable-item"
+                                                       data-post-id="{{ $reply->id }}"
+                                                       title="Unlike this reply"></i>
+                                                @else
+                                                    <i class="bi bi-heart like-button reply-like-button clickable-item"
+                                                       data-post-id="{{ $reply->id }}"
+                                                       title="Like this reply"></i>
+                                                @endif
+                                                @if ($reply->likes->count() > 0)
+                                                    <span class="likes-count" data-post-id="{{ $reply->id }}">
+                                                        {{ $reply->likes->count() > 0 ? $reply->likes->count() : '' }}
+                                                    </span>
+                                                @endif
+                                            </div>
                                         </div>
                                     @endforeach
 
                                     <!-- Formulario de respuesta -->
                                     @auth
                                         <form method="POST" action="{{ route('forum.replyPost', $post->id) }}"
-                                              class="mt-3">
+                                              class="mt-3" enctype="multipart/form-data" data-post-id="{{ $post->id }}">
                                             @csrf
                                             <div class="row">
                                                 <div class="col-12 col-md-9">
@@ -201,11 +231,27 @@
                                                            class="form-control reply-input clickable-item"
                                                            placeholder="Add a reply..." required>
                                                 </div>
-                                                <div class="col-12 col-md-3 mt-2 mt-md-0">
+                                                <div class="col-12 col-md-3 mt-2 mt-md-0 d-flex flex-column flex-md-row justify-content-between">
+                                                    <label for="replyImageUpload"
+                                                           class="btn-auth mb-2 mb-md-0 mr-md-2 clickable-item"
+                                                           style="padding: 10px 15px;border-radius: 15px">
+                                                        <i class="bi bi-upload clickable-item" style="font-size: 34px;"></i>
+                                                    </label>
+                                                    <input type="file" name="images[]" id="replyImageUpload"
+                                                           class="form-control clickable-item replyImageUpload"
+                                                           multiple accept="image/*" style="display: none;"
+                                                           data-post-id="{{ $post->id }}">
                                                     <button type="submit"
                                                             class="btn-auth reply-btn w-100 clickable-item">
                                                         Reply
                                                     </button>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div id="replyImageGallery"
+                                                         class="image-gallery d-flex flex-wrap"
+                                                         data-post-id="{{ $post->id }}"></div>
                                                 </div>
                                             </div>
                                         </form>
@@ -256,11 +302,11 @@
                     Are you sure you want to delete this post?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn-auth" data-bs-dismiss="modal">Cancel</button>
                     <form id="deletePostForm" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger">Delete</button>
+                        <button type="submit" class="btn-auth">Delete</button>
                     </form>
                 </div>
             </div>
@@ -382,6 +428,32 @@
                     if (!event.target.classList.contains('clickable-item')) {
                         var postId = this.getAttribute('data-post-id');
                         window.location.href = '/forum/' + postId;
+                    }
+                });
+            });
+
+            var replyImageUploads = document.querySelectorAll('.replyImageUpload');
+
+            replyImageUploads.forEach(function(replyImageUpload) {
+                replyImageUpload.addEventListener('change', function () {
+                    var postId = this.parentElement.getAttribute('data-post-id');
+                    console.log("POST ID: " + postId);
+                    var imageGallery = document.querySelector('.image-gallery[data-post-id="' + postId + '"]');
+                    if (imageGallery) {
+                        imageGallery.innerHTML = '<h1> ' + postId + '  POST ID </h1>'; // Clear the gallery
+
+                        if (this.files.length > 4) {
+                            alert('You can only upload up to 4 images.');
+                            this.value = '';
+                        } else {
+                            for (var i = 0; i < this.files.length; i++) {
+                                var img = document.createElement('img');
+                                img.src = URL.createObjectURL(this.files[i]);
+                                img.className = 'img-fluid';
+                                img.alt = 'Preview';
+                                imageGallery.appendChild(img);
+                            }
+                        }
                     }
                 });
             });

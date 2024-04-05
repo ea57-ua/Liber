@@ -3381,6 +3381,7 @@ p .text-primary-strong {
 .btn-auth.reply-btn{
     padding: 10px 20px;
     font-size: 18px;
+    margin-left: 10px;
 }
 
 .reply-user-image {
@@ -3400,4 +3401,10 @@ p .text-primary-strong {
 
 .replies-count i{
     color: var(--color-primary);
+}
+
+.reply-like-button {
+    font-size: 30px;
+    margin-top: 10px;
+    margin-right: 5px;
 }
