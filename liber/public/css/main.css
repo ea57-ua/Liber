@@ -3450,3 +3450,26 @@ p .text-primary-strong {
     align-items: center;
 }
 
+.celebrity-info-container {
+    margin-top: 120px;
+    margin-bottom: 150px;
+}
+
+.celebrity-info{
+    text-align: left;
+    padding-bottom: 0.7em;
+    font-size: 30px;
+}
+
+.celebrity-info h1{
+    font-size: 50px;
+}
+
+.celebrity-description{
+    font-size: 20px;
+    padding: 10px;
+    color: #333;
+}
+.celebrity-description p {
+    text-align: justify;
+}

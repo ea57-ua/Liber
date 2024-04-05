@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\ActorController;
 use App\Http\Controllers\Auth\SocialController;
+use App\Http\Controllers\DirectorController;
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ListController;
@@ -40,13 +42,11 @@ Route::get('/lists', function () {
 Route::get('/lists/{id}', [ListController::class, 'listDetailsShow'])
     ->name('lists.details');
 
-Route::get('/actors/{id}', function () {
-    return view('actors.actorDetails');
-})->name('actors.details');
+Route::get('/actors/{id}', [ActorController::class, 'showActorInfo'])
+    ->name('actors.details');
 
-Route::get('/directors/{id}', function () {
-    return view('directors.directorDetails');
-})->name('directors.details');
+Route::get('/directors/{id}', [DirectorController::class, 'showDirectorInfo'])
+    ->name('directors.details');
 
 Route::get('/forum', [ForumController::class, 'index'])
     ->name('forumPage');
