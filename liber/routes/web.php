@@ -81,6 +81,9 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('users/{id}', [ProfileController::class, 'showPublicUserInfo'])->name('users.publicProfile');
+Route::get('termsAndConditions', function () {
+    return view('termsAndConditions');
+})->name('termsAndConditions');
 
 Route::get('/social-media-share', SocialShareButtonsController::class);
 
