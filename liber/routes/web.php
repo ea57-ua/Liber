@@ -41,6 +41,8 @@ Route::get('/lists', function () {
 
 Route::get('/lists/{id}', [ListController::class, 'listDetailsShow'])
     ->name('lists.details');
+Route::post('/lists/create', [ListController::class, 'createList'])
+    ->name('lists.create');
 
 Route::get('/actors/{id}', [ActorController::class, 'showActorInfo'])
     ->name('actors.details');

@@ -137,7 +137,8 @@
                                     </ul>
                                     <div class="tab-content">
                                         <div class="tab-pane fade show active" id="uploadImage">
-                                            <form id="image-form" action="{{ route('user.uploadImage', $user->id) }}" method="POST" enctype="multipart/form-data">
+                                            <form id="image-form" action="{{ route('user.uploadImage', $user->id) }}"
+                                                  method="POST" enctype="multipart/form-data">
                                                 @csrf
                                                 <div class="modal-body bg-light">
                                                     <label for="image-input" class="custom-file-upload">
