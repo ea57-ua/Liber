@@ -88,6 +88,7 @@
                 </a>
             </div>
         @endforeach
+    </div>
 </div>
 </section><!-- End Team Section -->
 

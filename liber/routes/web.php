@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\SocialController;
 use App\Http\Controllers\ForumController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ListController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\ProfileController;
@@ -14,9 +15,8 @@ Route::get('/ejemplo', function () {
     return view('ejemplo');
 });
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
+Route::get('/', [HomeController::class, 'index'])
+    ->name('welcome');
 
 Route::get('/movies', [MovieController::class, 'moviesPage'])
     ->name('moviesPage');

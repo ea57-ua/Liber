@@ -1880,6 +1880,12 @@ section {
     padding: 60px 0 0 0;
 }
 
+.hero.withImage{
+    background: url("../images/welcome/oppenheimer.jpeg") center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
 @media (min-width: 1365px) {
     .hero {
         background-attachment: fixed;
@@ -1887,9 +1893,9 @@ section {
 }
 
 .hero h2 {
-    font-size: 48px;
+    font-size: 54px;
     font-weight: 700;
-    margin-bottom: 20px;
+    margin-bottom: 2px;
     color: #fff;
 }
 
@@ -1897,6 +1903,7 @@ section {
     color: rgba(255, 255, 255, 0.6);
     font-weight: 400;
     margin-bottom: 30px;
+    font-size: 30px;
 }
 
 .hero .btn-get-started {
@@ -1951,6 +1958,7 @@ section {
 
 .hero .icon-boxes {
     padding-bottom: 60px;
+    margin-top: 120px;
 }
 
 @media (min-width: 1200px) {
@@ -3408,3 +3416,37 @@ p .text-primary-strong {
     margin-top: 10px;
     margin-right: 5px;
 }
+
+.listsContainer .container {
+    background: url("../images/welcome/bladeRunner.jpg") center center;
+    background-size: cover;
+    padding: 100px 60px;
+    border-radius: 15px;
+    overflow: hidden;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-end;
+}
+
+
+.listsContainer h3 {
+    color: #fff;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.listsContainer p {
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.listsContainer .container.connectSection {
+    background: url("../images/welcome/spiderverse.png") center center;
+    background-size: contain;
+    justify-content: end;
+    align-items: center;
+}
+
