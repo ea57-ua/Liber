@@ -94,4 +94,9 @@ class ListController extends Controller
 
         return redirect()->route('lists.details', $id);
     }
+
+    public function listsPage(Request $request)
+    {
+        return view('lists.listsPage');
+    }
 }

@@ -3488,3 +3488,8 @@ p .text-primary-strong {
     font-weight: bold;
 }
 
+.call-to-action.listsPageImage .container {
+    background: url("../images/welcome/dune.jpg") 60% center;
+    background-size: cover;
+    height: 460px;
+}

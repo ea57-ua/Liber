@@ -35,9 +35,8 @@ Route::post('/movies/{idMovie}/lists/{idList}/toggle', [MovieController::class, 
 Route::get('/movies/{id}/share', [SocialShareButtonsController::class, 'shareMovie'])
     ->name('movies.share');
 
-Route::get('/lists', function () {
-    return view('lists.listsPage');
-})->name('listsPage');
+Route::get('/lists', [ListController::class, 'listsPage'])
+    ->name('listsPage');
 
 Route::get('/lists/{id}', [ListController::class, 'listDetailsShow'])
     ->name('lists.details');
