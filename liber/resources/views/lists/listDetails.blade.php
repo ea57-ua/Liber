@@ -121,12 +121,23 @@
                     <div class="row gy-4">
                         @foreach($movies as $movie)
                             <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="100">
-                                <a href="{{ route('movies.details', ['id' => $movie->id]) }}">
-                                    <div class="movieCard">
-                                        <img src="{{$movie->posterURL}}" class="img-fluid" alt="">
-                                        <h4>{{$movie->title}}</h4>
-                                    </div>
-                                </a>
+                                <div class="listMovieCard">
+
+                                    <a href="{{ route('movies.details', ['id' => $movie->id]) }}">
+                                        <div class="movieCard">
+                                            <img src="{{$movie->posterURL}}" class="img-fluid" alt="">
+                                            <h4>{{$movie->title}}</h4>
+                                        </div>
+                                    </a>
+                                    @if(Auth::check() && Auth::user()->id == $list->user_id)
+                                        <form action="{{ route('movies.toggleToList', ['idMovie' => $movie->id, 'idList' => $list->id]) }}"
+                                              method="POST">
+                                            @csrf
+                                            <button type="submit" class="btn btn-danger remove-movie-button">Remove from list</button>
+                                        </form>
+                                    @endif
+                                </div>
+
                             </div>
                         @endforeach
                     </div>

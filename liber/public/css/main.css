@@ -3487,3 +3487,14 @@ p .text-primary-strong {
     color: #000;
     font-weight: bold;
 }
+
+.remove-movie-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: none;
+}
+
+.listMovieCard:hover .remove-movie-button {
+    display: block;
+}
