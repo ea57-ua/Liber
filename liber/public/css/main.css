@@ -3473,3 +3473,17 @@ p .text-primary-strong {
 .celebrity-description p {
     text-align: justify;
 }
+
+.list-creator-text {
+    color: #949292;
+}
+
+.creator-name {
+    text-decoration: underline;
+    color: #949292;
+}
+
+.creator-name:hover {
+    color: #000;
+    font-weight: bold;
+}

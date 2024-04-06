@@ -28,6 +28,9 @@
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <li>
+                                <a class="dropdown-item" href="{{ route('profile.edit') }}">Profile</a>
+                            </li>
+                            <li>
                                 <div>
                                     <form method="POST" action="{{ route('logout') }}">
                                         @csrf
@@ -36,9 +39,6 @@
                                         </button>
                                     </form>
                                 </div>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="{{ route('profile.edit') }}">Profile</a>
                             </li>
                         </ul>
                     </div>

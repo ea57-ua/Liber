@@ -43,6 +43,11 @@ Route::get('/lists/{id}', [ListController::class, 'listDetailsShow'])
     ->name('lists.details');
 Route::post('/lists/create', [ListController::class, 'createList'])
     ->name('lists.create');
+Route::post('/lists/{id}/toggle-like', [ListController::class, 'toggleLike'])
+    ->name('lists.toggleLike');
+Route::get('/lists/{id}/share', [SocialShareButtonsController::class, 'shareMovieList'])
+    ->name('lists.share');
+Route::put('/lists/{id}', [ListController::class, 'update'])->name('lists.update');
 
 Route::get('/actors/{id}', [ActorController::class, 'showActorInfo'])
     ->name('actors.details');

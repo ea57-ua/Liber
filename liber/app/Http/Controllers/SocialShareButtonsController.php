@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Movie;
+use App\Models\MovieList;
 use Illuminate\Http\Request;
 
 class SocialShareButtonsController extends Controller
@@ -29,6 +30,21 @@ class SocialShareButtonsController extends Controller
             $movie = Movie::findOrFail($id);
             $url = route('movies.details', $id);
             $shareComponent = \Share::page($url, $movie->title)
+                ->facebook()
+                ->twitter()
+                ->reddit();
+
+            return response()->json(['shareComponent' => $shareComponent->getRawLinks(), 'url' => $url]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    public function shareMovieList($id){
+        try {
+            $list = MovieList::findOrFail($id);
+            $url = route('lists.details', $id);
+            $shareComponent = \Share::page($url, $list->name)
                 ->facebook()
                 ->twitter()
                 ->reddit();

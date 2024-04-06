@@ -132,7 +132,7 @@ class ProfileController extends Controller
         $watchedMoviesCount = $user->watchedMovies()->count();
         $movieListsCount = $user->movieLists()->count();
         $watchedMovies = $user->watchedMovies()->get();
-        $lists = $user->movieLists()->get();
+        $lists = $user->movieLists()->where('public', true)->get();
         $isBlocked =  $user->blockedUsers()->get()->contains($user);
         $reviews = $user->reviews()->get();
         $ratings = collect();

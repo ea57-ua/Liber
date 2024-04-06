@@ -12,8 +12,10 @@ class MovieList extends Model
     protected $fillable = [
         'name',
         'description',
-        'cover_image',
-        'user_id'
+        'poster_image',
+        'user_id',
+        'watchlist',
+        'public',
     ];
 
     public function user()
@@ -24,5 +26,10 @@ class MovieList extends Model
     public function movies()
     {
         return $this->belongsToMany(Movie::class, 'list_movies');
+    }
+
+    public function likedByUsers()
+    {
+        return $this->belongsToMany(User::class, 'user_movie_list_likes');
     }
 }

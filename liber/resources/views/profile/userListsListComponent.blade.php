@@ -1,11 +1,14 @@
 <div class="row">
-
-    <div class="d-flex justify-content-end mb-3">
-        <button class="btn-auth" data-bs-toggle="modal"
-                data-bs-target="#newListModal">
-            New list
-        </button>
-    </div>
+    @auth()
+        @if(Auth::user()->id == $user->id)
+        <div class="d-flex justify-content-end mb-3">
+            <button class="btn-auth" data-bs-toggle="modal"
+                    data-bs-target="#newListModal">
+                New list
+            </button>
+        </div>
+        @endif
+    @endauth
     @if(count($lists) == 0)
         <div class="alert alert-info" role="alert">
             <h4>No lists created yet.</h4>
@@ -58,11 +61,20 @@
                         <label for="listImage" class="form-label">Cover Image (optional)</label>
                         <input type="file" class="form-control" id="listImage" name="listImage">
                     </div>
-                    <div class="mb-3">
-                        <input type="checkbox"
-                               id="isPublic" name="isPublic"
-                               value="1">
-                        <label class="form-check-label" for="isPublic">Public</label>
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-3">
+                                <input type="checkbox" id="isPublic" name="isPublic" value="1">
+                                <label class="form-check-label" for="isPublic">Public</label>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="mb-3">
+                                <input type="checkbox" id="isWatchlist" name="isWatchlist" value="1">
+                                <label class="form-check-label" for="isWatchlist">Watchlist</label>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="modal-footer">
