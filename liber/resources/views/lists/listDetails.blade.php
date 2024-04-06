@@ -121,23 +121,36 @@
                     <div class="row gy-4">
                         @foreach($movies as $movie)
                             <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="100">
-                                <div class="listMovieCard">
-
+                                <div class="movieCard">
+                                    <div class="dropdown d-flex justify-content-end">
+                                        <button class="btn" style="border: none;"
+                                                type="button" id="dropdownMenuButton"
+                                                data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="bi bi-three-dots" style="font-size: 22px;"></i>
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <li>
+                                                <a class="dropdown-item"
+                                               href="{{ route('movies.details', ['id' => $movie->id]) }}">
+                                                Go To Movie Page
+                                                </a>
+                                            </li>
+                                            <li>
+                                            @if(Auth::check() && Auth::user()->id == $list->user_id)
+                                                <form action="{{ route('movies.toggleToList', ['idMovie' => $movie->id, 'idList' => $list->id]) }}"
+                                                      method="POST">
+                                                    @csrf
+                                                    <button type="submit" class="dropdown-item">Remove from list</button>
+                                                </form>
+                                            @endif
+                                            </li>
+                                        </ul>
+                                    </div>
                                     <a href="{{ route('movies.details', ['id' => $movie->id]) }}">
-                                        <div class="movieCard">
-                                            <img src="{{$movie->posterURL}}" class="img-fluid" alt="">
-                                            <h4>{{$movie->title}}</h4>
-                                        </div>
+                                        <img src="{{$movie->posterURL}}" class="img-fluid" alt="">
+                                        <h4>{{$movie->title}}</h4>
                                     </a>
-                                    @if(Auth::check() && Auth::user()->id == $list->user_id)
-                                        <form action="{{ route('movies.toggleToList', ['idMovie' => $movie->id, 'idList' => $list->id]) }}"
-                                              method="POST">
-                                            @csrf
-                                            <button type="submit" class="btn btn-danger remove-movie-button">Remove from list</button>
-                                        </form>
-                                    @endif
                                 </div>
-
                             </div>
                         @endforeach
                     </div>
