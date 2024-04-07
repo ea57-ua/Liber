@@ -23,6 +23,12 @@
                              style="font-size: 24px">
                             <i class="bi bi-heart me-2" title="List likes"></i>
                             <strong>{{$likesCount}}</strong>
+                            @if($list->watchlist)
+                                <i class="bi bi-list-check ms-5"
+                                   title="Watch-list"
+                                   style="font-size: 35px;">
+                                </i>
+                            @endif
                         </div>
                     @endif
                 </div>
@@ -140,14 +146,36 @@
                                                 <form action="{{ route('movies.toggleToList', ['idMovie' => $movie->id, 'idList' => $list->id]) }}"
                                                       method="POST">
                                                     @csrf
-                                                    <button type="submit" class="dropdown-item">Remove from list</button>
+                                                    <button type="submit" class="dropdown-item">
+                                                        @if($list->watchlist)
+                                                            Remove from watchlist
+                                                        @else
+                                                            Remove from list
+                                                        @endif
+                                                    </button>
                                                 </form>
+
+                                                @if($list->watchlist)
+                                                    <form action="{{ route('movies.watched', ['id' => $movie->id]) }}"
+                                                          method="POST">
+                                                        @csrf
+                                                        <button type="submit" class="dropdown-item">
+                                                            {{ $creator->watchedMovies()->where('movie_id', $movie->id)->exists()
+                                                            ? 'Mark as Unwatched' : 'Mark as Watched'  }}
+                                                        </button>
+                                                    </form>
+                                                @endif
                                             @endif
                                             </li>
                                         </ul>
                                     </div>
-                                    <a href="{{ route('movies.details', ['id' => $movie->id]) }}">
-                                        <img src="{{$movie->posterURL}}" class="img-fluid" alt="">
+                                    <a href="{{ route('movies.details', ['id' => $movie->id]) }}"
+                                        style="position: relative;">
+                                        <img src="{{$movie->posterURL}}" class="img-fluid" alt="Movie poster">
+                                        @if($creator->watchedMovies()->where('movie_id', $movie->id)->exists())
+                                            <i class="bi bi-check-circle-fill"
+                                               style="position: absolute; top: -65%; right: 5%;font-size: 30px"></i>
+                                        @endif
                                         <h4>{{$movie->title}}</h4>
                                     </a>
                                 </div>
