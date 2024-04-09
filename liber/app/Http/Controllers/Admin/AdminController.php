@@ -53,4 +53,13 @@ class AdminController extends Controller {
                 'topMovies' => $topMovies
             ]);
     }
+
+    public function showCriticApplications(){
+        $admin = auth()->user();
+
+        return view('admin.criticApplications',
+            [
+                'admin' => $admin,
+            ]);
+    }
 }

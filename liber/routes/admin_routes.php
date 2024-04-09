@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('admin')->prefix('/admin')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');
+    Route::get('/applications', [AdminController::class, 'showCriticApplications'])->name('admin.applications');
 
     Route::prefix('/users')->group(function () {
         Route::get('/', [AdminUserController::class, 'showUsersAdminPanel'])->name('admin.users');
