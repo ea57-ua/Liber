@@ -98,5 +98,6 @@ Route::get('auth/google', [SocialController::class, 'googleRedirect'])->name('lo
 Route::get('auth/google/callback', [SocialController::class, 'googleLoginOrRegister']);
 
 require __DIR__.'/auth.php';
+require __DIR__.'/admin_routes.php';
 
 Auth::routes();
