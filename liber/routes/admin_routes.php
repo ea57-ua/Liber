@@ -6,8 +6,8 @@ use App\Http\Controllers\Admin\AdminController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::prefix('/admin')->group(function () {
-    Route::get('/', [AdminController::class, 'index'])->name('admin');
+Route::middleware('admin')->prefix('/admin')->group(function () {
+    Route::get('/', [AdminController::class, 'index'])->name('admin.dashboard');
 
     Route::prefix('/users')->group(function () {
         Route::get('/', [AdminUserController::class, 'showUsersAdminPanel'])->name('admin.users');

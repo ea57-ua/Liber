@@ -30,6 +30,11 @@
                             <li>
                                 <a class="dropdown-item" href="{{ route('profile.edit') }}">Profile</a>
                             </li>
+                            @if(Auth::user()->admin == true)
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('admin.dashboard') }}">Liber Admin</a>
+                                </li>
+                            @endif
                             <li>
                                 <div>
                                     <form method="POST" action="{{ route('logout') }}">
