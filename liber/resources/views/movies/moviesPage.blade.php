@@ -15,12 +15,12 @@
         <div class="row">
             <div class="col-12 col-md-12 col-lg-12">
                 <div class="d-flex justify-content-center align-items-center">
-                    <form class="d-flex flex-column flex-md-row search-movies movie-search-form"
+                    <form class="d-flex flex-column flex-lg-row search-movies movie-search-form"
                       action="{{route('moviesPage')}}"
                       method="GET">
                     <input type="text" name="movie-title" placeholder="Movie Title"
                            class="search-input title-input mb-2 mb-lg-0" value="{{request()->query('movie-title')}}">
-                    <select name="genre" class="search-select mb-2 mb-md-0">
+                    <select name="genre" class="search-select mb-2 mb-lg-0">
                         <option value="">Genre</option>
                         @foreach($genres as $genre)
                             <option value="{{$genre->id}}"
@@ -29,7 +29,7 @@
                             </option>
                         @endforeach
                     </select>
-                    <select name="streaming_service" class="search-select mb-2 mb-md-0">
+                    <select name="streaming_service" class="search-select mb-2 mb-lg-0">
                         <option value="">Year</option>
                         @foreach($years as $year)
                             <option value="{{ $year }}"
@@ -38,7 +38,7 @@
                             </option>
                         @endforeach
                     </select>
-                    <select name="country" class="search-select mb-2 mb-md-0">
+                    <select name="country" class="search-select mb-2 mb-lg-0">
                         <option value="">Country</option>
                         @foreach($countries as $country)
                             <option value="{{ $country->id }}"
@@ -47,7 +47,7 @@
                             </option>
                         @endforeach
                     </select>
-                    <select name="streaming_service" class="search-select mb-2 mb-md-0">
+                    <select name="streaming_service" class="search-select mb-2 mb-lg-0">
                         <option value="">Streaming Service</option>
                         @foreach($streamingServices as $service)
                             <option value="{{ $service->id }}"
@@ -67,6 +67,16 @@
 
     <div class="container" data-aos="fade-up">
         <div class="row gy-4">
+            @if($movies->isEmpty())
+                <div class="col-12 d-flex justify-content-center align-items-center"
+                     style="height: 20vh;">
+                    <div class="text-center">
+                        <h2 class="display-4">No movies found</h2>
+                        <p class="lead">Try adjusting your search parameters.</p>
+                    </div>
+                </div>
+            @endif
+
             @foreach($movies as $movie)
                 <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="100">
                     <a href="{{ route('movies.details', ['id' => $movie->id]) }}">
