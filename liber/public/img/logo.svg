@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="100mm"
+   height="100mm"
+   viewBox="0 0 100 100"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   sodipodi:docname="logoerik.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#cccccc"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="1"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.82760809"
+     inkscape:cx="305.70025"
+     inkscape:cy="444.65491"
+     inkscape:window-width="1920"
+     inkscape:window-height="1049"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2" />
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g1575"
+       transform="matrix(0.8658961,0,0,0.8658961,-35.812188,-32.269081)">
+      <rect
+         style="fill:#00a995;fill-opacity:1;stroke-width:0.279652"
+         id="rect111"
+         width="100"
+         height="100"
+         x="49.102177"
+         y="45.010338"
+         inkscape:transform-center-y="1.4184465"
+         ry="25.886644" />
+      <g
+         id="g2626">
+        <rect
+           style="fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+           id="rect2617"
+           width="16.980043"
+           height="59.215755"
+           x="76.602173"
+           y="65.402458"
+           ry="0.8804425" />
+        <rect
+           style="fill:#ffffff;fill-opacity:1;stroke-width:0.230648"
+           id="rect2621"
+           width="16.980043"
+           height="45.000004"
+           x="107.63818"
+           y="-121.60218"
+           ry="0.66907728"
+           transform="rotate(90)" />
+      </g>
+    </g>
+  </g>
+</svg>

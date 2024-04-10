@@ -1,5 +1,5 @@
 <div class="row">
-    @if(auth()->user()->critic == true)
+    @if(Auth::check() && auth()->user()->critic == true)
         <div class="container mt-3">
             <table class="table table-striped table-responsive table-ratings">
                 <thead class="thead-dark">

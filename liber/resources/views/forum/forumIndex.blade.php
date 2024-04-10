@@ -11,6 +11,7 @@
     <br>
 
     <div class="container mt-5">
+        @auth()
         <div class="row justify-content-center">
             <div class="col-12 col-md-10 col-lg-10">
                 <div id="postError" class="alert alert-danger"
@@ -65,6 +66,7 @@
                 </form>
             </div>
         </div>
+        @endauth
 
         <section id="testimonials" class="testimonials">
             <div class="container" data-aos="fade-up">
@@ -87,17 +89,16 @@
                                         </div>
 
                                         <div class="dropdown clickable-item">
+                                            @auth()
                                             <button class="btn clickable-item"
                                                     type="button" id="dropdownMenuButton"
                                                     data-bs-toggle="dropdown" aria-expanded="false"
                                                     style="border: none;">
                                                 <i class="bi bi-three-dots clickable-item" style="font-size: 28px;"></i>
                                             </button>
+                                            @endauth
                                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                 @if(Auth::check() && Auth::user()->id == $post->user->id)
-                                                    <li>
-                                                        <a class="dropdown-item navbarDropDownButton forum-post-options clickable-item"
-                                                           href="#">Edit</a></li>
                                                     <li>
                                                         <button type="button"
                                                                 class="btn navbarDropDownButton forum-post-options clickable-item"
