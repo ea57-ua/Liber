@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
+use App\Models\CriticRequest;
 use App\Models\Movie;
 use App\Models\MovieList;
 use App\Models\Post;
@@ -56,10 +57,12 @@ class AdminController extends Controller {
 
     public function showCriticApplications(){
         $admin = auth()->user();
+        $requests = CriticRequest::paginate(10);
 
         return view('admin.criticApplications',
             [
                 'admin' => $admin,
+                'requests' => $requests,
             ]);
     }
 }
