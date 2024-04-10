@@ -3493,3 +3493,41 @@ p .text-primary-strong {
     background-size: cover;
     height: 460px;
 }
+
+.error-404 {
+    padding: 30px;
+}
+
+.error-404 h1 {
+    font-size: 180px;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: 0;
+    line-height: 150px;
+}
+
+.error-404 h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #012970;
+    margin-bottom: 30px;
+}
+
+.error-404 .btn {
+    background: var(--color-primary);
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 8px 30px;
+}
+
+.error-404 .btn:hover {
+    background: #08736d;
+    font-weight: bolder;
+}
+
+@media (min-width: 992px) {
+    .error-404 img {
+        max-width: 50%;
+    }
+}
