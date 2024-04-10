@@ -2575,6 +2575,7 @@ section {
     background-color: var(--color-primary);
     padding: 50px 0;
     color: white;
+    width: 100%;
 }
 
 .footer .footer-info .logo {
@@ -2844,7 +2845,6 @@ section {
 }
 
 .movie-search-form {
-    padding: 10px 100px;
     font-size: large;
 }
 

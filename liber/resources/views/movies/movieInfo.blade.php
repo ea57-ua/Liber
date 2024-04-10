@@ -412,6 +412,8 @@
                 <div class="swiper-button-next"></div>
             </div>
     </section>
+
+    </div>
 @endsection
 
 @push('scripts')
