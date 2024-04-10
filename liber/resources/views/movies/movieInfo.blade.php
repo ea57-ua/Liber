@@ -96,13 +96,25 @@
                     <div class="row">
                         <div class="col-sm-12 col-md-6 d-flex justify-content-center">
                             <div class="movie-details-text d-flex flex-column align-items-center">
-                                <p class="movie-ratings-text">{{$averageCritics}}/10</p>
+                                <p class="movie-ratings-text">
+                                    @if($averageCritics == 0)
+                                        No ratings yet
+                                    @else
+                                        {{$averageCritics}}/10
+                                    @endif
+                                </p>
                                 <p class="movie-rating-legend">Critics average</p>
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-6 d-flex justify-content-center">
                             <div class="movie-details-text d-flex flex-column align-items-center">
-                                <p class="movie-ratings-text">{{$globalAverage}}/10</p>
+                                <p class="movie-ratings-text">
+                                    @if($globalAverage == 0)
+                                        No ratings yet
+                                    @else
+                                        {{$globalAverage}}/10
+                                    @endif
+                                </p>
                                 <p class="movie-rating-legend">Global average</p>
                             </div>
                         </div>
