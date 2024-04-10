@@ -193,100 +193,12 @@ section {
 }
 
 /*--------------------------------------------------------------
-# Preloader
---------------------------------------------------------------*/
-#preloader {
-    position: fixed;
-    inset: 0;
-    z-index: 999999;
-    overflow: hidden;
-    background: #fff;
-    transition: all 0.6s ease-out;
-}
-
-#preloader:before {
-    content: "";
-    position: fixed;
-    top: calc(50% - 30px);
-    left: calc(50% - 30px);
-    border: 6px solid #fff;
-    border-color: var(--color-primary) transparent var(--color-primary) transparent;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    animation: animate-preloader 1.5s linear infinite;
-}
-
-@keyframes animate-preloader {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-/*--------------------------------------------------------------
 # Disable aos animation delay on mobile devices
 --------------------------------------------------------------*/
 @media screen and (max-width: 768px) {
     [data-aos-delay] {
         transition-delay: 0 !important;
     }
-}
-
-/*--------------------------------------------------------------
-# Header
---------------------------------------------------------------*/
-.topbar {
-    background: #00796b;
-    height: 40px;
-    font-size: 14px;
-    transition: all 0.5s;
-    color: #fff;
-    padding: 0;
-}
-
-.topbar .contact-info i {
-    font-style: normal;
-    color: #fff;
-    line-height: 0;
-}
-
-.topbar .contact-info i a,
-.topbar .contact-info i span {
-    padding-left: 5px;
-    color: #fff;
-}
-
-@media (max-width: 575px) {
-
-    .topbar .contact-info i a,
-    .topbar .contact-info i span {
-        font-size: 13px;
-    }
-}
-
-.topbar .contact-info i a {
-    line-height: 0;
-    transition: 0.3s;
-}
-
-.topbar .contact-info i a:hover {
-    color: #fff;
-    text-decoration: underline;
-}
-
-.topbar .social-links a {
-    color: rgba(255, 255, 255, 0.7);
-    line-height: 0;
-    transition: 0.3s;
-    margin-left: 20px;
-}
-
-.topbar .social-links a:hover {
-    color: #fff;
 }
 
 .header {
@@ -374,7 +286,7 @@ section {
         margin-left: 5px;
     }
 
-    .navbar>ul>li>a:before {
+    .navbar>ul>li>a:before{
         content: "";
         position: absolute;
         width: 100%;
@@ -489,6 +401,10 @@ section {
 # Mobile Navigation
 --------------------------------------------------------------*/
 @media (max-width: 1279px) {
+    .navbar-search {
+        margin-bottom: 20px;
+    }
+
     .navbar {
         position: fixed;
         top: 0;

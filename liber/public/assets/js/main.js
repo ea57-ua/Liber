@@ -2,16 +2,6 @@ document.addEventListener('DOMContentLoaded', () => {
     "use strict";
 
     /**
-     * Preloader
-     */
-    const preloader = document.querySelector('#preloader');
-    if (preloader) {
-        window.addEventListener('load', () => {
-            preloader.remove();
-        });
-    }
-
-    /**
      * Sticky Header on Scroll
      */
     const selectHeader = document.querySelector('#header');
@@ -104,14 +94,35 @@ document.addEventListener('DOMContentLoaded', () => {
             if (document.querySelector('.mobile-nav-active')) {
                 event.preventDefault();
                 this.classList.toggle('active');
-                this.nextElementSibling.classList.toggle('dropdown-active');
+                if(this.nextElementSibling) {
+                    this.nextElementSibling.classList.toggle('dropdown-active');
+                }
+
+                let dropDownIndicator = this.querySelector('.dropdown-indicator');
+                if (dropDownIndicator) {
+                    dropDownIndicator.classList.toggle('bi-chevron-up');
+                    dropDownIndicator.classList.toggle('bi-chevron-down');
+                }
+            }
+        })
+    });
+
+    const dropdownMenuButton = document.getElementById('dropdownMenuButton');
+    const userNameDropDown = document.getElementById('userNameDropDown');
+
+    if (dropdownMenuButton) {
+        dropdownMenuButton.addEventListener('click', function(event) {
+            if (document.querySelector('.mobile-nav-active')) {
+                event.preventDefault();
+                this.classList.toggle('active');
+                userNameDropDown.classList.toggle('dropdown-active');
 
                 let dropDownIndicator = this.querySelector('.dropdown-indicator');
                 dropDownIndicator.classList.toggle('bi-chevron-up');
                 dropDownIndicator.classList.toggle('bi-chevron-down');
             }
-        })
-    });
+        });
+    }
 
     /**
      * Initiate glightbox
