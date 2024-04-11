@@ -10,9 +10,7 @@
     <meta content="" name="keywords">
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
-    <!-- TODO: Add favicon -->
-    <link href="assets/img/favicon.png" rel="icon">
-    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <link href="{{asset('/img/adminlogo.webp')}}" rel="icon">
 
     <!-- Google Fonts -->
     <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -32,7 +30,6 @@
 
 <body>
 
-<!-- ======= Header ======= -->
 <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
@@ -40,7 +37,7 @@
             <span class="d-none d-lg-block">LiberAdmin</span>
         </a>
         <i class="bi bi-list toggle-sidebar-btn"></i>
-    </div><!-- End Logo -->
+    </div>
 
 
     <nav class="header-nav ms-auto">
@@ -165,9 +162,7 @@
 <script src="assets/vendor/quill/quill.min.js"></script>
 <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
 <script src="assets/vendor/tinymce/tinymce.min.js"></script>
-
 <script src="{{ asset('assets/js/admin.js') }}"></script>
-
 </body>
 
 </html>

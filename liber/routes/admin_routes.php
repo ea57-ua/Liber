@@ -32,5 +32,30 @@ Route::middleware('admin')->prefix('/admin')->group(function () {
         Route::get('/create', [AdminMovieController::class, 'showCreateMovie'])->name('admin.movies.create');
         Route::post('/create', [AdminMovieController::class, 'createMovie'])->name('admin.movies.create.save');
         Route::get('/{id}', [AdminMovieController::class, 'showMovieDetails'])->name('admin.movies.show');
+        Route::put('/{id}', [AdminMovieController::class, 'updateMovie'])->name('admin.movies.update');
+        Route::get('/{movieId}/removeDirector/{directorId}', [AdminMovieController::class, 'removeDirector'])
+            ->name('admin.movies.removeDirector');
+        Route::get('/{movieId}/addDirector/{directorId}', [AdminMovieController::class, 'addDirector'])
+            ->name('admin.movies.addDirector');
+        Route::get('/movies/{movieId}/searchDirectors', [AdminMovieController::class, 'searchDirectors'])
+            ->name('admin.movies.searchDirectors');
+        Route::get('/{movieId}/removeActor/{actorId}', [AdminMovieController::class, 'removeActor'])
+            ->name('admin.movies.removeActor');
+        Route::get('/{movieId}/addActor/{actorId}', [AdminMovieController::class, 'addActor'])
+            ->name('admin.movies.addActor');
+        Route::get('/{movieId}/searchActors', [AdminMovieController::class, 'searchActors'])
+            ->name('admin.movies.searchActors');
+        Route::put('/{id}/updateGenres', [AdminMovieController::class, 'updateGenres'])
+            ->name('admin.movies.updateGenres');
+        Route::put('/{id}/updateStreamingServices', [AdminMovieController::class, 'updateStreamingServices'])
+            ->name('admin.movies.updateStreamingServices');
+        Route::put('/movies/{id}/updateCountries', [AdminMovieController::class, 'updateCountries'])
+            ->name('admin.movies.updateCountries');
+        Route::get('/{movieId}/searchCountries', [AdminMovieController::class, 'searchCountries'])
+            ->name('admin.movies.searchCountries');
+        Route::get('/{movieId}/removeCountry/{countryId}', [AdminMovieController::class, 'removeCountry'])
+            ->name('admin.movies.removeCountry');
+        Route::get('/{movieId}/addCountry/{countryId}', [AdminMovieController::class, 'addCountry'])
+            ->name('admin.movies.addCountry');
     });
 });
