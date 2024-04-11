@@ -31,13 +31,15 @@ class MovieController extends Controller
 
     public function showCreateMovie(Request $request)
     {
-        return view('admin.movies.createMovieForm');
+        $admin = auth()->user();
+        return view('admin.movies.createMovieForm', ['admin' => $admin]);
     }
 
     public function createMovie(Request $request)
     {
         request()->validate($this->rules);
-        $this->movieService->createMovie($this->getMovieFromRequest($request));
+
+
         return redirect()->route('admin.movies');
     }
 

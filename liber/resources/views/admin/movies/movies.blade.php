@@ -1,14 +1,21 @@
 @extends('layouts.admin')
 @section('content')
 
-    <div class="pagetitle">
-        <h1>Movies</h1>
-        <nav>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
-                <li class="breadcrumb-item active">Movies</li>
-            </ol>
-        </nav>
+    <div class="row align-items-center">
+        <div class="col-md-8">
+            <div class="pagetitle">
+                <h1>Movies</h1>
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Dashboard</a></li>
+                        <li class="breadcrumb-item active">Movies</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="col-md-4 text-end mb-3 d-flex align-items-center justify-content-end">
+            <a href="{{route('admin.movies.create')}}" class="btn btn-lg btn-info">Create movie</a>
+        </div>
     </div>
 
     <section>
@@ -82,10 +89,5 @@
             {{ $movies->links() }}
         </div>
     </section>
-
-
-<a href="{{route('admin.movies.create')}}" class="btn">Create movie</a>
-
-
 
 @endsection
