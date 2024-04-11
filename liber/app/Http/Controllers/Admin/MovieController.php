@@ -29,8 +29,10 @@ class MovieController extends Controller
     }
     public function showMoviesAdminPanel(Request $request)
     {
+        $admin = auth()->user();
         $movies = Movie::paginate(5);
-        return view('admin.movies.movies', ['movies' => $movies]);
+        return view('admin.movies.movies',
+            ['movies' => $movies, 'admin' => $admin]);
     }
 
     public function showCreateMovie(Request $request)
@@ -51,6 +53,13 @@ class MovieController extends Controller
         return redirect()->route('admin.movies');
     }
 
+    public function showMovieDetails($id){
+        $movie = Movie::findOrFail($id);
+        $admin = auth()->user();
+
+        return view('admin.movies.movieDetails',
+            ['movie' => $movie, 'admin' => $admin]);
+    }
     public function getMovieFromRequest(Request $request) : MovieDTO
     {
         $movieDTO = new MovieDTO();

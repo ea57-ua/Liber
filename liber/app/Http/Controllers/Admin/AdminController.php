@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
+use App\Enums\CriticRequestState;
 use App\Http\Controllers\Controller;
 use App\Models\CriticRequest;
 use App\Models\Movie;
@@ -10,6 +11,7 @@ use App\Models\Report;
 use App\Models\Review;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class AdminController extends Controller {
     public function index() {
@@ -64,5 +66,24 @@ class AdminController extends Controller {
                 'admin' => $admin,
                 'requests' => $requests,
             ]);
+    }
+
+    public function updateCriticStatus(Request $request, $id)
+    {
+        $criticApplication = CriticRequest::find($id);
+        $criticApplication->state = $request->input('status');
+        $criticApplication->response = $request->input('decision');
+        $criticApplication->save();
+
+        $requests = CriticRequest::orderByRaw("FIELD(state, 'pending', 'rejected', 'approved')")
+            ->paginate(10);
+
+        if ($request->input('status') == CriticRequestState::Approved->value) {
+            $user = User::findOrFail($criticApplication->user_id);
+            $user->critic = true;
+            $user->save();
+        }
+
+        return redirect()->route('admin.applications')->with('success', 'Status updated successfully');
     }
 }

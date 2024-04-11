@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\CriticRequestState;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
@@ -29,6 +30,8 @@ class ProfileController extends Controller
             $ratings = $request->user()->ratings()->get();
         }
 
+        $criticRequest = $request->user()->criticRequests()->latest()->first();
+
         return view('profile.userProfile', [
             'user' => $request->user(),
             'followersCount' => $followersCount,
@@ -41,6 +44,7 @@ class ProfileController extends Controller
             'isBlocked' => null,
             'reviews' => $reviews,
             'ratings' => $ratings,
+            'criticRequest' => $criticRequest,
         ]);
     }
 
@@ -149,6 +153,7 @@ class ProfileController extends Controller
             'isBlocked' => $isBlocked,
             'reviews' => $reviews,
             'ratings' => $ratings,
+            'criticRequest' => null,
         ]);
     }
 
@@ -174,6 +179,7 @@ class ProfileController extends Controller
             'title' => $request->title,
             'description' => $request->description,
             'file' => $filename,
+            'state' => CriticRequestState::Pending,
         ]);
 
         return back()->with('message', 'Critic status requested successfully');

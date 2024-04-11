@@ -9,13 +9,20 @@ class CriticRequest extends Model
 {
     use HasFactory;
 
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
     protected $table = 'critics_requests';
 
     protected $fillable = [
         'title',
         'description',
         'file',
-        'user_id'
+        'user_id',
+        'state',
+        'response'
     ];
 
     public function user()

@@ -998,7 +998,8 @@ h6 {
 # Profie Page
 --------------------------------------------------------------*/
 .profile .profile-card img {
-    max-width: 120px;
+    width: 100%;
+    border-radius: 30px;
 }
 
 .profile .profile-card h2 {
