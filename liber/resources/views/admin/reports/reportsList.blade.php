@@ -40,7 +40,13 @@
                                 <a href="{{route('users.publicProfile', $report->post->user->id)}}">{{$report->post->user->name}}</a>
                             </td>
                             <td>
-                                <a href="{{route('forum.showPost', $report->post->id)}}">{{ \Illuminate\Support\Str::limit($report->post->text, 50, '...') }}</a>
+                                @if($report->post->trashed())
+                                    {{ \Illuminate\Support\Str::limit($report->post->text, 50, '...') }}
+                                @else
+                                    <a href="{{route('forum.showPost', $report->post->id)}}">
+                                        {{ \Illuminate\Support\Str::limit($report->post->text, 50, '...') }}
+                                    </a>
+                                @endif
                             </td>
                             <td>
                                 @if($report->state == 'pending')
@@ -107,13 +113,24 @@
                                                 <div class="card">
                                                     <div class="card-body">
                                                         <h5 class="card-title">Post</h5>
-                                                        <p class="card-text"><a
-                                                                href="{{route('forum.showPost', $report->post->id)}}">{{ \Illuminate\Support\Str::limit($report->post->text, 50, '...') }}</a>
+                                                        <p class="card-text">
+                                                            @if($report->post->trashed())
+                                                                {{ \Illuminate\Support\Str::limit($report->post->text, 50, '...') }}
+                                                            @else
+                                                                <a href="{{route('forum.showPost', $report->post->id)}}">
+                                                                    {{ \Illuminate\Support\Str::limit($report->post->text, 50, '...') }}
+                                                                </a>
+                                                            @endif
                                                         </p>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-12">
+                                                @if($report->state == 'resolved')
+                                                    <div class="alert alert-success" role="alert">
+                                                        <strong>Resolved</strong>
+                                                    </div>
+                                                @endif
                                                 <form method="POST" id="resolveForm"
                                                       action="{{ route('reports.resolve', $report->id) }}">
                                                     @csrf

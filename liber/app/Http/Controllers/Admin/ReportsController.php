@@ -13,7 +13,12 @@ class ReportsController extends Controller
 {
     public function showReportsAdminPanel(){
         $admin = auth()->user();
-        $reports = Report::paginate(10);
+        $reports = Report::with(['post' => function ($query) {
+            $query->withTrashed();
+        }])
+        ->orderBy('state', 'asc')
+        ->paginate(10);
+
         return view('admin.reports.reportsList',
             ['admin' => $admin,
                 'reports' => $reports]);
@@ -29,20 +34,22 @@ class ReportsController extends Controller
 
         switch ($action) {
             case 'delete_post':
-                Post::destroy($report->post_id);
+                $reportedPost->delete();
                 break;
             case 'block_user':
-                // Block the user
+                $reportedUser->blocked = true;
+                $reportedUser->save();
                 break;
             case 'delete_post_and_block_user':
-                // Delete the post and block the user
+                $reportedPost->delete();
+                $reportedUser->blocked = true;
+                $reportedUser->save();
                 break;
             case 'nothing':
-                // Do nothing
                 break;
         }
-
-        $report->state = ReportState::Resolved;
+        $report->state = ReportState::Resolved->value;
+        $report->save();
         return redirect()->route('admin.reports');
     }
 }
