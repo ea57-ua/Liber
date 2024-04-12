@@ -34,19 +34,6 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="input-year">Year</label>
-                            @if ($errors->has('year'))
-                                @foreach($errors->get('year') as $error)
-                                    <p class="alert alert-danger"> {{ $error }}</p>
-                                @endforeach
-                            @endif
-                            <input id="input-year" name="year" type="number" class="form-control"
-                                   placeholder="Release year" required
-                                   value="{{old('year')}}">
-                            <br>
-                        </div>
-
-                        <div class="form-group">
                             <label for="input-synopsis">Synopsis</label>
                             @if ($errors->has('synopsis'))
                                 @foreach($errors->get('synopsis') as $error)
@@ -56,6 +43,58 @@
                             <textarea id="input-synopsis" name="synopsis" type="text" class="form-control"
                                       placeholder="Synopsis of the movie" required
                             >{{ old('synopsis') }} </textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="input-year">Year</label>
+                            @if ($errors->has('year'))
+                                @foreach($errors->get('year') as $error)
+                                    <p class="alert alert-danger"> {{ $error }}</p>
+                                @endforeach
+                            @endif
+                            <input id="input-year" name="year" type="date" class="form-control"
+                                   placeholder="Release year" required
+                                   value="{{old('year')}}">
+                            <br>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="posterURL">Poster URL</label>
+                            @if ($errors->has('posterURL'))
+                                @foreach($errors->get('posterURL') as $error)
+                                    <p class="alert alert-danger"> {{ $error }}</p>
+                                @endforeach
+                            @endif
+                            <input id="posterURL" name="posterURL" type="text" class="form-control"
+                                   placeholder="Movie's poster's URL" required
+                                   value="{{ old('posterURL') }}">
+                            <br>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="trailerURL">Trailer URL</label>
+                            @if ($errors->has('trailerURL'))
+                                @foreach($errors->get('trailerURL') as $error)
+                                    <p class="alert alert-danger"> {{ $error }}</p>
+                                @endforeach
+                            @endif
+                            <input id="trailerURL" name="trailerURL" type="text" class="form-control"
+                                   placeholder="Movie's trailer link" required
+                                   value="{{ old('trailerURL') }}">
+                            <br>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="backgroundURL">Background image URL</label>
+                            @if ($errors->has('backgroundURL'))
+                                @foreach($errors->get('backgroundURL') as $error)
+                                    <p class="alert alert-danger"> {{ $error }}</p>
+                                @endforeach
+                            @endif
+                            <input id="backgroundURL" name="backgroundURL" type="text" class="form-control"
+                                   placeholder="Movie background image link" required
+                                   value="{{ old('backgroundURL') }}">
+                            <br>
                         </div>
 
                         <div class="text-center">

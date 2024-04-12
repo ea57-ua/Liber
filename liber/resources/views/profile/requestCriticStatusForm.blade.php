@@ -34,6 +34,8 @@
                     <strong style="font-weight: bold;">rejected</strong>.
                     You can apply again.</p>
             </div>
+        @endif
+        @if($criticRequest == null || $criticRequest->state == 'rejected')
 
             <h1 class="text-center display-6"> Request Critic Status </h1>
             <p class="text-center">Welcome to the critic status request page. If you are a <strong class="text-primary-strong">movie critic</strong>,
@@ -66,8 +68,8 @@
                     <button id="criticRequestSubmit" type="submit" class="btn-auth">Request Critic Status</button>
                 </div>
             </form>
-
-        @elseif($criticRequest != null && $criticRequest->state == 'pending')
+        @endif
+        @if($criticRequest != null && $criticRequest->state == 'pending')
             <div class="alert alert-info text-center"
                  style="font-size: 1.5em;">
                 <p>Your request for critic status is

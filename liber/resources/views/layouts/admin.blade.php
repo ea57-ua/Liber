@@ -60,6 +60,17 @@
                     </li>
 
                     <li>
+                        <a class="dropdown-item d-flex align-items-center" href="{{route('welcome')}}">
+                            <i class="bi bi-arrow-return-left"></i>
+                            <span>Public part</span>
+                        </a>
+                    </li>
+
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+
+                    <li>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <button type="submit"

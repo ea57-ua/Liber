@@ -25,12 +25,15 @@ class UserController extends Controller
     }
     public function showUsersAdminPanel(Request $request){
         $users = User::paginate(8);
-        return view('admin.users.users', ['users' => $users]);
+        $admin = $request->user();
+        return view('admin.users.users',
+            ['users' => $users,
+            'admin' => $admin]);
     }
 
     public function destroyUser($id){
         $this->userService->deleteUser($id);
-        return redirect()->route('admin.users.users');
+        return redirect()->route('admin.users');
     }
 
     public function showCreateUser(){
@@ -75,11 +78,6 @@ class UserController extends Controller
 
         $userDto->setAdmin($request->has('admin'));
         return $userDto;
-    }
-
-    public function showUser($id){
-        $user = $this->userService->getUserById($id);
-        return view('admin.users.userDetails', ['user' => $user]);
     }
 
     public function showEditUser($id){

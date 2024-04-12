@@ -37,8 +37,23 @@ class MovieController extends Controller
 
     public function createMovie(Request $request)
     {
-        request()->validate($this->rules);
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'synopsis' => 'required|string',
+            'year' => 'required|date',
+            'posterURL' => 'required|url',
+            'trailerURL' => 'required|url',
+            'backgroundURL' => 'required|url',
+        ]);
 
+        $movie = new Movie();
+        $movie->title = $request->input('title');
+        $movie->synopsis = $request->input('synopsis');
+        $movie->releaseDate = $request->input('year');
+        $movie->posterURL = $request->input('posterURL');
+        $movie->trailer_link = $request->input('trailerURL');
+        $movie->background_image_link = $request->input('backgroundURL');
+        $movie->save();
 
         return redirect()->route('admin.movies');
     }
