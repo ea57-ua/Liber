@@ -77,5 +77,6 @@ Route::middleware('admin')->prefix('/admin')->group(function () {
 
     Route::prefix('/reports')->group(function () {
         Route::get('/', [AdminReportController::class, 'showReportsAdminPanel'])->name('admin.reports');
+        Route::post('/resolve/{id}', [AdminReportController::class, 'resolveReport'])->name('reports.resolve');
     });
 });
