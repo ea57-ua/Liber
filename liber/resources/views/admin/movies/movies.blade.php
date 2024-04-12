@@ -2,7 +2,7 @@
 @section('content')
 
     <div class="row align-items-center">
-        <div class="col-md-8">
+        <div class="col-md-4 col-sm-6">
             <div class="pagetitle">
                 <h1>Movies</h1>
                 <nav>
@@ -13,7 +13,21 @@
                 </nav>
             </div>
         </div>
-        <div class="col-md-4 text-end mb-3 d-flex align-items-center justify-content-end">
+        <div class="col-md-4">
+            <div class="search-bar">
+                <form class="search-form d-flex align-items-center"
+                      method="GET" action="{{route('admin.movies')}}">
+                    <input type="text" name="query"
+                           placeholder="Search movies by title"
+                           title="Enter search keyword">
+                    <button type="submit" title="Search">
+                        <i class="bi bi-search"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-sm-6 text-end mb-3 d-flex align-items-center justify-content-end">
             <a href="{{route('admin.movies.create')}}" class="btn btn-lg btn-info">Create movie</a>
         </div>
     </div>
@@ -55,6 +69,7 @@
                                         </button>
                                     </div>
                                 </div>
+                            </td>
                         </tr>
 
                         <!-- Delete confirmation modal -->

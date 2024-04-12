@@ -119,29 +119,29 @@
 
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{route('admin.applications')}}">
-                <i class="bi bi-person"></i>
+                <i class="bi bi-person-exclamation"></i>
                 <span>Critic applications</span>
             </a>
         </li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="users-profile.html">
-                <i class="bi bi-person"></i>
+            <a class="nav-link collapsed" href="{{route('admin.reports')}}">
+                <i class='bx bxs-report' ></i>
                 <span>Reports</span>
             </a>
         </li>
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="users-profile.html">
-                <i class="bi bi-person"></i>
+            <a class="nav-link collapsed" href="{{route('admin.actors')}}">
+                <i class="bi bi-file-earmark-person"></i>
                 <span>Actors</span>
             </a>
         </li>
 
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="users-profile.html">
-                <i class="bi bi-person"></i>
+            <a class="nav-link collapsed" href="{{route('admin.directors')}}">
+                <i class="bi bi-person-workspace"></i>
                 <span>Directors</span>
             </a>
         </li>

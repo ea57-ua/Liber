@@ -24,7 +24,13 @@ class MovieController extends Controller
     public function showMoviesAdminPanel(Request $request)
     {
         $admin = auth()->user();
-        $movies = Movie::paginate(5);
+        $query = $request->query('query');
+        if ($query) {
+            $movies = Movie::where('title', 'like', '%' . $query . '%')->paginate(10);
+        } else {
+            $movies = Movie::paginate(10);
+        }
+
         return view('admin.movies.movies',
             ['movies' => $movies, 'admin' => $admin]);
     }
