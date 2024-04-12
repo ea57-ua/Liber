@@ -100,4 +100,11 @@ class UserController extends Controller
 
         return redirect()->route('admin.users.users');
     }
+
+    public function toggleBlock($id){
+        $user = $this->userService->getUserById($id);
+        $user->blocked = !$user->blocked;
+        $user->save();
+        return redirect()->route('admin.users');
+    }
 }

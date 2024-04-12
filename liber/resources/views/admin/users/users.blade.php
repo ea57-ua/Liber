@@ -23,6 +23,7 @@
                         <th scope="col">Name</th>
                         <th scope="col">Email</th>
                         <th scope="col">Biography</th>
+                        <th scope="col"></th>
                         <th scope="col">Actions</th>
                     </tr>
                     </thead>
@@ -43,6 +44,11 @@
                             </td>
                             <td>{{$user->email}}</td>
                             <td>{{ \Illuminate\Support\Str::limit($user->biography, 100, '...') }}</td>
+                            <td>
+                                @if($user->blocked)
+                                    <i class='bx bx-block' title="Blocked user" style="font-size: 22px;"></i>
+                                @endif
+                            </td>
                             <td>
                                 <div style="display: flex;">
                                     <div style="margin-right: 10px">
@@ -78,13 +84,22 @@
                                         <div class="row">
                                             <div class="card">
                                                 <div class="card-body pt-3">
-                                                    <a href="{{route('users.publicProfile', $user->id)}}"
-                                                       style="display: flex; align-items: center;">
-                                                        <img src="{{$user->image}}" alt="User photo"
-                                                             style="width: 50px; height: 50px;"
-                                                             class="rounded-5 me-3">
-                                                        <h4><strong>{{$user->name}}</strong></h4>
-                                                    </a>
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <a href="{{route('users.publicProfile', $user->id)}}"
+                                                           style="display: flex; align-items: center;">
+                                                            <img src="{{$user->image}}" alt="User photo"
+                                                                 style="width: 50px; height: 50px;" class="rounded-5 me-3">
+                                                            <h4><strong>{{$user->name}}</strong></h4>
+                                                        </a>
+                                                        <form method="POST"
+                                                              action="{{ route('admin.users.toggleBlock', $user->id) }}">
+                                                            @csrf
+                                                            @method('PUT')
+                                                            <button type="submit" class="btn btn-warning">
+                                                                {{ $user->blocked ? 'Unblock' : 'Block' }}
+                                                            </button>
+                                                        </form>
+                                                    </div>
                                                     <p><strong>Email:</strong>
                                                         <span style="font-size: 1.2em;">
                                                             {{$user->email}}

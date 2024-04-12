@@ -24,6 +24,7 @@ Route::middleware('admin')->prefix('/admin')->group(function () {
         Route::delete('/{id}', [AdminUserController::class, 'destroyUser'])->name('admin.users.destroy');
         Route::get('/create', [AdminUserController::class, 'showCreateUser'])->name('admin.users.create');
         Route::post('/create', [AdminUserController::class, 'createUser'])->name('admin.users.create.save');
+        Route::put('/{id}', [AdminUserController::class, 'toggleBlock'])->name('admin.users.toggleBlock');
     });
 
     Route::prefix('/movies')->group(function () {
