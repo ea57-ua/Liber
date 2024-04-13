@@ -362,6 +362,24 @@
             </section>
         </div>
 
+        <!-- Sección de películas relacionadas-->
+        <section id="movies" class="movies">
+            <div data-aos="fade-up">
+                <div class="row gy-4">
+                    @foreach($relatesMovies as $movie)
+                        <div class="col-xl-3 col-md-6 d-flex" data-aos="fade-up" data-aos-delay="100">
+                            <a href="{{ route('movies.details', ['id' => $movie->id]) }}">
+                                <div class="movieCard">
+                                    <img src="{{$movie->posterURL}}" class="img-fluid" alt="">
+                                    <h4>{{$movie->title}}</h4>
+                                </div>
+                            </a>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </section>
+
         <!-- Sección de reseñas -->
         <section id="testimonials" class="testimonials">
             <div class="container" data-aos="fade-up">

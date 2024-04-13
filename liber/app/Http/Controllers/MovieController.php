@@ -8,6 +8,7 @@ use App\Models\Rating;
 use App\Models\Review;
 use App\Services\MoviesService;
 use Illuminate\Http\Request;
+use function Symfony\Component\Translation\t;
 
 class MovieController extends Controller
 {
@@ -60,6 +61,7 @@ class MovieController extends Controller
 
         $actors = $movie->actors()->get();
         $reviews = $movie->reviews()->get();
+        $relatesMovies = $this->moviesService->getRelatesMoviesList($id);
 
         return view('movies.movieInfo',
             ['movie' => $movie, 'averageCritics' => $averageCritics,
@@ -67,7 +69,8 @@ class MovieController extends Controller
                 'numberOfUsersWatched' => $numberOfUsersWatched,
                 'numberOfReviews' => $numberOfReviews, 'userRating' => $userRating,
                 'userReview' => $userReview, 'userMovieLists' => $userMovieLists,
-                'actors' => $actors, 'reviews' => $reviews]);
+                'actors' => $actors, 'reviews' => $reviews,
+                'relatesMovies' => $relatesMovies]);
     }
 
     private function filterMovies($request, $movies) {

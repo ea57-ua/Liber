@@ -31,4 +31,29 @@ class MoviesService{
     public function getStreamingServicesList(){
         return StreamingService::all();
     }
+
+    public function getRelatesMoviesList($id){
+        $movie = Movie::findOrFail($id);
+        $directors = $movie->directors->pluck('id');
+        $genres = $movie->genres->pluck('id');
+
+        $relatedMovies = Movie::where(function ($query) use ($directors, $genres) {
+            $query->whereHas('directors', function ($query) use ($directors) {
+                $query->whereIn('directors.id', $directors);
+            })
+                ->orWhereHas('genres', function ($query) use ($genres) {
+                    $query->whereIn('genres.id', $genres);
+                });
+        })
+        ->where('movies.id', '!=', $id)
+        ->get()->take(6);
+
+        $relatedMovies = $relatedMovies->sortByDesc(function ($relatedMovie) use ($directors, $genres) {
+            $matchingDirectors = $relatedMovie->directors->whereIn('id', $directors)->count();
+            $matchingGenres = $relatedMovie->genres->whereIn('id', $genres)->count();
+            return $matchingDirectors + $matchingGenres;
+        });
+
+        return $relatedMovies;
+    }
 }
