@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Liber - Login form')
+@section('title', 'Liber - Reset password form')
 @section('content')
 
     <section id="stats-counter" class="stats-counter">

@@ -18,7 +18,7 @@ class SocialController extends Controller
     {
         $user = Socialite::driver('google')->stateless()->user();
         $this->_registerOrLoginGoogleUser($user);
-        return redirect()->route('dashboard');
+        return redirect()->route('dashboard'); // TODO revisar
     }
 
     protected function _registerOrLoginGoogleUser($incomingUser)
