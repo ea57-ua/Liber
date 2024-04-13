@@ -84,6 +84,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/users/{id}/follow', [UserController::class, 'follow'])->name('users.follow');
     Route::post('/users/{id}/unfollow', [UserController::class, 'unfollow'])->name('users.unfollow');
     Route::put('/users/{id}/blockUnblock', [UserController::class, 'blockUnblock'])->name('users.blockUnblock');
+    Route::post('/searchGenres', [ProfileController::class, 'searchGenres'])->name('movies.searchGenres');
+    Route::put('/updateFavGenres', [ProfileController::class, 'updateFavGenres'])->name('profile.updateFavGenres');
+    Route::delete('/deleteFavGenre', [ProfileController::class, 'deleteFavGenre'])->name('profile.deleteFavGenre');
 });
 
 Route::get('users/{id}', [ProfileController::class, 'showPublicUserInfo'])->name('users.publicProfile');

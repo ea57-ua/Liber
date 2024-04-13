@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\CriticRequestState;
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\Genre;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -183,5 +184,22 @@ class ProfileController extends Controller
         ]);
 
         return back()->with('message', 'Critic status requested successfully');
+    }
+
+    public function searchGenres(Request $request){
+        $genres = Genre::where('name', 'like', '%' . $request->input('search') . '%')->get();
+        return response()->json($genres);
+    }
+
+    public function updateFavGenres(Request $request){
+        $user = Auth::user();
+        $user->favoriteGenres()->syncWithoutDetaching($request->input('genres', []));
+        return back()->with('message', 'Favorite genres updated successfully');
+    }
+
+    public function deleteFavGenre(Request $request){
+        $user = Auth::user();
+        $user->favoriteGenres()->detach($request->input('genre'));
+        return back()->with('message', 'Favorite genre deleted successfully');
     }
 }

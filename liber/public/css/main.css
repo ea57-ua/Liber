@@ -3447,3 +3447,41 @@ p .text-primary-strong {
         max-width: 50%;
     }
 }
+
+.btn-genre{
+    background: #009EAE;
+    color: #FFFFFF;
+}
+
+.btn-genre:hover{
+    background: #007D86;
+    font-weight: bold;
+}
+
+.genreSearch {
+    width: 100%;
+}
+
+#genreSearch {
+    border-radius: 10px 0px 0px 10px;
+    border: 1px solid #ced4da;
+    padding: 10px;
+    font-size: 1.2em;
+}
+
+#searchButton {
+    border-radius: 0px 10px 10px 0px;
+    border: 1px solid #ced4da;
+    background-color: #6c757d;
+    color: white;
+    cursor: pointer;
+    padding: 12px 10px;
+}
+
+#searchButton:hover {
+    background-color: #3FBC91;
+}
+
+#searchButton i {
+    font-size: 1.5em;
+}

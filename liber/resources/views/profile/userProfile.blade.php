@@ -234,6 +234,12 @@
                     <a class="nav-link" data-bs-toggle="tab" href="#criticStatusZone">Critics</a>
                 </li>
             @endif
+
+            @if(auth()->check() && auth()->user()->email == $user->email)
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#favsZone">Favourites</a>
+                </li>
+            @endif
         </ul>
 
         <div class="tab-content mb-3">
@@ -265,6 +271,12 @@
             <div class="tab-pane container" id="userFollowersList">
                 <div class="row mt-2">
                     @include('profile.userFollowersList')
+                </div>
+            </div>
+
+            <div class="tab-pane container" id="favsZone">
+                <div class="row mt-2">
+                    @include('profile.favouritesSection')
                 </div>
             </div>
 
