@@ -1,4 +1,5 @@
 @extends('layouts.admin')
+@section('title', 'LiberAdmin - Actor Form')
 @section('content')
 
     <div class="pagetitle">

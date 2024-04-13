@@ -1,5 +1,5 @@
 @extends('layouts.admin')
-
+@section('title', 'LiberAdmin - Movie Information')
 @section('content')
     <div class="pagetitle">
         <h1>Movie Details</h1>

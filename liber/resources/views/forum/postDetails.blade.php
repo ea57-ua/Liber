@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Liber - Forum')
+@section('title', 'Liber - Forum Post Details')
 @section('content')
     <br>
     <section id="testimonials" class="testimonials">

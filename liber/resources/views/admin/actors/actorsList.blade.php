@@ -1,4 +1,5 @@
 @extends('layouts.admin')
+@section('title', 'LiberAdmin - Actors List')
 @section('content')
 
     <div class="row align-items-center">

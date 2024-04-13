@@ -38,7 +38,7 @@ class AdminController extends Controller {
             ->limit(10)
             ->get();
 
-        return view('admin_panel',
+        return view('admin.admin_panel',
             [
                 'admin' => $admin,
                 'totalUsers' => $totalUsers,

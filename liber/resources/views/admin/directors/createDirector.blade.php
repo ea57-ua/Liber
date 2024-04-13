@@ -1,4 +1,5 @@
 @extends('layouts.admin')
+@section('title', 'LiberAdmin - Directors Form')
 @section('content')
 
     <div class="pagetitle">

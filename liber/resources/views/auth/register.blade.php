@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Liber - Login form')
+@section('title', 'Liber - Register form')
 @section('content')
     <section id="stats-counter" class="stats-counter">
         <div class="container" data-aos="fade-up">

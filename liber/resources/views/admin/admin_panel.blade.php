@@ -1,4 +1,5 @@
 @extends('layouts.admin')
+@section('title', 'Liber Admin - Dashboard')
 @section('content')
 
 

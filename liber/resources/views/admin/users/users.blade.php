@@ -1,4 +1,5 @@
 @extends('layouts.admin')
+@section('title', 'LiberAdmin - Users List')
 @section('content')
     <div class="pagetitle">
         <h1>Registered Users</h1>

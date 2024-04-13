@@ -1,4 +1,5 @@
 @extends('layouts.admin')
+@section('title', 'LiberAdmin - User Edit')
 @section('content')
     <div class="container">
         <h1 class="display-3">Edit user</h1>

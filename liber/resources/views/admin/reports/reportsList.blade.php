@@ -1,4 +1,5 @@
 @extends('layouts.admin')
+@section('title', 'LiberAdmin - Reports List')
 @section('content')
 
     <div class="pagetitle">
