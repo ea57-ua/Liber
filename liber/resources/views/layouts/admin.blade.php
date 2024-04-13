@@ -18,12 +18,7 @@
         href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
         rel="stylesheet">
 
-    <!-- Vendor CSS Files TODO: check dependencies -->
     <link href="{{ asset('assets/vendor/bootstrap-icons/bootstrap-icons.css') }}" rel="stylesheet">
-    <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
-    <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
-    <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-    <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
     <link href="{{ asset('assets/vendor/boxicons/css/boxicons.min.css')}}" rel="stylesheet">
     <link href="{{ asset('css/admin/adminLayout.css') }}" rel="stylesheet">
 </head>
@@ -87,9 +82,8 @@
         </ul>
     </nav>
 
-</header><!-- End Header -->
+</header>
 
-<!-- ======= Sidebar ======= -->
 <aside id="sidebar" class="sidebar">
 
     <ul class="sidebar-nav" id="sidebar-nav">
@@ -99,7 +93,7 @@
                 <i class="bi bi-grid"></i>
                 <span>Dashboard</span>
             </a>
-        </li><!-- End Dashboard Nav -->
+        </li>
 
         <li class="nav-heading">Pages</li>
 
@@ -148,15 +142,14 @@
 
     </ul>
 
-</aside><!-- End Sidebar-->
+</aside>
 
 <main id="main" class="main">
 
    @yield('content')
 
-</main><!-- End #main -->
+</main>
 
-<!-- ======= Footer ======= -->
 <footer id="footer" class="footer">
     <div class="copyright">
          <strong><span>Liber</span></strong>
@@ -168,11 +161,6 @@
 
 <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
         class="bi bi-arrow-up-short"></i></a>
-
-<!-- Vendor JS Files -->
-<script src="assets/vendor/quill/quill.min.js"></script>
-<script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
-<script src="assets/vendor/tinymce/tinymce.min.js"></script>
 <script src="{{ asset('assets/js/admin.js') }}"></script>
 </body>
 
