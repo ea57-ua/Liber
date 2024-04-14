@@ -2,7 +2,7 @@
 @section('title', 'Liber - Forum Post Details')
 @section('content')
     <br>
-    <section id="testimonials" class="testimonials">
+    <section id="testimonials" class="testimonials mb-5">
         <div class="container" data-aos="fade-up">
             <div class="row justify-content-center">
                 <div class="col-12 col-md-10 col-lg-10">
@@ -31,9 +31,6 @@
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                         @if(Auth::check() && Auth::user()->id == $post->user->id)
                                             <li>
-                                                <a class="dropdown-item navbarDropDownButton forum-post-options clickable-item"
-                                                   href="#">Edit</a></li>
-                                            <li>
                                                 <button type="button"
                                                         class="btn navbarDropDownButton forum-post-options clickable-item"
                                                         data-bs-toggle="modal"
@@ -42,10 +39,23 @@
                                                     Delete
                                                 </button>
                                             </li>
-                                            <li>
-                                                <a class="dropdown-item navbarDropDownButton forum-post-options clickable-item"
-                                                   href="#">Report</a></li>
                                         @endif
+                                        @if(Auth::user()->admin)
+                                            <li>
+                                                <button type="button"
+                                                        class="btn navbarDropDownButton forum-post-options clickable-item"
+                                                        data-bs-toggle="modal"
+                                                        data-bs-target="#deletePostModal"
+                                                        data-post-id="{{ $post->id }}"
+                                                        style="color: red">
+                                                    Admin delete
+                                                </button>
+                                            </li>
+                                        @endif
+                                        <li>
+                                            <a class="dropdown-item navbarDropDownButton forum-post-options clickable-item"
+                                               href="#">Report</a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -185,7 +195,7 @@
                             @endforeach
 
 
-                        @auth  <!-- Formulario de respuesta -->
+                            @auth  <!-- Formulario de respuesta -->
                             <form method="POST" action="{{ route('forum.replyPost', $post->id) }}"
                                       class="mt-3">
                                     @csrf
@@ -203,6 +213,32 @@
                                     </div>
                                 </form>
                             @endauth
+
+                            <!-- Delete post modal -->
+                            <div class="modal fade"
+                                 id="deletePostModal" tabindex="-1" role="dialog"
+                                 aria-labelledby="deletePostModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h3 class="modal-title" id="deletePostModalLabel">Delete Post</h3>
+                                            <button type="button" class="btn-close bg-light" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body" style="font-size: 20px;">
+                                            Are you sure you want to delete this post?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn-auth" data-bs-dismiss="modal">Cancel</button>
+                                            <form id="deletePostForm" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn-auth">Delete</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -277,5 +313,14 @@
                 document.execCommand('copy');
             });
         }
+
+        var deletePostModal = document.getElementById('deletePostModal');
+        deletePostModal.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget;
+            var postId = button.getAttribute('data-post-id');
+
+            var deletePostForm = deletePostModal.querySelector('#deletePostForm');
+            deletePostForm.setAttribute('action', '/forum/' + postId + '/delete');
+        });
     </script>
 @endpush
