@@ -67,19 +67,16 @@ class ForumController extends Controller
     {
         $post = Post::find($id);
 
-        // Check if the authenticated user is the author of the post
-        if (Auth::user()->id !== $post->user_id) {
+        // Check if the authenticated user is the author of the post or an admin
+        if ((Auth::user()->id !== $post->user_id) && !Auth::user()->admin ){
             return redirect()->back()->with('error', 'You are not authorized to delete this post.');
         }
 
         for ($i = 1; $i <= 4; $i++) {
             $imagePath = $post->{'image'.$i};
             if ($imagePath) {
-                // Extract the file name from the image URL
                 $fileName = basename($imagePath);
-                // Build the full file path
                 $filePath = public_path('images/post_images/' . $fileName);
-                // Check if the file exists and delete it
                 if (file_exists($filePath)) {
                     unlink($filePath);
                 }

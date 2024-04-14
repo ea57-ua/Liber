@@ -98,7 +98,8 @@
                                             </button>
                                             @endauth
                                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                @if(Auth::check() && Auth::user()->id == $post->user->id)
+                                                @if(Auth::check())
+                                                    @if(Auth::user()->id == $post->user->id)
                                                     <li>
                                                         <button type="button"
                                                                 class="btn navbarDropDownButton forum-post-options clickable-item"
@@ -108,9 +109,25 @@
                                                             Delete
                                                         </button>
                                                     </li>
+                                                    @else
                                                     <li>
                                                         <a class="dropdown-item navbarDropDownButton forum-post-options clickable-item"
-                                                           href="#">Report</a></li>
+                                                           href="#">Report</a>
+                                                    </li>
+                                                    @endif
+
+                                                    @if(Auth::user()->admin)
+                                                        <li>
+                                                            <button type="button"
+                                                                    class="btn navbarDropDownButton forum-post-options clickable-item"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#deletePostModal"
+                                                                    data-post-id="{{ $post->id }}"
+                                                                    style="color: red">
+                                                                Admin delete
+                                                            </button>
+                                                        </li>
+                                                    @endif
                                                 @endif
                                             </ul>
                                         </div>
@@ -233,8 +250,49 @@
                                                     {!! \Illuminate\Support\Str::markdown($reply->text) !!}
                                                 </span>
                                             </div>
-                                            <div class="col-auto d-flex align-items-center align-middle">
-                                                @if (Auth::user() && $reply->likes->contains(Auth::user()->id))
+                                            <div class="col-auto d-flex flex-column align-items-center align-middle">
+                                                @auth()
+                                                <div class="dropdown">
+                                                    <button class="btn clickable-item"
+                                                            type="button"
+                                                            id="dropdownMenuButton"
+                                                            data-bs-toggle="dropdown" aria-expanded="false"
+                                                            style="border:none;">
+                                                        <i class="bi bi-three-dots clickable-item"
+                                                           style="font-size: 28px;">
+                                                        </i>
+                                                    </button>
+                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                        <li><a class="dropdown-item navbarDropDownButton forum-post-options" href="#">Report</a></li>
+                                                        @if(Auth::user()->id == $reply->user->id)
+                                                            <li>
+                                                                <button type="button"
+                                                                        class="btn navbarDropDownButton forum-post-options clickable-item"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#deletePostModal"
+                                                                        data-post-id="{{ $reply->id }}">
+                                                                    Delete
+                                                                </button>
+                                                            </li>
+                                                        @endif
+                                                        @if(Auth::user()->admin)
+                                                            <li>
+                                                                <button type="button"
+                                                                        class="btn navbarDropDownButton forum-post-options clickable-item"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#deletePostModal"
+                                                                        data-post-id="{{ $reply->id }}"
+                                                                        style="color: red">
+                                                                    Admin delete
+                                                                </button>
+                                                            </li>
+                                                        @endif
+                                                        <li><a class="dropdown-item navbarDropDownButton forum-post-options" href="#">Show as post</a></li>
+                                                    </ul>
+                                                </div>
+                                                @endauth
+                                                <div>
+                                                    @if (Auth::user() && $reply->likes->contains(Auth::user()->id))
                                                     <i class="bi bi-heart-fill like-button reply-like-button liked clickable-item"
                                                        data-post-id="{{ $reply->id }}"
                                                        title="Unlike this reply"></i>
@@ -248,6 +306,7 @@
                                                         {{ $reply->likes->count() > 0 ? $reply->likes->count() : '' }}
                                                     </span>
                                                 @endif
+                                                </div>
                                             </div>
                                         </div>
                                     @endforeach
@@ -454,8 +513,8 @@
 
             var deletePostModal = document.getElementById('deletePostModal');
             deletePostModal.addEventListener('show.bs.modal', function (event) {
-                var button = event.relatedTarget; // Button that triggered the modal
-                var postId = button.getAttribute('data-post-id'); // Extract info from data-* attributes
+                var button = event.relatedTarget;
+                var postId = button.getAttribute('data-post-id');
 
                 var deletePostForm = deletePostModal.querySelector('#deletePostForm');
                 deletePostForm.setAttribute('action', '/forum/' + postId + '/delete');
