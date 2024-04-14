@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\Report;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -129,4 +130,26 @@ class ForumController extends Controller
 
         return view('forum.postDetails', ['post' => $post]);
     }
+
+    public function reportPost(Request $request, $id)
+    {
+        $post = Post::find($id);
+
+        // Validate the request data
+        $request->validate([
+            'reason' => 'required',
+            'category' => 'required',
+        ]);
+
+        // Create a new report
+        $report = new Report();
+        $report->reason = $request->input('reason');
+        $report->category = $request->input('category');
+        $report->post_id = $post->id;
+        $report->user_id = Auth::user()->id;
+        $report->save();
+
+        return redirect()->back()->with('success', 'Post reported successfully.');
+    }
+
 }

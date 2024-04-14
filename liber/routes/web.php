@@ -71,6 +71,8 @@ Route::get('/forum/{id}', [ForumController::class, 'showPost'])
     ->name('forum.showPost');
 Route::get('/forum/{id}/share', [SocialShareButtonsController::class, 'shareForumPost'])
     ->name('forum.share');
+Route::post('/forum/{id}/report', [ForumController::class, 'reportPost'])
+    ->name('forum.reportPost');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'showUserInfo'])

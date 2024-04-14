@@ -111,8 +111,13 @@
                                                     </li>
                                                     @else
                                                     <li>
-                                                        <a class="dropdown-item navbarDropDownButton forum-post-options clickable-item"
-                                                           href="#">Report</a>
+                                                        <button type="button"
+                                                                class="dropdown-item navbarDropDownButton forum-post-options clickable-item"
+                                                                data-bs-toggle="modal"
+                                                                data-bs-target="#reportPostModal{{$post->id}}"
+                                                                data-post-id="{{ $post->id }}">
+                                                            Report
+                                                        </button>
                                                     </li>
                                                     @endif
 
@@ -121,7 +126,7 @@
                                                             <button type="button"
                                                                     class="btn navbarDropDownButton forum-post-options clickable-item"
                                                                     data-bs-toggle="modal"
-                                                                    data-bs-target="#deletePostModal"
+                                                                    data-bs-target="#deletePostModa"
                                                                     data-post-id="{{ $post->id }}"
                                                                     style="color: red">
                                                                 Admin delete
@@ -263,7 +268,6 @@
                                                         </i>
                                                     </button>
                                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                        <li><a class="dropdown-item navbarDropDownButton forum-post-options" href="#">Report</a></li>
                                                         @if(Auth::user()->id == $reply->user->id)
                                                             <li>
                                                                 <button type="button"
@@ -287,7 +291,11 @@
                                                                 </button>
                                                             </li>
                                                         @endif
-                                                        <li><a class="dropdown-item navbarDropDownButton forum-post-options" href="#">Show as post</a></li>
+                                                        <li><a class="dropdown-item navbarDropDownButton forum-post-options"
+                                                               href="{{route('forum.showPost', $reply->id)}}">
+                                                                Show as post
+                                                            </a>
+                                                        </li>
                                                     </ul>
                                                 </div>
                                                 @endauth
@@ -335,6 +343,47 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="modal fade" id="reportPostModal{{$post->id}}" tabindex="-1" role="dialog"
+                         aria-labelledby="reportPostModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="reportPostModalLabel">Report Post</h5>
+                                    <button type="button" class="btn-close"
+                                            data-bs-dismiss="modal" aria-label="Close">
+                                    </button>
+                                </div>
+                                <form method="POST" id="reportPostForm"
+                                      action="{{ route('forum.reportPost', $post->id) }}">
+                                    @csrf
+                                    @method('POST')
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="reportReason">Reason</label>
+                                            <textarea class="form-control" id="reportReason" rows="5"
+                                                      name="reason" required></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="reportCategory">Category</label>
+                                            <select class="form-control" id="reportCategory" name="category" required>
+                                                <option value="">Select a category</option>
+                                                <!-- Add your categories here -->
+                                                <option value="spam">Spam</option>
+                                                <option value="harassment">Harassment</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn-auth">Report</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
                 @endforeach
             </div>
         </section>
@@ -361,6 +410,7 @@
             </div>
         </div>
     </div>
+
 
     <!-- Delete post modal -->
     <div class="modal fade"

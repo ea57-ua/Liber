@@ -53,8 +53,12 @@
                                             </li>
                                         @endif
                                         <li>
-                                            <a class="dropdown-item navbarDropDownButton forum-post-options clickable-item"
-                                               href="#">Report</a>
+                                            <button type="button"
+                                                    class="dropdown-item navbarDropDownButton forum-post-options clickable-item"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#reportPostModal">
+                                                Report
+                                            </button>
                                         </li>
                                     </ul>
                                 </div>
@@ -236,6 +240,46 @@
                                                 <button type="submit" class="btn-auth">Delete</button>
                                             </form>
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal fade" id="reportPostModal" tabindex="-1" role="dialog"
+                                 aria-labelledby="reportPostModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="reportPostModalLabel">Report Post</h5>
+                                            <button type="button" class="btn-close"
+                                                    data-bs-dismiss="modal" aria-label="Close">
+                                            </button>
+                                        </div>
+                                        <form method="POST" id="reportPostForm"
+                                              action="{{ route('forum.reportPost', $post->id) }}">
+                                            @csrf
+                                            @method('POST')
+                                            <div class="modal-body">
+                                                <div class="form-group">
+                                                    <label for="reportReason">Reason</label>
+                                                    <textarea class="form-control" id="reportReason" rows="5"
+                                                              name="reason" required></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="reportCategory">Category</label>
+                                                    <select class="form-control" id="reportCategory" name="category" required>
+                                                        <option value="">Select a category</option>
+                                                        <!-- Add your categories here -->
+                                                        <option value="spam">Spam</option>
+                                                        <option value="harassment">Harassment</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn-auth">Report</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
