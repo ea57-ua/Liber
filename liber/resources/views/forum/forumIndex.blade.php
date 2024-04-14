@@ -179,7 +179,38 @@
                                             @endif
                                         </div>
                                         <div class="col text-center">
-                                            <!-- Espacio reservado para futuros elementos -->
+                                            <button id="share-button" class="btn btn-block clickable-item share-button"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#sharePostModal{{$post->id}}"
+                                                    data-post-id="{{ $post->id }}"
+                                                    style="border: none;">
+                                                <i class="bi bi-share clickable-item" title="Share post" style="font-size: 32px;"></i>
+                                            </button>
+                                        </div>
+
+                                        <div class="modal fade clickable-item" id="sharePostModal{{$post->id}}" tabindex="-1"
+                                             aria-labelledby="sharePostModal" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content clickable-item">
+                                                    <div class="modal-header clickable-item">
+                                                        <h5 class="modal-title clickable-item" id="sharePostModalLabel">
+                                                            Share Liber Post</h5>
+                                                        <button type="button" class="btn-close clickable-item" data-bs-dismiss="modal"
+                                                                aria-label="Close">
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body clickable-item">
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" id="post-link" class="form-control clickable-item post-link" readonly>
+                                                            <button class="btn btn-outline-secondary clickable-item copy-post-link-button" type="button"
+                                                                    id="copy-post-link-button">
+                                                                <i class="bi bi-clipboard clickable-item"></i>
+                                                            </button>
+                                                        </div>
+                                                        <div id="share-links-container" class="share-links-container clickable-item"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <hr> <!-- Línea de separación -->
@@ -453,6 +484,69 @@
             });
 
             tribute.attach(document.getElementById('postInput'));
+
+
+            var shareButtons = document.querySelectorAll('.share-button');
+            var copyPostLinkButtons = document.querySelectorAll('.copy-post-link-button');
+
+            shareButtons.forEach(function (shareButton) {
+                shareButton.addEventListener('click', function () {
+                    var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                    var postId = this.getAttribute('data-post-id');
+
+                    fetch('/forum/' + postId + '/share', {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': csrfToken
+                        },
+                    })
+                        .catch(error => console.error('Error:', error))
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            if (data.error) {
+                                console.error('Error sharing post:', data.error);
+                            } else {
+                                var modalId = 'sharePostModal' + postId;
+                                var shareLinksContainer = document.querySelector('#' + modalId + ' .share-links-container');
+                                shareLinksContainer.innerHTML = '';
+
+                                document.querySelector('#sharePostModal' + postId + ' .post-link').value = data.url;
+
+                                for (var platform in data.shareComponent) {
+                                    if (platform !== 'copy') {
+                                        var link = data.shareComponent[platform];
+                                        var button = document.createElement('a');
+                                        button.href = link;
+                                        button.target = '_blank';
+                                        button.className = 'btn btn-auth m-2';
+                                        button.innerHTML = '<i class="share-links-item bi bi-' + platform + '"></i>';
+                                        shareLinksContainer.appendChild(button);
+                                    }
+                                }
+
+                                var shareModalElement = document.getElementById('sharePostModal' + postId);
+                                var shareModal = bootstrap.Modal.getInstance(shareModalElement);
+                                if (!shareModal) {
+                                    shareModal = new bootstrap.Modal(shareModalElement);
+                                }
+                                shareModal.show();
+                            }
+                        })
+                        .catch(error => console.error('Error:', error));
+                });
+            });
+            copyPostLinkButtons.forEach(function (copyPostLinkButton) {
+                copyPostLinkButton.addEventListener('click', function () {
+                    var postLink = this.parentNode.querySelector('.post-link');
+                    postLink.select();
+                    document.execCommand('copy');
+                });
+            });
         });
     </script>
 @endpush

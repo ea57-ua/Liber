@@ -111,10 +111,40 @@
                                     @endif
                                 </div>
                                 <div class="col text-center">
-                                    <!-- Espacio reservado para futuros elementos -->
+                                    <button id="share-button" class="btn btn-block"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#sharePostModal"
+                                            data-post-id="{{ $post->id }}"
+                                            style="border: none;">
+                                        <i class="bi bi-share" title="Share post" style="font-size: 32px;"></i>
+                                    </button>
                                 </div>
                             </div>
 
+                            <div class="modal fade" id="sharePostModal" tabindex="-1"
+                                 aria-labelledby="sharePostModal" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="sharePostModalLabel">
+                                                Share Liber Post</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close">
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="input-group mb-3">
+                                                <input type="text" id="post-link" class="form-control" readonly>
+                                                <button class="btn btn-outline-secondary" type="button"
+                                                        id="copy-post-link-button">
+                                                    <i class="bi bi-clipboard"></i>
+                                                </button>
+                                            </div>
+                                            <div id="share-links-container" class="share-links-container"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <hr> <!-- Línea de separación -->
 
                             @foreach($post->replies as $reply)
@@ -185,4 +215,67 @@
 
 @push('scripts')
     <script src="{{asset('js/likePostAndReplay.js')}}"></script>
+
+    <script>
+        var shareButton = document.getElementById('share-button');
+        if (shareButton) {
+            shareButton.addEventListener('click', function () {
+                var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                var postId = this.getAttribute('data-post-id');
+
+                fetch('/forum/' + postId + '/share', {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken
+                    },
+                })
+                    .catch(error => console.error('Error:', error))
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data.error) {
+                            console.error('Error sharing post:', data.error);
+                        } else {
+                            var shareLinksContainer = document.getElementById('share-links-container');
+                            shareLinksContainer.innerHTML = '';
+
+                            document.getElementById('post-link').value = data.url;
+
+                            for (var platform in data.shareComponent) {
+                                if (platform !== 'copy') {
+                                    var link = data.shareComponent[platform];
+                                    var button = document.createElement('a');
+                                    button.href = link;
+                                    button.target = '_blank';
+                                    button.className = 'btn btn-auth m-2';
+                                    button.innerHTML = '<i class="share-links-item bi bi-' + platform + '"></i>';
+                                    shareLinksContainer.appendChild(button);
+                                }
+                            }
+
+                            var shareModalElement = document.getElementById('shareMovieModal');
+                            var shareModal = bootstrap.Modal.getInstance(shareModalElement);
+                            if (!shareModal) {
+                                shareModal = new bootstrap.Modal(shareModalElement);
+                            }
+                            shareModal.show();
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            });
+        }
+
+        var copyPostLinkButton = document.getElementById('copy-post-link-button');
+        if (copyPostLinkButton) {
+            copyPostLinkButton.addEventListener('click', function () {
+                var postLink = document.getElementById('post-link');
+                postLink.select();
+                document.execCommand('copy');
+            });
+        }
+    </script>
 @endpush

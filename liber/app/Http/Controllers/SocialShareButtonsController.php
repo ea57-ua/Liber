@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Movie;
 use App\Models\MovieList;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class SocialShareButtonsController extends Controller
@@ -45,6 +46,21 @@ class SocialShareButtonsController extends Controller
             $list = MovieList::findOrFail($id);
             $url = route('lists.details', $id);
             $shareComponent = \Share::page($url, $list->name)
+                ->facebook()
+                ->twitter()
+                ->reddit();
+
+            return response()->json(['shareComponent' => $shareComponent->getRawLinks(), 'url' => $url]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+
+    public function shareForumPost($id){
+        try {
+            $post = Post::findOrFail($id);
+            $url = route('forum.showPost', $id);
+            $shareComponent = \Share::page($url, "Check out this post by {$post->user->name}")
                 ->facebook()
                 ->twitter()
                 ->reddit();
