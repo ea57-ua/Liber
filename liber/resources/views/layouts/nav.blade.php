@@ -17,8 +17,15 @@
                                style="width: 300px">
                     </form>
                     @if(Auth::check())
-                        <li class="d-flex ms-5 dropdown">
-                            <button class="btn btn-username btn-sm dropdown-toggle" type="button" id="dropdownMenuButton"
+                        <li class="ms-4">
+                            <a href="{{ route(config('chatify.routes.prefix')) }}" class="btn-custom">
+                                <i class="bi bi-chat-dots-fill me-1" style="font-size: 24px;"></i>
+                                Chat
+                            </a>
+                        </li>
+                        <li class="d-flex ms-2 dropdown">
+                            <button class="btn btn-username btn-sm dropdown-toggle"
+                                    type="button" id="dropdownMenuButton"
                                     data-bs-toggle="dropdown" aria-expanded="false">
                                 {{ Auth::user()->name }}
                             </button>
