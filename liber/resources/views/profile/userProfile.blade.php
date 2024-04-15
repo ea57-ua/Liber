@@ -44,6 +44,7 @@
                             <span class="tooltip-text">Critic user</span>
                         </div>
                     @endif
+
                     @if(auth()->check() && auth()->user()->id != $user->id && !auth()->user()->follows->contains($user->id))
                         <div class="row">
                             <div class="tooltip-container ms-5">
@@ -59,17 +60,27 @@
                     @endif
                     @if(auth()->check() && auth()->user()->id != $user->id && auth()->user()->follows->contains($user->id))
                         <div class="row">
-                            <div class="tooltip-container ms-5">
-                                <form action="{{ route('users.unfollow', $user->id) }}" method="POST">
-                                    @csrf
-                                    <button type="submit" class="btn-auth btn-auth-follow d-flex justify-content-center align-items-center">
-                                        <i class="bi bi-person-dash"></i>
-                                        <span class="ms-2" style="font-size: 1.3rem">Unfollow</span>
-                                    </button>
-                                </form>
+                            <div class="d-flex">
+                                <div class="ms-5">
+                                    <a class="btn-auth-dropdown" style="margin:auto;"
+                                       href="{{route('user', $user->id)}}">
+                                        <i class="bi bi-send-fill" style="margin:auto" title="Chat with {{$user->name}}"></i>
+                                    </a>
+                                </div>
+
+                                <div class="tooltip-container ms-2">
+                                    <form action="{{ route('users.unfollow', $user->id) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn-auth btn-auth-follow d-flex justify-content-center align-items-center">
+                                            <i class="bi bi-person-dash"></i>
+                                            <span class="ms-2" style="font-size: 1.3rem">Unfollow</span>
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     @endif
+
                     @if(auth()->check() && auth()->user()->id != $user->id)
                         <div class="dropdown">
                             <button class="btn-auth-dropdown" type="button"
@@ -89,7 +100,6 @@
                                             Block User
                                         @endif
                                     </button>
-                                    <a class="dropdown-item"> REPORT USER</a>
                                 </form>
                             </div>
                         </div>

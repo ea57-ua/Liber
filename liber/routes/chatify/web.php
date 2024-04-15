@@ -100,12 +100,6 @@ Route::post('/setActiveStatus', 'MessagesController@setActiveStatus')->name('act
 Route::get('/group/{id}', 'MessagesController@index')->name('group');
 
 /*
-* user view by id.
-* Note : If you added routes after the [User] which is the below one,
-* it will considered as user id.
-*
-* e.g. - The commented routes below :
-*/
-// Route::get('/route', function(){ return 'Munaf'; }); // works as a route
+ * [User] chat view by id
+ */
 Route::get('/{id}', 'MessagesController@index')->name('user');
-// Route::get('/route', function(){ return 'Munaf'; }); // works as a user id
