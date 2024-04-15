@@ -62,12 +62,15 @@ class MessagesController extends Controller
         $favorite = Chatify::inFavorite($request['id']);
         $fetch = User::where('id', $request['id'])->first();
         if($fetch){
-            $userAvatar = Chatify::getUserWithAvatar($fetch)->avatar;
+            $userAvatar = $fetch->image; // Chatify::getUserWithAvatar($fetch)->avatar;
         }
+        $userProfileRoute = route('users.publicProfile', ['id' => $request['id']]);
+
         return Response::json([
             'favorite' => $favorite,
             'fetch' => $fetch ?? null,
             'user_avatar' => $userAvatar ?? null,
+            'user_profile_url' => $userProfileRoute,
         ]);
     }
 

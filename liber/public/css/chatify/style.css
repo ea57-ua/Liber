@@ -399,6 +399,21 @@ body {
   font-size: 18px;
   font-weight: 600;
 }
+
+.messenger-info-see-profile-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    background-color: var(--primary-color);
+    border-radius: 30px;
+    text-decoration: none;
+    width: 30%;
+    margin: auto;
+    padding: 5px;
+    font-size: 18px;
+}
+
 .messenger-infoView-btns a {
   display: block;
   text-decoration: none !important;
