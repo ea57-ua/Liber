@@ -121,6 +121,7 @@ class MessagesController extends Controller
                     $attachment_title = $file->getClientOriginalName();
                     // upload attachment and store the new name
                     $attachment = Str::uuid() . "." . $file->extension();
+                    //$file->move(public_path(config('chatify.attachments.folder')), $attachment);
                     $file->storeAs(config('chatify.attachments.folder'), $attachment, config('chatify.storage_disk_name'));
                 } else {
                     $error->status = 1;
@@ -372,6 +373,7 @@ class MessagesController extends Controller
                 'image' => Chatify::getAttachmentUrl($shared[$i]),
             ])->render();
         }
+
         // send the response
         return Response::json([
             'shared' => count($shared) > 0 ? $sharedPhotos : '<p class="message-hint"><span>Nothing shared yet</span></p>',
@@ -440,16 +442,16 @@ class MessagesController extends Controller
             if ($file->getSize() < Chatify::getMaxUploadSize()) {
                 if (in_array(strtolower($file->extension()), $allowed_images)) {
                     // delete the older one
-                    if (Auth::user()->avatar != config('chatify.user_avatar.default')) {
-                        $avatar = Auth::user()->avatar;
+                    if (Auth::user()->image != config('chatify.user_avatar.default')) {
+                        $avatar = Auth::user()->image;
                         if (Chatify::storage()->exists($avatar)) {
                             Chatify::storage()->delete($avatar);
                         }
                     }
                     // upload
-                    $avatar = Str::uuid() . "." . $file->extension();
-                    $update = User::where('id', Auth::user()->id)->update(['avatar' => $avatar]);
-                    $file->storeAs(config('chatify.user_avatar.folder'), $avatar, config('chatify.storage_disk_name'));
+                    $avatar = '/images/user_images/' . Str::uuid() . "." . $file->extension();
+                    $file->move(public_path('images/user_images'), $avatar);
+                    $update = User::where('id', Auth::user()->id)->update(['image' => $avatar]);
                     $success = $update ? 1 : 0;
                 } else {
                     $msg = "File extension not allowed!";

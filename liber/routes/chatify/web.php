@@ -18,6 +18,7 @@ Route::get('/', 'MessagesController@index')->name(config('chatify.routes.prefix'
  */
 Route::post('/idInfo', 'MessagesController@idFetchData');
 
+
 /**
  * Send message route
  */
