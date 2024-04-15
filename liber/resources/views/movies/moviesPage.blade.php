@@ -6,7 +6,7 @@
     <section id="call-to-action" class="call-to-action">
         <div class="container text-center" data-aos="zoom-out">
             <h3>Find Your Favorite Movie</h3>
-            <p> Explore our vast collection and find the movie you're looking for. </p>
+            <p style="font-size: 22px"> Explore our vast collection and find the movie you're looking for. </p>
             <a class="cta-btn" href="#movies-search">Browse Movies</a>
         </div>
     </section>

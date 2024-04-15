@@ -735,7 +735,7 @@ section {
 # Call To Action Section
 --------------------------------------------------------------*/
 .call-to-action .container {
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../img/theater.png") center center;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("../images/welcome/lalaland.jpg") center center;
     background-size: cover;
     padding: 100px 60px;
     border-radius: 15px;
@@ -1797,7 +1797,7 @@ section {
 }
 
 .hero.withImage{
-    background: url("../images/welcome/oppenheimer.jpeg") center center;
+    background: url("../images/welcome/welcomeImage.png") center center;
     background-size: cover;
     background-repeat: no-repeat;
 }
