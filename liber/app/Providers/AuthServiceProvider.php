@@ -36,9 +36,9 @@ class AuthServiceProvider extends ServiceProvider
                 */
         });
 
-        // TODO: cambiar la url de reset password
         ResetPassword::createUrlUsing(function (User $user, string $token) {
-            return 'http://127.0.0.1:8000/reset-password/'.$token;
+            return route('password.reset', ['token' => $token]);
+            // 'http://127.0.0.1:8000/reset-password/'.$token;
         });
 
         /*
