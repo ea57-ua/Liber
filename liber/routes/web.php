@@ -20,61 +20,75 @@ Route::get('/ejemplo', function () {
 Route::get('/', [HomeController::class, 'index'])
     ->name('welcome');
 
-Route::get('/movies', [MovieController::class, 'moviesPage'])
-    ->name('moviesPage');
-Route::get('/movies/{id}', [MovieController::class, 'showMovieInfo'])
-    ->name('movies.details');
-Route::post('/movies/{id}/watched', [MovieController::class, 'markAsWatched'])
-    ->name('movies.watched');
-Route::post('/movies/{id}/rate', [MovieController::class, 'rate'])
-    ->name('movies.rate');
-Route::post('/movies/{id}/review', [MovieController::class, 'review'])
-    ->name('movies.review');
-Route::post('/movies/{idMovie}/lists/{idList}/toggle', [MovieController::class, 'toggleInList'])
-    ->name('movies.toggleToList');
-Route::get('/movies/{id}/share', [SocialShareButtonsController::class, 'shareMovie'])
-    ->name('movies.share');
+Route::prefix('/movies')->group(function (){
+    Route::get('', [MovieController::class, 'moviesPage'])
+        ->name('moviesPage');
+    Route::get('/{id}', [MovieController::class, 'showMovieInfo'])
+        ->name('movies.details');
 
-Route::get('/lists', [ListController::class, 'listsPage'])
-    ->name('listsPage');
+    Route::middleware(['auth', 'verified'])->group(function () {
+        Route::post('/{id}/watched', [MovieController::class, 'markAsWatched'])
+            ->name('movies.watched');
+        Route::post('/{id}/rate', [MovieController::class, 'rate'])
+            ->name('movies.rate');
+        Route::post('/{id}/review', [MovieController::class, 'review'])
+            ->name('movies.review');
+        Route::post('/{idMovie}/lists/{idList}/toggle', [MovieController::class, 'toggleInList'])
+            ->name('movies.toggleToList');
+        Route::get('/{id}/share', [SocialShareButtonsController::class, 'shareMovie'])
+            ->name('movies.share');
+    });
+});
 
-Route::get('/lists/{id}', [ListController::class, 'listDetailsShow'])
-    ->name('lists.details');
-Route::post('/lists/create', [ListController::class, 'createList'])
-    ->name('lists.create');
-Route::post('/lists/{id}/toggle-like', [ListController::class, 'toggleLike'])
-    ->name('lists.toggleLike');
-Route::get('/lists/{id}/share', [SocialShareButtonsController::class, 'shareMovieList'])
-    ->name('lists.share');
-Route::put('/lists/{id}', [ListController::class, 'update'])->name('lists.update');
+Route::prefix('/lists')->group(function (){
+    Route::get('', [ListController::class, 'listsPage'])
+        ->name('listsPage');
+    Route::get('/{id}', [ListController::class, 'listDetailsShow'])
+        ->name('lists.details');
+
+    Route::middleware(['auth', 'verified'])->group(function () {
+        Route::post('/create', [ListController::class, 'createList'])
+            ->name('lists.create');
+        Route::post('/{id}/toggle-like', [ListController::class, 'toggleLike'])
+            ->name('lists.toggleLike');
+        Route::get('/{id}/share', [SocialShareButtonsController::class, 'shareMovieList'])
+            ->name('lists.share');
+        Route::put('/{id}', [ListController::class, 'update'])
+            ->name('lists.update');
+    });
+});
 
 Route::get('/actors/{id}', [ActorController::class, 'showActorInfo'])
     ->name('actors.details');
-
 Route::get('/directors/{id}', [DirectorController::class, 'showDirectorInfo'])
     ->name('directors.details');
 
-Route::get('/forum', [ForumController::class, 'index'])
-    ->name('forumPage');
+Route::prefix('/forum')->group(function () {
+    Route::get('', [ForumController::class, 'index'])
+        ->name('forumPage');
 
-Route::post('/forum/create', [ForumController::class, 'createNewPost'])
-    ->name('forum.newPost');
-Route::delete('/forum/{id}/delete', [ForumController::class, 'deletePost'])
-    ->name('forum.deletePost');
-Route::post('/forum/{id}/like', [ForumController::class, 'likeUnlikePost'])
-    ->name('forum.likeUnlikePost');
-Route::get('/forum/users', [ForumController::class, 'searchUsers'])
-    ->name('forum.searchUsers');
-Route::post('/forum/{id}/reply', [ForumController::class, 'replyPost'])
-    ->name('forum.replyPost');
-Route::get('/forum/{id}', [ForumController::class, 'showPost'])
-    ->name('forum.showPost');
-Route::get('/forum/{id}/share', [SocialShareButtonsController::class, 'shareForumPost'])
-    ->name('forum.share');
-Route::post('/forum/{id}/report', [ForumController::class, 'reportPost'])
-    ->name('forum.reportPost');
+    Route::middleware(['auth', 'verified'])->group(function () {
+        Route::post('/create', [ForumController::class, 'createNewPost'])
+            ->name('forum.newPost');
+        Route::delete('/{id}/delete', [ForumController::class, 'deletePost'])
+            ->name('forum.deletePost');
+        Route::post('/{id}/like', [ForumController::class, 'likeUnlikePost'])
+            ->name('forum.likeUnlikePost');
+        Route::get('/users', [ForumController::class, 'searchUsers'])
+            ->name('forum.searchUsers');
+        Route::post('/{id}/reply', [ForumController::class, 'replyPost'])
+            ->name('forum.replyPost');
+        Route::get('/{id}', [ForumController::class, 'showPost'])
+            ->name('forum.showPost');
+        Route::get('/{id}/share', [SocialShareButtonsController::class, 'shareForumPost'])
+            ->name('forum.share');
+        Route::post('/{id}/report', [ForumController::class, 'reportPost'])
+            ->name('forum.reportPost');
+    });
+});
 
-Route::middleware('auth')->group(function () {
+
+Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'showUserInfo'])
         ->name('profile.edit');
     Route::post('/user/uploadImage/{id}', [ProfileController::class, 'uploadImage'])
@@ -85,23 +99,32 @@ Route::middleware('auth')->group(function () {
         ->name('profile.changePassword');
     Route::post('/profile/requestCriticStatus', [ProfileController::class, 'requestCriticStatus'])
         ->name('profile.requestCriticStatus');
-    Route::post('/users/{id}/follow', [UserController::class, 'follow'])->name('users.follow');
-    Route::post('/users/{id}/unfollow', [UserController::class, 'unfollow'])->name('users.unfollow');
-    Route::put('/users/{id}/blockUnblock', [UserController::class, 'blockUnblock'])->name('users.blockUnblock');
-    Route::post('/searchGenres', [ProfileController::class, 'searchGenres'])->name('movies.searchGenres');
-    Route::put('/updateFavGenres', [ProfileController::class, 'updateFavGenres'])->name('profile.updateFavGenres');
-    Route::delete('/deleteFavGenre', [ProfileController::class, 'deleteFavGenre'])->name('profile.deleteFavGenre');
+    Route::post('/users/{id}/follow', [UserController::class, 'follow'])
+        ->name('users.follow');
+    Route::post('/users/{id}/unfollow', [UserController::class, 'unfollow'])
+        ->name('users.unfollow');
+    Route::put('/users/{id}/blockUnblock', [UserController::class, 'blockUnblock'])
+        ->name('users.blockUnblock');
+    Route::post('/searchGenres', [ProfileController::class, 'searchGenres'])
+        ->name('movies.searchGenres');
+    Route::put('/updateFavGenres', [ProfileController::class, 'updateFavGenres'])
+        ->name('profile.updateFavGenres');
+    Route::delete('/deleteFavGenre', [ProfileController::class, 'deleteFavGenre'])
+        ->name('profile.deleteFavGenre');
 });
 
-Route::get('users/{id}', [ProfileController::class, 'showPublicUserInfo'])->name('users.publicProfile');
+Route::get('users/{id}', [ProfileController::class, 'showPublicUserInfo'])
+    ->name('users.publicProfile');
+
 Route::get('termsAndConditions', function () {
     return view('termsAndConditions');
 })->name('termsAndConditions');
 
 Route::get('/social-media-share', SocialShareButtonsController::class);
 
-//Google Authentication Routes
-Route::get('auth/google', [SocialController::class, 'googleRedirect'])->name('login.google');
+// Google Authentication Routes for OAuth2
+Route::get('auth/google', [SocialController::class, 'googleRedirect'])
+    ->name('login.google');
 Route::get('auth/google/callback', [SocialController::class, 'googleLoginOrRegister']);
 
 require __DIR__.'/auth.php';

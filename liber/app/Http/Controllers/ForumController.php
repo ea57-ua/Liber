@@ -126,7 +126,7 @@ class ForumController extends Controller
 
     public function showPost($id)
     {
-        $post = Post::withCount('replies')->find($id);
+        $post = Post::withCount('replies')->findOrFail($id);
 
         return view('forum.postDetails', ['post' => $post]);
     }
