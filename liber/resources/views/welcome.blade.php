@@ -2,6 +2,7 @@
 @section('title', 'Liber - Welcome')
 @section('content')
 
+
     <section id="hero" class="hero withImage">
         <div class="container position-relative">
             <div class="row gy-5 mt-4" data-aos="fade-in" >
@@ -12,6 +13,24 @@
             </div>
         </div>
 
+        @if(Auth::check())
+            <div class="recommendations-row">
+                <div class="row gy-4 movies d-flex ms-5 me-5" >
+                    @foreach($recommendedMovies as $movie)
+                        <div class="col-xl-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                            <a href="{{route('movies.details', $movie->id)}}">
+                                <div class="icon-box recommended-movie">
+                                    <img src="{{$movie->posterURL}}"
+                                         class="img-fluid rounded-3" alt="">
+                                    <h4>{{$movie->title}}</h4>
+                                </div>
+                            </a>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+
+        @else
         <div class="icon-boxes position-relative">
             <div class="container position-relative">
                 <div class="row gy-4 mt-5">
@@ -47,6 +66,7 @@
                 </div>
             </div>
         </div>
+        @endif
 
     </section>
 

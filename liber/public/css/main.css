@@ -1872,6 +1872,11 @@ section {
     }
 }
 
+.recommendations-row {
+    margin-bottom: 20px;
+    padding-bottom: 30px;
+}
+
 .hero .icon-boxes {
     padding-bottom: 60px;
     margin-top: 120px;
@@ -1901,6 +1906,23 @@ section {
     height: 100%;
     width: 100%;
     text-align: center;
+}
+
+.hero .icon-box.recommended-movie {
+    padding: 50px 20px;
+    margin-bottom: auto;
+    height: auto;
+}
+
+.hero .icon-box.recommended-movie img {
+    height: 500px;
+    object-fit: cover;
+}
+
+.hero .icon-box.recommended-movie h4 {
+    color: white;
+    font-weight: bold;
+    margin-top: 15px;
 }
 
 .hero .icon-box .title {
