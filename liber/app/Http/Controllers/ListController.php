@@ -97,6 +97,7 @@ class ListController extends Controller
 
     public function listsPage(Request $request)
     {
-        return view('lists.listsPage');
+        $lists = MovieList::where('public', true)->paginate(12);
+        return view('lists.listsPage', ['lists' => $lists]);
     }
 }
