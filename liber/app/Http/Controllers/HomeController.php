@@ -12,19 +12,44 @@ class HomeController extends Controller
     {
         $recommendedMovies = null;
         if(auth()->check()) {
-            $recommendedMovies = Movie::all()->take(4);
+            $favoriteGenres = auth()->user()->favoriteGenres()->pluck('genres.id');
+
+            $recommendedMovies = Movie::whereHas('genres', function ($query) use ($favoriteGenres) {
+                $query->whereIn('genres.id', $favoriteGenres);
+            })
+                ->withCount(['ratings as average_rating' => function ($query) {
+                    $query->select(\DB::raw('coalesce(avg(rating),0)'));
+                }])
+                ->orderByDesc('average_rating')
+                ->take(4)
+                ->get();
+
+
+            if ($recommendedMovies->count() < 4) {
+                $additionalMoviesNeeded = 4 - $recommendedMovies->count();
+
+                $additionalMovies = Movie::whereNotIn('id', $recommendedMovies->pluck('id'))
+                    ->withCount(['ratings as average_rating' => function ($query) {
+                        $query->select(\DB::raw('coalesce(avg(rating),0)'));
+                    }])
+                    ->inRandomOrder()
+                    ->take($additionalMoviesNeeded)
+                    ->get();
+
+                $recommendedMovies = $recommendedMovies->concat($additionalMovies);
+            }
         }
 
-        $popularMovies = Movie::all()
-            ->sortByDesc(function ($movie) {
-                return [$movie->watchedByUsers()->count(), $movie->getAverageRatingAttribute()];
-            })
-            ->take(4);
-        // TODO: Add a way to get the most popular movies
+        $popularMovies = Movie::withCount('watchedByUsers')
+            ->orderBy('watched_by_users_count', 'desc')
+            ->take(4)
+            ->get();
 
-        $popularLists = MovieList::all()
-            ->take(4);
-        // TODO: Add a way to get the most popular lists
+        $popularLists = MovieList::where('public', true)
+            ->withCount('likedByUsers')
+            ->orderBy('liked_by_users_count', 'desc')
+            ->take(4)
+            ->get();
 
         return view('welcome', [
             'popularMovies' => $popularMovies,
