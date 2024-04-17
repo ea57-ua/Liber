@@ -31,7 +31,7 @@
                     Carretera de San Vicente del Raspeig, <br>
                     s/n San Vicente del Raspeig,<br>
                     Alicante, España <br><br>
-                    <strong>Phone:</strong> +1 5589 55488 55<br>
+                    <strong>Phone:</strong> +34 96 590 3920<br>
                     <strong>Email:</strong> contact@liber.com<br>
                 </p>
 
