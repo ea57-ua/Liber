@@ -18,7 +18,7 @@ class SocialController extends Controller
     {
         $user = Socialite::driver('google')->stateless()->user();
         $this->_registerOrLoginGoogleUser($user);
-        return redirect()->route('dashboard'); // TODO revisar
+        return redirect()->route('welcome');
     }
 
     protected function _registerOrLoginGoogleUser($incomingUser)
@@ -31,7 +31,7 @@ class SocialController extends Controller
             $user->name = $incomingUser->name;
             $user->email = $incomingUser->email;
             $user->google_id = $incomingUser->id;
-            $user->password = bcrypt('123456dummy'); // TODO ?
+            $user->password = bcrypt('MKXxPCh6oXrzgEEvmV43');
             $user->save();
         }
         if (!$userAlreadyRegistered) {
