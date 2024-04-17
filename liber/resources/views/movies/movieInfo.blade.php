@@ -443,6 +443,28 @@
                 nextEl: ".swiper-button-next",
                 prevEl: ".swiper-button-prev",
             },
+            breakpoints: {
+                // when window width is >= 0px
+                0: {
+                    slidesPerView: 1,
+                    spaceBetween: 20
+                },
+                // when window width is >= 576px (sm)
+                576: {
+                    slidesPerView: 1,
+                    spaceBetween: 20
+                },
+                // when window width is >= 768px (md)
+                768: {
+                    slidesPerView: 2,
+                    spaceBetween: 30
+                },
+                // when window width is >= 1200px (xl)
+                1200: {
+                    slidesPerView: 3,
+                    spaceBetween: 30
+                }
+            }
         });
 
         var shareButton = document.getElementById('share-button');
