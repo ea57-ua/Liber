@@ -24,7 +24,7 @@ return [
     'routes' => [
         'custom' => env('CHATIFY_CUSTOM_ROUTES', false),
         'prefix' => env('CHATIFY_ROUTES_PREFIX', 'liberchat'),
-        'middleware' => env('CHATIFY_ROUTES_MIDDLEWARE', ['web','auth']),
+        'middleware' => env('CHATIFY_ROUTES_MIDDLEWARE', ['web','auth', 'verified']),
         'namespace' => env('CHATIFY_ROUTES_NAMESPACE', 'App\Http\Controllers\vendor\Chatify'),
     ],
     'api_routes' => [

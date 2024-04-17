@@ -8,7 +8,6 @@ use App\Http\Controllers\Admin\ReportsController as AdminReportController;
 use App\Http\Controllers\Admin\AdminController;
 use Illuminate\Support\Facades\Route;
 
-
 Route::middleware(['auth', 'verified' ,'admin'])->prefix('/admin')->group(function () {
     Route::get('/', [AdminController::class, 'index'])
         ->name('admin.dashboard');
