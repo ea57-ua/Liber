@@ -85,7 +85,6 @@ class ForumController extends Controller
         }
 
         $post->delete();
-        // TODO: borrar imagenes de public
 
         return redirect()->route('forumPage')->with('success', 'Post deleted successfully.');
     }
@@ -113,8 +112,11 @@ class ForumController extends Controller
 
     public function replyPost(Request $request, $id)
     {
+        $request->validate([
+            'reply' => 'required',
+        ]);
+
         $post = Post::find($id);
-        // TODO salta 500 sin texto
         $reply = new Post();
         $reply->text = $request->input('reply');
         $reply->user_id = Auth::user()->id;
