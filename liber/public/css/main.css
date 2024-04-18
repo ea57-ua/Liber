@@ -279,6 +279,14 @@ section {
         color: #006a5d;
     }
 
+    .navbar .dropdown-menu .navbarDropDownButton {
+        transition: all 0.3s ease-in-out 0s;
+    }
+
+    .navbar .dropdown-menu .navbarDropDownButton:hover {
+        color: var(--color-secondary);
+    }
+
     .navbar .dropdown ul a i {
         font-size: 12px;
     }
@@ -327,11 +335,48 @@ section {
     }
 }
 
+@media (max-width: 1279px) {
+    li.nav-auth-btns.signin {
+        margin-left: 0 !important;
+    }
+
+    li.nav-auth-btns {
+        display: flex;
+        justify-content: center;
+        flex-wrap: nowrap;
+        flex-direction: row;
+    }
+
+    li.nav-auth-btns a.btn-custom {
+        flex: 0 0 auto;
+        margin: 10px;
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 1279px) {
+    li.nav-logged-btns.btn-custom {
+        margin-left: 0 !important;
+    }
+
+    li.nav-logged-btns {
+        display: flex;
+        justify-content: center;
+        flex-wrap: nowrap;
+        flex-direction: row;
+    }
+
+    li.nav-logged-btns a.btn-custom {
+        flex: 0 0 auto;
+        margin: 10px;
+    }
+}
+
 /*--------------------------------------------------------------
-# Mobile Navigation
 --------------------------------------------------------------*/
 @media (max-width: 1279px) {
     .navbar-search {
+        display: none;
         margin-bottom: 20px;
     }
 
@@ -357,8 +402,25 @@ section {
         z-index: 9998;
     }
 
+    .navbar ul li{
+        list-style-type: none;
+    }
+
     .navbar a,
-    .navbar a:focus {
+    .navbar a:focus{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 20px;
+        font-family: var(--font-primary);
+        font-size: 15px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.7);
+        white-space: nowrap;
+        transition: 0.3s;
+    }
+
+    #userNameDropDown > li:nth-child(3) > div > form > button {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -443,7 +505,7 @@ section {
     }
 
     .mobile-nav-active .navbar {
-        right: 0;
+        right: -50px;
     }
 
     .mobile-nav-active .navbar:before {
@@ -1155,6 +1217,12 @@ section {
     background: var(--color-primary);
     color: white !important;
     border: none;
+}
+
+@media (max-width: 1279px) {
+    .btn-custom {
+        max-width: 100px;
+    }
 }
 
 .movies .movieCard {

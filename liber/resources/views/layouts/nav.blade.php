@@ -16,20 +16,22 @@
                                aria-label="Search"
                                style="width: 300px">
                     </form>
+
                     @if(Auth::check())
-                        <li class="ms-4">
+                        <li class="ms-4 nav-logged-btns">
                             <a href="{{ route(config('chatify.routes.prefix')) }}" class="btn-custom">
                                 <i class="bi bi-chat-dots-fill me-1" style="font-size: 24px;"></i>
                                 Chat
                             </a>
                         </li>
-                        <li class="d-flex ms-2 dropdown">
+                        <li class="nav-logged-btns d-flex ms-2 dropdown">
                             <button class="btn btn-username btn-sm dropdown-toggle"
                                     type="button" id="dropdownMenuButton"
                                     data-bs-toggle="dropdown" aria-expanded="false">
                                 {{ Auth::user()->name }}
                             </button>
-                            <ul class="dropdown-menu " aria-labelledby="dropdownMenuButton" id="userNameDropDown">
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton"
+                                id="userNameDropDown">
                                 <li>
                                     <a class="dropdown-item" href="{{ route('profile.edit') }}">Profile</a>
                                 </li>
@@ -53,11 +55,17 @@
                     @endif
 
                     @if(!Auth::check())
-                        <li class="ms-5">
-                            <a href="{{ route('login') }}" class="btn-custom me-2 no-hover-effect">Sign In</a>
+                        <li class="ms-5 nav-auth-btns signin">
+                            <a href="{{ route('login') }}"
+                               class="btn-custom me-2 nav-auth-btn ">
+                                Sign In
+                            </a>
                         </li>
-                        <li>
-                            <a href="{{ route('register') }}" class="btn-custom ms-2 no-hover-effect">Sign Up</a>
+                        <li class="nav-auth-btns">
+                            <a href="{{ route('register') }}"
+                               class="btn-custom ms-2 nav-auth-btn">
+                                Sign Up
+                            </a>
                         </li>
                     @endif
                 </ul>

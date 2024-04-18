@@ -118,8 +118,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 userNameDropDown.classList.toggle('dropdown-active');
 
                 let dropDownIndicator = this.querySelector('.dropdown-indicator');
-                dropDownIndicator.classList.toggle('bi-chevron-up');
-                dropDownIndicator.classList.toggle('bi-chevron-down');
+                if(dropDownIndicator) {
+                    dropDownIndicator.classList.toggle('bi-chevron-up');
+                    dropDownIndicator.classList.toggle('bi-chevron-down');
+                }
             }
         });
     }
