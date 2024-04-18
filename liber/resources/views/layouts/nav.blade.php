@@ -53,12 +53,13 @@
                     @endif
 
                     @if(!Auth::check())
-                        <li class="d-flex ms-5">
+                        <li class="ms-5">
                             <a href="{{ route('login') }}" class="btn-custom me-2 no-hover-effect">Sign In</a>
+                        </li>
+                        <li>
                             <a href="{{ route('register') }}" class="btn-custom ms-2 no-hover-effect">Sign Up</a>
                         </li>
                     @endif
-
                 </ul>
         </nav>
 
