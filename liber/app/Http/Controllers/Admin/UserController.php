@@ -2,15 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\DTO\UserDTO;
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Services\UserService;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    private UserService $userService;
 
     private $rules = [
             'name' => 'required|max:255',
@@ -20,9 +17,7 @@ class UserController extends Controller
             'admin' => 'boolean',
             'image' => 'image|mimes:png,jpeg,jpg|max:2048',
         ];
-    public function __construct(){
-        $this->userService = new UserService();
-    }
+
     public function showUsersAdminPanel(Request $request){
         $users = User::paginate(8);
         $admin = $request->user();
@@ -32,7 +27,8 @@ class UserController extends Controller
     }
 
     public function destroyUser($id){
-        $this->userService->deleteUser($id);
+        $user = User::findOrFail($id);
+        $user->delete();
         return redirect()->route('admin.users');
     }
 
@@ -45,64 +41,21 @@ class UserController extends Controller
         request()->validate([
             'email' => 'required|email|unique:users,email',
         ]);
-        $this->userService->createUser($this->getUserFromRequest($request));
+
+        $user = new User();
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        // TODO revisar esto
         return redirect()->route('admin.users.users');
     }
-
-    private function getUserFromRequest(Request $request)
-    {
-        $userDto = new UserDTO();
-        if (request()->input('name')) {
-            $userDto->setName($request->input('name'));
-        }
-
-        if (request()->input('surname')) {
-            $userDto->setSurname($request->input('surname'));
-        }
-
-        if (request()->input('email')) {
-            $userDto->setEmail($request->input('email'));
-        }
-
-        if(request()->input('password') && trim($request->input('password')) !== ''){
-            $userDto->setPassword($request->input('password'));
-        }
-
-        if($request->input('biography')){
-            $userDto->setBiography($request->input('biography'));
-        }
-
-        if($request->has('image')){
-            $userDto->setImage($request->image);
-        }
-
-        $userDto->setAdmin($request->has('admin'));
-        return $userDto;
-    }
-
     public function showEditUser($id){
-        $user = $this->userService->getUserById($id);
+        $user = User::findOrFail($id);
         return view('admin.users.editUserForm', ['user' => $user]);
     }
 
-    public function editUser(Request $request, $id) {
-        request()->validate($this->rules);
-        $user = $this->userService->getUserById($id);
-        if ($request->has('email') && $user->email == $request->input('email')) {
-            // do nothing
-        } else {
-            $request->validate([
-                'email' => 'required|email|unique:users,email',
-            ]);
-        }
-
-        $this->userService->editUser($id, $this->getUserFromRequest($request));
-
-        return redirect()->route('admin.users.users');
-    }
 
     public function toggleBlock($id){
-        $user = $this->userService->getUserById($id);
+        $user = User::findOrFail($id);
         $user->blocked = !$user->blocked;
         $user->save();
         return redirect()->route('admin.users');

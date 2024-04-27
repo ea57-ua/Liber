@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\DTO\MovieDTO;
 use App\Http\Controllers\Controller;
 use App\Models\Actor;
 use App\Models\Country;
@@ -10,17 +9,10 @@ use App\Models\Director;
 use App\Models\Genre;
 use App\Models\Movie;
 use App\Models\StreamingService;
-use App\Services\MovieService;
 use Illuminate\Http\Request;
 
 class MovieController extends Controller
 {
-    private $movieService;
-
-    public function __construct()
-    {
-        $this->movieService = new MovieService();
-    }
     public function showMoviesAdminPanel(Request $request)
     {
         $admin = auth()->user();
@@ -66,7 +58,8 @@ class MovieController extends Controller
 
     public function destroyMovie($id)
     {
-        $this->movieService->deleteMovie($id);
+        $movie = Movie::findOrFail($id);
+        $movie->delete();
         return redirect()->route('admin.movies');
     }
 
@@ -245,46 +238,5 @@ class MovieController extends Controller
         }
 
         return redirect()->route('admin.movies.show', $movieId);
-    }
-    public function getMovieFromRequest(Request $request) : MovieDTO
-    {
-        $movieDTO = new MovieDTO();
-
-        if (request()->input('title')) {
-            $movieDTO->setTitle($request->input('title'));
-        }
-
-        if (request()->input('synopsis')) {
-            $movieDTO->setSynopsis($request->input('synopsis'));
-        }
-
-        if(request()->input('director')) {
-            $movieDTO->setDirector($request->input('director'));
-        }
-
-        if(request()->input('year')) {
-            $movieDTO->setYear($request->input('year'));
-        }
-
-        if(request()->input('duration')) {
-            $movieDTO->setDuration($request->input('duration'));
-        }
-
-        if(request()->input('genre')) {
-            $movieDTO->setGenre($request->input('genre'));
-        }
-
-        if(request()->input('country')) {
-            $movieDTO->setCountry($request->input('country'));
-        }
-
-        if(request()->input('rating')) {
-            $movieDTO->setRating($request->input('rating'));
-        }
-
-        if($request->has('image')) {
-            $movieDTO->setPoster($request->image);
-        }
-        return $movieDTO;
     }
 }

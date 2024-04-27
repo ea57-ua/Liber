@@ -26,8 +26,10 @@ Route::middleware(['auth', 'verified' ,'admin'])->prefix('/admin')->group(functi
             ->name('admin.users.destroy');
         Route::get('/create', [AdminUserController::class, 'showCreateUser'])
             ->name('admin.users.create');
-        Route::post('/create', [AdminUserController::class, 'createUser'])
+        /*Route::post('/create', [AdminUserController::class, 'createUser'])
             ->name('admin.users.create.save');
+            TODO: quitar ?
+        */
         Route::put('/{id}', [AdminUserController::class, 'toggleBlock'])
             ->name('admin.users.toggleBlock');
     });

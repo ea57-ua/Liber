@@ -2,39 +2,66 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Country;
+use App\Models\Genre;
 use App\Models\Movie;
 use App\Models\MovieList;
 use App\Models\Rating;
 use App\Models\Review;
-use App\Services\MoviesService;
+use App\Models\StreamingService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use function Symfony\Component\Translation\t;
 
 class MovieController extends Controller
 {
-    private $moviesService;
-
-    public function __construct()
-    {
-        $this->moviesService = new MoviesService();
+    private function getMoviesReleaseYears(){
+        $oldestYear = Carbon::parse(Movie::min('releaseDate'))->year;
+        $newestYear = Carbon::parse(Movie::max('releaseDate'))->year;
+        $years = range($oldestYear, $newestYear);
+        return $years;
     }
     public function moviesPage(Request $request)
     {
-        $movies = $this->moviesService->getMoviesList();
+        $movies = Movie::query();
         if(collect($request->all())->filter()->isNotEmpty()){
             $movies = $this->filterMovies($request, $movies);
         }
         $movies = $movies->paginate(2)->withQueryString();
-        $countries = $this->moviesService->getCountriesWithMovies();
-        $genres = $this->moviesService->getGenresList();
-        $years = $this->moviesService->getMoviesReleaseYears();
-        $streamingServices = $this->moviesService->getStreamingServicesList();
+        $countries = Country::whereHas('movies')->get();
+        $genres = Genre::all();
+        $years = $this->getMoviesReleaseYears();
+        $streamingServices =  StreamingService::all();
 
         return view('movies.moviesPage',
             ['movies' => $movies, 'countries' => $countries,
                 'genres' => $genres, 'years' => $years, 'streamingServices' => $streamingServices]);
     }
 
+    private function getRelatesMoviesList($id){
+        $movie = Movie::findOrFail($id);
+        $directors = $movie->directors->pluck('id');
+        $genres = $movie->genres->pluck('id');
+
+        $relatedMovies = Movie::where(function ($query) use ($directors, $genres) {
+            $query->whereHas('directors', function ($query) use ($directors) {
+                $query->whereIn('directors.id', $directors);
+            })
+                ->orWhereHas('genres', function ($query) use ($genres) {
+                    $query->whereIn('genres.id', $genres);
+                });
+        })
+            ->where('movies.id', '!=', $id)
+            ->get()->take(6);
+
+        $relatedMovies = $relatedMovies->sortByDesc(function ($relatedMovie) use ($directors, $genres) {
+            $matchingDirectors = $relatedMovie->directors->whereIn('id', $directors)->count();
+            $matchingGenres = $relatedMovie->genres->whereIn('id', $genres)->count();
+            return $matchingDirectors + $matchingGenres;
+        });
+
+        return $relatedMovies;
+    }
     public function showMovieInfo($id)
     {
         $movie = Movie::findOrFail($id);
@@ -61,7 +88,7 @@ class MovieController extends Controller
 
         $actors = $movie->actors()->get();
         $reviews = $movie->reviews()->get();
-        $relatesMovies = $this->moviesService->getRelatesMoviesList($id);
+        $relatesMovies = $this->getRelatesMoviesList($id);
 
         return view('movies.movieInfo',
             ['movie' => $movie, 'averageCritics' => $averageCritics,
@@ -75,7 +102,7 @@ class MovieController extends Controller
 
     private function filterMovies($request, $movies) {
         if ($movies == null) {
-            $movies = $this->moviesService->getMoviesList();
+            $movies = Movie::query();
         }
 
         if($request->has('movie-title') && $request->input('movie-title') != '') {
