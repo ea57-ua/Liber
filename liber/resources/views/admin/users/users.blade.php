@@ -11,8 +11,6 @@
         </nav>
     </div>
 
-    <a href="{{route('admin.users.create')}}" class="btn">Create user</a>
-
     <section>
         <div class="card">
             <div class="card-body">
