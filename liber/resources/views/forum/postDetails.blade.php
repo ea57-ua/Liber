@@ -268,9 +268,14 @@
                                                     <label for="reportCategory">Category</label>
                                                     <select class="form-control" id="reportCategory" name="category" required>
                                                         <option value="">Select a category</option>
-                                                        <!-- Add your categories here -->
                                                         <option value="spam">Spam</option>
                                                         <option value="harassment">Harassment</option>
+                                                        <option value="abuse">Abuse</option>
+                                                        <option value="inappropriate">Inappropriate Content</option>
+                                                        <option value="hate_speech">Hate Speech</option>
+                                                        <option value="privacy">Privacy Violation</option>
+                                                        <option value="bullying">Bullying</option>
+                                                        <option value="other">Other</option>
                                                     </select>
                                                 </div>
                                             </div>

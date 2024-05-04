@@ -14,9 +14,6 @@ use function Symfony\Component\Translation\t;
 
 class MoviesTableSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
         $dune = $this->createMovie('Dune','2021-10-22',
