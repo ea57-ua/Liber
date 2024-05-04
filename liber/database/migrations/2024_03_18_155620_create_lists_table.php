@@ -19,7 +19,8 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')
                 ->references('id')
-                ->on('users');
+                ->on('users')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('lists');
+        Schema::dropIfExists('movie_lists');
     }
 };

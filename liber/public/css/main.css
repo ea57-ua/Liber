@@ -1620,12 +1620,12 @@ p .text-primary-strong {
 }
 
 .movie-synopsis {
+    margin-top: 10px;
     font-size: 20px;
     max-height: 200px;
-    padding: 10px;
+    padding: 1px;
     color: #333;
 }
-
 
 .movie-details-badge {
     display: inline-block;

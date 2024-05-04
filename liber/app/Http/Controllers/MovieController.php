@@ -27,7 +27,7 @@ class MovieController extends Controller
         if(collect($request->all())->filter()->isNotEmpty()){
             $movies = $this->filterMovies($request, $movies);
         }
-        $movies = $movies->paginate(2)->withQueryString();
+        $movies = $movies->paginate(8)->withQueryString();
         $countries = Country::whereHas('movies')->get();
         $genres = Genre::all();
         $years = $this->getMoviesReleaseYears();
