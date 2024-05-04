@@ -47,6 +47,7 @@
                         aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <div id="imageError" class="alert alert-danger" style="display: none;"></div>
                 <form action="{{ route('lists.create') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="mb-3">
@@ -87,3 +88,19 @@
         </div>
     </div>
 </div>
+
+<script>
+    document.getElementById('listImage').addEventListener('change', function () {
+        var file = this.files[0];
+        var maxSize = 2 * 1024 * 1024; // 2MB
+        var errorDiv = document.getElementById('imageError');
+
+        if(file.size > maxSize) {
+            errorDiv.textContent = 'The selected file is too large. Please select a file less than 2MB.';
+            errorDiv.style.display = 'block';
+            this.value = '';
+        }else {
+            errorDiv.style.display = 'none';
+        }
+    });
+</script>

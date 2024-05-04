@@ -32,7 +32,7 @@ class ListController extends Controller
         $request->validate([
             'listName' => 'required|max:255',
             'listDescription' => 'nullable',
-            'listImage' => 'nullable|image',
+            'listImage' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         $list = new MovieList;
