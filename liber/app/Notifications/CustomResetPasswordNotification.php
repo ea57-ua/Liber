@@ -36,9 +36,13 @@ class CustomResetPasswordNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->line('New custom reset password notification.')
-                    ->action('Reset password', url('reset-password', $this->token))
-                    ->line('Reset password.');
+            ->subject('Liber - Reset password notification')
+            ->line('This email is to assist you in resetting your password for Liber.')
+            ->line('Reset password notification.')
+            ->action('Reset password', url('reset-password', $this->token))
+            ->line('Reset password.')
+            ->line('If you did not request a password reset, no further action is required.')
+            ->salutation('Regards, Liber.');
     }
 
     /**
