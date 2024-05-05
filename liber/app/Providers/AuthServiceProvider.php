@@ -29,11 +29,11 @@ class AuthServiceProvider extends ServiceProvider
         VerifyEmail::toMailUsing(function (object $notifiable, string $url) {
             return (new MailMessage)
                 ->subject('Liber - Verify Email Address')
-                ->markdown('mails.verifyMail', ['url' => $url]);
-                /*
-                ->line('Click the button below to verify your email address.')
-                ->action('Verify Email Address', $url);
-                */
+                ->greeting('Hello ' . $notifiable->name)
+                ->line('Thank you for registering with Liber. We hope you are enjoying our platform.')
+                ->action('Verify Email Address', $url)
+                ->line('If you did not create an account with your email address, no further action is required.')
+                ->salutation('Regards, Liber');
         });
 
         ResetPassword::createUrlUsing(function (User $user, string $token) {
