@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Enums\CriticRequestState;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -19,7 +20,13 @@ class DatabaseSeeder extends Seeder
             MoviesTableSeeder::class,
             UsersTableSeeder::class,
             ForumSeeder::class,
+            ReviewsSeeder::class,
             RatingsTableSeeder::class,
+            MovieListsSeeder::class,
+            ChatsSeeder::class,
+            CriticRequestsSeeder::class,
+            PostReportsSeeder::class,
+            FollowersSeeder::class,
         ]);
     }
 }

@@ -6,6 +6,7 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use function Symfony\Component\Translation\t;
 
 class ForumSeeder extends Seeder
 {
@@ -34,6 +35,34 @@ class ForumSeeder extends Seeder
         $post3john = $this->createPost('I like movies that make me think.', $johndoe->id, $post2John->id, '');
         $post2vladimir = $this->createPost('Someone has seen Enemy? I need to talk about it with someone.',
             $vladimir->id, null, 'https://miro.medium.com/v2/resize:fit:1200/1*pDhbE4LQivGKY29cYQrJEw.jpeg');
+        $post2jessica = $this->createPost('Alguien de Alicante para ir a ver la nueva película de Joker ?',
+            $jessica->id, null,'');
+        $post2juan = $this->createPost('Hola Jessica, soy de Alicante, podríamos ir juntos a ver la película.',
+            $juan->id, $post2jessica->id, '');
+        $post3jessica = $this->createPost('Claro, planeamos fecha y sitio mejor por privado.',
+            $jessica->id, $post2juan->id, '');
+        $post2nicole = $this->createPost('I love mystery thriler movies like Seven and Zodiac. Any recommendations?',
+            $nicole->id, null, 'https://i.ytimg.com/vi/f9cDKbmCD0o/sddefault.jpg');
+        $post3john = $this->createPost('Just watched Giorgos Lanthimos\'s last film, Poor Things. I\'ve too much to say about it but I don\'t know where to start.',
+            $johndoe->id,null, '');
+        $post3vladimir = $this->createPost('Which is your scariest favorite movie? Mine is The Shining.',
+            $vladimir->id, null, 'https://s3picturehouses.s3.eu-central-1.amazonaws.com/header/ph_15959311245f1ff9f476aa8.jpg');
+
+        $post3john->likes()->attach($nicole->id);
+        $post2jessica->likes()->attach($johndoe->id);
+        $post2jessica->likes()->attach($juan->id);
+        $post2jessica->likes()->attach($vladimir->id);
+        $post2jessica->likes()->attach($nicole->id);
+        $post1John->likes()->attach($jessica->id);
+        $post1John->likes()->attach($juan->id);
+        $post1vladimir->likes()->attach($johndoe->id);
+        $post1vladimir->likes()->attach($nicole->id);
+        $post1vladimir->likes()->attach($juan->id);
+        $post1vladimir->likes()->attach($jessica->id);
+        $post1nicole->likes()->attach($johndoe->id);
+        $post1nicole->likes()->attach($juan->id);
+        $post1nicole->likes()->attach($vladimir->id);
+        $post1nicole->likes()->attach($jessica->id);
     }
 
     private function createPost($text, $user_id, $parent_id, $imageLink) {
