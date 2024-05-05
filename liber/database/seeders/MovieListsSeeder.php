@@ -32,8 +32,9 @@ class MovieListsSeeder extends Seeder
 
 
         $list1 = $this->createMovieList($johndoe, 'My favorite movies',
-            'A list of my favorite movies', true, false, '');
-        $list1->movies()->attach([$dune1->id, $dune2->id], $oppenheimer->id);
+            'A list of my favorite movies', true, false,
+            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXYs2Wm53ejg2DUV1-dhtWoRhjiYvwj3veDGYkuoRZzg&s');
+        $list1->movies()->attach([$dune1->id, $dune2->id, $oppenheimer->id]);
         $list1->movies()->attach([$enemy->id, $nocountry->id, $seven->id]);
 
         $list2 = $this->createMovieList($nicole, 'The best of Tarantino',
