@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             ActorsSeeder::class,
             MoviesTableSeeder::class,
             UsersTableSeeder::class,
+            ForumSeeder::class,
             RatingsTableSeeder::class,
         ]);
     }
