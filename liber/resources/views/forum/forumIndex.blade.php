@@ -472,90 +472,128 @@
         document.addEventListener('DOMContentLoaded', function () {
             var postContainers = document.querySelectorAll('.forum-post-container');
 
-            document.getElementById('postInput').addEventListener('click', function () {
-                document.getElementById('advancedEditorOption').style.display = 'block';
-            });
+            var postInput = document.getElementById('postInput');
+            if (postInput){
+                postInput.addEventListener('click', function () {
+                    document.getElementById('advancedEditorOption').style.display = 'block';
+                });
 
-            document.getElementById('postForm').addEventListener('submit', function () {
-                var postInput = document.getElementById('postInput');
-                var hiddenPostInput = document.getElementById('hiddenPostInput');
-                hiddenPostInput.value = postInput.innerHTML;
-            });
 
-            document.getElementById('imageUpload').addEventListener('change', function () {
-                var errorLabel = document.getElementById('postError');
+                postInput.addEventListener('click', function () {
+                    var placeholder = document.getElementById("postInputLabel");
+                    placeholder.style.display = 'none';
+                });
 
-                var imageGallery = document.getElementById('imageGallery');
-                var totalImages = selectedImages.length + this.files.length;
+                var tribute = new Tribute({
+                    trigger: '@',
+                    values: function (text, cb) {
+                        fetch('/forum/users?search=' + text, {
+                            headers: {
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                            }
+                        })
+                            .then(response => response.json())
+                            .then(data => cb(data))
+                            .catch(error => console.error(error));
+                    },
+                    menuItemTemplate: function (item) {
+                        return '<img class="tribute-list-img" src="' + item.original.image + '">' + item.original.name;
+                    },
+                    selectTemplate: function (item) {
+                        return '@' + item.original.name;
+                    },
+                    lookup: 'name',
+                    fillAttr: 'name'
+                });
 
-                if (totalImages > 4) {
-                    errorLabel.textContent = 'You can only upload 4 images in a post.';
-                    errorLabel.style.display = 'block';
-                    this.value = '';
-                } else {
-                    errorLabel.style.display = 'none';
 
-                    for (var i = 0; i < this.files.length; i++) {
-                        selectedImages.push(this.files[i]);
-                    }
-                    imageGallery.innerHTML = '';
+                tribute.attach(postInput);
+            }
 
-                    for (var i = 0; i < selectedImages.length; i++) {
-                        if (this.files[i].size > 2048 * 1024) {
-                            errorLabel.textContent = 'The file "' + this.files[i].name + '" exceeds the upload limit (2MB).';
-                            errorLabel.style.display = 'block';
-                            continue;
+            var postForm = document.getElementById('postForm');
+            if (postForm) {
+                postForm.addEventListener('submit', function () {
+                    var postInput = document.getElementById('postInput');
+                    var hiddenPostInput = document.getElementById('hiddenPostInput');
+                    hiddenPostInput.value = postInput.innerHTML;
+                });
+            }
+
+            var imageUpload = document.getElementById('imageUpload');
+            if(imageUpload){
+                imageUpload.addEventListener('change', function () {
+                    var errorLabel = document.getElementById('postError');
+
+                    var imageGallery = document.getElementById('imageGallery');
+                    var totalImages = selectedImages.length + this.files.length;
+
+                    if (totalImages > 4) {
+                        errorLabel.textContent = 'You can only upload 4 images in a post.';
+                        errorLabel.style.display = 'block';
+                        this.value = '';
+                    } else {
+                        errorLabel.style.display = 'none';
+
+                        for (var i = 0; i < this.files.length; i++) {
+                            selectedImages.push(this.files[i]);
                         }
-                        // Create a card element
-                        var card = document.createElement('div');
-                        card.className = 'col-xl-6 col-md-12 col-sm-12';
-                        // Create a card wrap element
-                        var cardWrap = document.createElement('div');
-                        cardWrap.className = 'card-wrap';
-                        // Create an image element
-                        var img = document.createElement('img');
-                        img.src = URL.createObjectURL(selectedImages[i]);
-                        img.className = 'img-fluid';
-                        img.alt = '';
-                        cardWrap.appendChild(img);
+                        imageGallery.innerHTML = '';
 
-                        var closeButton = document.createElement('button');
-                        closeButton.className = 'close-button card-close-button';
-                        closeButton.dataset.index = i; // Store the index of the image
-                        var closeIcon = document.createElement('i');
-                        closeIcon.className = 'bi bi-x';
-                        closeButton.appendChild(closeIcon);
-                        cardWrap.appendChild(closeButton);
-                        card.appendChild(cardWrap);
-                        imageGallery.appendChild(card);
+                        for (var i = 0; i < selectedImages.length; i++) {
+                            if (this.files[i].size > 2048 * 1024) {
+                                errorLabel.textContent = 'The file "' + this.files[i].name + '" exceeds the upload limit (2MB).';
+                                errorLabel.style.display = 'block';
+                                continue;
+                            }
+                            // Create a card element
+                            var card = document.createElement('div');
+                            card.className = 'col-xl-6 col-md-12 col-sm-12';
+                            // Create a card wrap element
+                            var cardWrap = document.createElement('div');
+                            cardWrap.className = 'card-wrap';
+                            // Create an image element
+                            var img = document.createElement('img');
+                            img.src = URL.createObjectURL(selectedImages[i]);
+                            img.className = 'img-fluid';
+                            img.alt = '';
+                            cardWrap.appendChild(img);
+
+                            var closeButton = document.createElement('button');
+                            closeButton.className = 'close-button card-close-button';
+                            closeButton.dataset.index = i; // Store the index of the image
+                            var closeIcon = document.createElement('i');
+                            closeIcon.className = 'bi bi-x';
+                            closeButton.appendChild(closeIcon);
+                            cardWrap.appendChild(closeButton);
+                            card.appendChild(cardWrap);
+                            imageGallery.appendChild(card);
+                        }
                     }
-                }
-            });
+                });
+            }
 
-            document.getElementById('postInput').addEventListener('click', function () {
-                var placeholder = document.getElementById("postInputLabel");
-                placeholder.style.display = 'none';
-            });
-
-            document.getElementById('imageGallery').addEventListener('click', function (event) {
-                console.log("Clicked");
-                event.preventDefault();
-                var target = event.target;
-                // Find the close button
-                while (target !== this && !target.classList.contains('close-button')) {
-                    target = target.parentElement;
-                }
-                // If the close button was clicked
-                if (target !== this) {
-                    console.log("Close button clicked");
-                    var index = event.target.dataset.index;
-                    // Remove the image from the selectedImages array
-                    selectedImages.splice(index, 1);
-                    updateFileInput();
-                    // Remove the image card from the gallery
-                    event.target.parentElement.parentElement.remove();
-                }
-            });
+            var imageGallery = document.getElementById('imageGallery');
+            if(imageGallery){
+                imageGallery.addEventListener('click', function (event) {
+                    console.log("Clicked");
+                    event.preventDefault();
+                    var target = event.target;
+                    // Find the close button
+                    while (target !== this && !target.classList.contains('close-button')) {
+                        target = target.parentElement;
+                    }
+                    // If the close button was clicked
+                    if (target !== this) {
+                        console.log("Close button clicked");
+                        var index = event.target.dataset.index;
+                        // Remove the image from the selectedImages array
+                        selectedImages.splice(index, 1);
+                        updateFileInput();
+                        // Remove the image card from the gallery
+                        event.target.parentElement.parentElement.remove();
+                    }
+                });
+            }
 
             postContainers.forEach(function (postContainer) {
                 // Agrega un evento de clic al contenedor del post
@@ -576,30 +614,6 @@
                 var deletePostForm = deletePostModal.querySelector('#deletePostForm');
                 deletePostForm.setAttribute('action', '/forum/' + postId + '/delete');
             });
-
-            var tribute = new Tribute({
-                trigger: '@',
-                values: function (text, cb) {
-                    fetch('/forum/users?search=' + text, {
-                        headers: {
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-                        }
-                    })
-                        .then(response => response.json())
-                        .then(data => cb(data))
-                        .catch(error => console.error(error));
-                },
-                menuItemTemplate: function (item) {
-                    return '<img class="tribute-list-img" src="' + item.original.image + '">' + item.original.name;
-                },
-                selectTemplate: function (item) {
-                    return '@' + item.original.name;
-                },
-                lookup: 'name',
-                fillAttr: 'name'
-            });
-
-            tribute.attach(document.getElementById('postInput'));
 
 
             var shareButtons = document.querySelectorAll('.share-button');
