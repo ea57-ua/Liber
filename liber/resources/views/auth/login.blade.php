@@ -22,6 +22,12 @@
                             </div>
                         @endif
 
+                        @if (session('error'))
+                            <div class="alert alert-danger">
+                                {{ session('error') }}
+                            </div>
+                        @endif
+
                         <div class="d-flex justify-content-center mt-4">
                             <a href="{{ route('login.google') }}" class="text-decoration-none text-secondary">
                                 Login With Google
@@ -56,7 +62,7 @@
                             </div>
 
                             <div class="d-flex justify-content-center mt-4">
-                                @if (Route::has('password.request'))
+                                @if (Route::has('password.forget'))
                                     <a class="text-decoration-none text-secondary me-3" href="{{ route('password.forget') }}">
                                         {{ __('Forgot your password?') }}
                                     </a>

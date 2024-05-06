@@ -125,5 +125,3 @@ Route::get('auth/google/callback', [SocialController::class, 'googleLoginOrRegis
 
 require __DIR__.'/auth.php';
 require __DIR__.'/admin_routes.php';
-
-Auth::routes();
