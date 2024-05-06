@@ -18,7 +18,7 @@
                     </form>
 
                     @if(Auth::check())
-                        <li class="ms-4 nav-logged-btns">
+                        <li class="ms-3 nav-logged-btns">
                             <a href="{{ route(config('chatify.routes.prefix')) }}" class="btn-custom">
                                 <i class="bi bi-chat-dots-fill me-1" style="font-size: 24px;"></i>
                                 Chat
