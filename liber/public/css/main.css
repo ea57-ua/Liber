@@ -374,6 +374,44 @@ section {
 
 /*--------------------------------------------------------------
 --------------------------------------------------------------*/
+.navbar-search-input:focus {
+    outline: none;
+    box-shadow: none;
+    border-color: #f8fafc;
+}
+
+.navbar-search-input::-ms-clear {
+    display: none;
+    width : 0;
+    height: 0;
+}
+
+.navbar-search-input::-ms-reveal { display: none; width : 0; height: 0; }
+
+.navbar-search-input::-webkit-search-decoration,
+.navbar-search-input::-webkit-search-cancel-button,
+.navbar-search-input::-webkit-search-results-button,
+.navbar-search-input::-webkit-search-results-decoration {
+    display: none;
+}
+
+.navbar-search-button {
+    background-color: #f8fafc;
+    border: none;
+    margin-left: 0;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    padding: 7px 10px
+}
+
+.navbar-search-button:hover {
+    background-color: #f8fafc;
+}
+
+.navbar-search-button:focus {
+    background-color: #f8fafc;
+}
+
 @media (max-width: 1279px) {
     .navbar-search {
         display: none;

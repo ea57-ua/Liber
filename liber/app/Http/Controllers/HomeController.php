@@ -62,10 +62,16 @@ class HomeController extends Controller
     {
         $query = $request->input('query');
 
+        if (empty($query)) {
+            return view('search_results',
+                ['movies' => collect(), 'users' => collect(), 'lists' => collect(), 'query' => $query]);
+        }
+
         $movies = Movie::where('title', 'LIKE', "%{$query}%")->get();
         $users = User::where('name', 'LIKE', "%{$query}%")->get();
         $lists = MovieList::where('name', 'LIKE', "%{$query}%")->get();
 
-        return view('search_results', ['movies' => $movies, 'users' => $users, 'lists' => $lists]);
+        return view('search_results',
+            ['movies' => $movies, 'users' => $users, 'lists' => $lists, 'query' => $query]);
     }
 }
