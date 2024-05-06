@@ -10,12 +10,17 @@
                     <li><a href="{{route('moviesPage')}}">Movies</a></li>
                     <li><a href="{{route('listsPage')}}">Lists</a></li>
 
-                    <form class="ms-5 navbar-search">
-                        <input class="form-control me-2" type="search"
-                               placeholder="Search"
-                               aria-label="Search"
-                               style="width: 300px">
-                    </form>
+                    <div class="search-bar">
+                        <form class="ms-5 navbar-search" action="{{ route('search') }}" method="GET">
+                            <div class="input-group">
+                                <input class="form-control me-2" type="search"
+                                       placeholder="Search" aria-label="Search" style="width: 300px">
+                                <button class="btn input-group-text" type="submit">
+                                    <i class="bi bi-search"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
 
                     @if(Auth::check())
                         <li class="ms-3 nav-logged-btns">

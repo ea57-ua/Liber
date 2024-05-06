@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Movie;
 use App\Models\MovieList;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -55,5 +56,16 @@ class HomeController extends Controller
             'popularMovies' => $popularMovies,
             'popularLists' => $popularLists,
             'recommendedMovies' => $recommendedMovies]);
+    }
+
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+
+        $movies = Movie::where('title', 'LIKE', "%{$query}%")->get();
+        $users = User::where('name', 'LIKE', "%{$query}%")->get();
+        $lists = MovieList::where('name', 'LIKE', "%{$query}%")->get();
+
+        return view('search_results', ['movies' => $movies, 'users' => $users, 'lists' => $lists]);
     }
 }

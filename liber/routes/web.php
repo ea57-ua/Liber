@@ -112,6 +112,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::get('users/{id}', [ProfileController::class, 'showPublicUserInfo'])
     ->name('users.publicProfile');
 
+Route::get('/search-results', [HomeController::class, 'search'])
+    ->name('search');
+
 Route::get('termsAndConditions', function () {
     return view('termsAndConditions');
 })->name('termsAndConditions');
@@ -122,6 +125,7 @@ Route::get('/social-media-share', SocialShareButtonsController::class);
 Route::get('auth/google', [SocialController::class, 'googleRedirect'])
     ->name('login.google');
 Route::get('auth/google/callback', [SocialController::class, 'googleLoginOrRegister']);
+
 
 require __DIR__.'/auth.php';
 require __DIR__.'/admin_routes.php';
