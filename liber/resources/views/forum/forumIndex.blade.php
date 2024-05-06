@@ -6,9 +6,6 @@
             display: none;
         }
     </style>
-    <br>
-    <br>
-    <br>
 
     <div class="container mt-5">
         @auth()
@@ -470,6 +467,11 @@
         }
 
         document.addEventListener('DOMContentLoaded', function () {
+            var searchForm = document.querySelector('.navbar-search');
+            if (searchForm) {
+                searchForm.style.marginTop = '10px';
+            }
+
             var postContainers = document.querySelectorAll('.forum-post-container');
 
             var postInput = document.getElementById('postInput');
