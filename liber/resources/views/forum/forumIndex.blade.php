@@ -80,7 +80,9 @@
                                             <a href="{{route('users.publicProfile', $post->user->id)}}">
                                                 <div class="d-flex align-items-center clickable-item">
                                                     <img src="{{ $post->user->image}}"
-                                                         class="testimonial-img flex-shrink-0" alt="">
+                                                         class="testimonial-img flex-shrink-0"
+                                                         style="width: 70px; height: 70px;"
+                                                         alt="User's image">
                                                     <div>
                                                         <h3>{{$post->user->name}}</h3>
                                                     </div>
