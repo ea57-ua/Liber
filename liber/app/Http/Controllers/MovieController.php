@@ -52,7 +52,7 @@ class MovieController extends Controller
                 });
         })
             ->where('movies.id', '!=', $id)
-            ->get()->take(6);
+            ->get()->take(4);
 
         $relatedMovies = $relatedMovies->sortByDesc(function ($relatedMovie) use ($directors, $genres) {
             $matchingDirectors = $relatedMovie->directors->whereIn('id', $directors)->count();

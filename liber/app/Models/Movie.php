@@ -43,16 +43,19 @@ class Movie extends Model
 
     public function getCriticAverageAttribute()
     {
-        return $this->ratings()->with('user')->whereHas('user', function ($query) {
+        $average = $this->ratings()->with('user')->whereHas('user', function ($query) {
             $query->where('critic', true);
         })->avg('rating');
+
+        return round($average, 1);
     }
 
     public function getAverageRatingAttribute()
     {
-        return $this->ratings()->avg('rating');
-    }
+        $average = $this->ratings()->avg('rating');
 
+        return round($average, 1);
+    }
     public function streamingServices()
     {
         return $this->belongsToMany(StreamingService::class, 'movie_streaming_service');
