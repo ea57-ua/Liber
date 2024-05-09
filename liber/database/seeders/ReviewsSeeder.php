@@ -58,6 +58,13 @@ class ReviewsSeeder extends Seeder
         $this->createReview($nicole, $pulpfiction, 'Excéntrico y divertido. ¡Me encantó!');
         $this->createReview($juan, $pulpfiction, 'Not as good as Tarantino\'s other films.');
         $this->createReview($vladimir, $pulpfiction, 'No tan bueno como las otras películas de Tarantino.');
+
+        // Watched movies
+        $this->markMoviesAsWatched($johndoe, [$dune1, $dune2, $enemy, $nocountry, $seven, $pulpfiction]);
+        $this->markMoviesAsWatched($nicole, [ $enemy, $nocountry, $seven, $pulpfiction]);
+        $this->markMoviesAsWatched($juan, [$dune1, $nocountry, $seven, $pulpfiction]);
+        $this->markMoviesAsWatched($vladimir, [$dune1, $dune2, $enemy, $nocountry, $seven]);
+        $this->markMoviesAsWatched($jessica, [$dune1, $dune2, $pulpfiction]);
     }
 
     private function createReview($user, $movie, $content){
@@ -66,5 +73,11 @@ class ReviewsSeeder extends Seeder
         $review->movie_id = $movie->id;
         $review->text = $content;
         $review->save();
+    }
+
+    private function markMoviesAsWatched($user, $movies){
+        foreach($movies as $movie){
+            $user->watchedMovies()->attach($movie->id);
+        }
     }
 }
