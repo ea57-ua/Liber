@@ -38,19 +38,7 @@ class AuthServiceProvider extends ServiceProvider
 
         ResetPassword::createUrlUsing(function (User $user, string $token) {
             return route('password.reset', ['token' => $token]);
-            // 'http://127.0.0.1:8000/reset-password/'.$token;
         });
-
-        /*
-        ResetPassword::toMailUsing(function (object $notifiable, string $url) {
-            return (new MailMessage)
-                ->subject('Reset Password Notification AA')
-                ->line('You are receiving this email because we received a password reset request for your account.')
-                ->action('Reset Password', $url);
-            //->markdown('mails.resetPasswordConfirmation', ['url' => $url]);
-
-        });
-        */
 
     }
 }
