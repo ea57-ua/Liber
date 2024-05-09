@@ -12,14 +12,54 @@ class ForumController extends Controller
 {
     public function index()
     {
-        $posts = Post::withCount('replies')
-            ->with(['replies' => function ($query) {
-                $query->withCount('likes')
-                    ->orderBy('likes_count', 'desc')
-                    ->orderBy('created_at', 'desc')
-                    ->take(3);
-            }])
-            ->get();
+        $user = Auth::user();
+        $posts = null;
+
+        if ($user) {
+            $followingIds = $user->follows()->pluck('follows.followed_id')->toArray();
+
+            // posts de los usuarios a los que sigue el usuario logueado
+            $followingPosts = Post::whereIn('user_id', $followingIds)
+                ->withCount('likes')
+                ->orderBy('created_at', 'desc')
+                ->orderBy('likes_count', 'desc')
+                ->get();
+
+            // posts de los usuarios a los que sigue el usuario logueado
+            $notFollowingPosts = Post::whereNotIn('user_id', $followingIds)
+                ->withCount('likes')
+                ->orderBy('created_at', 'desc')
+                ->orderBy('likes_count', 'desc')
+                ->get();
+
+            $posts = $followingPosts->concat($notFollowingPosts);
+
+            // ordenar los posts de acuerdo a si mencionan al usuario logueado
+            $posts = $posts->sort(function ($a, $b) use ($user) {
+                $aMention = strpos($a->text, '@' . $user->name) !== false;
+                $bMention = strpos($b->text, '@' . $user->name) !== false;
+
+                if ($aMention && $bMention) {
+                    return $b->created_at->timestamp - $a->created_at->timestamp;
+                } elseif ($aMention) {
+                    return -1;
+                } elseif ($bMention) {
+                    return 1;
+                } else {
+                    return $b->created_at->timestamp - $a->created_at->timestamp;
+                }
+            });
+
+        } else {
+            $posts = Post::withCount('replies')
+                ->with(['replies' => function ($query) {
+                    $query->withCount('likes')
+                        ->orderBy('likes_count', 'desc')
+                        ->orderBy('created_at', 'desc')
+                        ->take(3);
+                }])
+                ->get();
+        }
 
         return view('forum.forumIndex',
             ['posts' => $posts]);
