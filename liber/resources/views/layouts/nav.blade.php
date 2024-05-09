@@ -15,7 +15,7 @@
                             <input class="form-control navbar-search-input" type="search" placeholder=" Search anything..."
                                    aria-label="Search" name="query" style="width: 300px">
                             <div class="input-group-append">
-                                <button class="btn input-group-text navbar-search-button" type="submit">
+                                <button class="btn input-group-text navbar-search-button" type="submit" id="navSearchButton">
                                     <i class="bi bi-search" style="font-size: 16px;font-weight: bold"></i>
                                 </button>
                             </div>

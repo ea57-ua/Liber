@@ -9,6 +9,9 @@
 
     <div class="container mt-5">
         @auth()
+        <br>
+        <br>
+        <br>
         <div class="row justify-content-center">
             <div class="col-12 col-md-10 col-lg-10">
                 <div id="postError" class="alert alert-danger"
@@ -452,7 +455,7 @@
         var selectedImages = [];
 
         const lightbox = GLightbox({
-            maxZoom: 1,  // Limit zoom to 100%
+            maxZoom: 1,
         });
 
         function updateFileInput() {
@@ -470,6 +473,11 @@
             var searchForm = document.querySelector('.navbar-search');
             if (searchForm) {
                 searchForm.style.marginTop = '10px';
+            }
+
+            var navSearchButton = document.getElementById('navSearchButton');
+            if (navSearchButton) {
+                navSearchButton.style.padding = '11px';
             }
 
             var postContainers = document.querySelectorAll('.forum-post-container');
@@ -545,6 +553,7 @@
                             if (this.files[i].size > 2048 * 1024) {
                                 errorLabel.textContent = 'The file "' + this.files[i].name + '" exceeds the upload limit (2MB).';
                                 errorLabel.style.display = 'block';
+                                this.value = '';
                                 continue;
                             }
                             // Create a card element
