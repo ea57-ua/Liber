@@ -179,23 +179,68 @@
                                         </a>
                                         <span class="forum-post text-muted reply-text">
                                                     {!! \Illuminate\Support\Str::markdown($reply->text) !!}
-                                                </span>
+                                        </span>
                                     </div>
-                                    <div class="col-auto d-flex align-items-center align-middle">
-                                        @if (Auth::user() && $reply->likes->contains(Auth::user()->id))
-                                            <i class="bi bi-heart-fill like-button reply-like-button liked clickable-item"
-                                               data-post-id="{{ $reply->id }}"
-                                               title="Unlike this reply"></i>
-                                        @else
-                                            <i class="bi bi-heart like-button reply-like-button clickable-item"
-                                               data-post-id="{{ $reply->id }}"
-                                               title="Like this reply"></i>
-                                        @endif
-                                        @if ($reply->likes->count() > 0)
-                                            <span class="likes-count" data-post-id="{{ $reply->id }}">
+                                    <div class="col-auto d-flex flex-column align-items-center align-middle">
+                                        @auth()
+                                            <div class="dropdown">
+                                                <button class="btn clickable-item"
+                                                        type="button"
+                                                        id="dropdownMenuButton"
+                                                        data-bs-toggle="dropdown" aria-expanded="false"
+                                                        style="border:none;">
+                                                    <i class="bi bi-three-dots clickable-item"
+                                                       style="font-size: 28px;">
+                                                    </i>
+                                                </button>
+                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    @if(Auth::user()->id == $reply->user->id)
+                                                        <li>
+                                                            <button type="button"
+                                                                    class="btn navbarDropDownButton forum-post-options clickable-item"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#deletePostModal"
+                                                                    data-post-id="{{ $reply->id }}">
+                                                                Delete
+                                                            </button>
+                                                        </li>
+                                                    @endif
+                                                    @if(Auth::user()->admin)
+                                                        <li>
+                                                            <button type="button"
+                                                                    class="btn navbarDropDownButton forum-post-options clickable-item"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#deletePostModal"
+                                                                    data-post-id="{{ $reply->id }}"
+                                                                    style="color: red">
+                                                                Admin delete
+                                                            </button>
+                                                        </li>
+                                                    @endif
+                                                    <li><a class="dropdown-item navbarDropDownButton forum-post-options"
+                                                           href="{{route('forum.showPost', $reply->id)}}">
+                                                            Show as post
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        @endauth
+                                        <div>
+                                            @if (Auth::user() && $reply->likes->contains(Auth::user()->id))
+                                                <i class="bi bi-heart-fill like-button reply-like-button liked clickable-item"
+                                                   data-post-id="{{ $reply->id }}"
+                                                   title="Unlike this reply"></i>
+                                            @else
+                                                <i class="bi bi-heart like-button reply-like-button clickable-item"
+                                                   data-post-id="{{ $reply->id }}"
+                                                   title="Like this reply"></i>
+                                            @endif
+                                            @if ($reply->likes->count() > 0)
+                                                <span class="likes-count" data-post-id="{{ $reply->id }}">
                                                         {{ $reply->likes->count() > 0 ? $reply->likes->count() : '' }}
                                                     </span>
-                                        @endif
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
                             @endforeach
