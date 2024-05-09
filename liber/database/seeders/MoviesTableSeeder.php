@@ -219,6 +219,15 @@ class MoviesTableSeeder extends Seeder
         $brucewillis = Actor::where('name', 'Bruce Willis')->first();
         $cyllianmurphy = Actor::where('name', 'Cyllian Murphy')->first();
         $emilyblunt = Actor::where('name', 'Emily Blunt')->first();
+        $sarahgadon = Actor::where('name', 'Sarah Gadon')->first();
+        $melanielaurent = Actor::where('name', 'Mélanie Laurent')->first();
+        $johngoodman = Actor::where('name', 'John Goodman')->first();
+        $stevebuscemi = Actor::where('name', 'Steve Buscemi')->first();
+        $tommyleejones = Actor::where('name', 'Tommy Lee Jones')->first();
+        $joepesci = Actor::where('name', 'Joe Pesci')->first();
+        $sharonsone = Actor::where('name', 'Sharon Stone')->first();
+        $kevinspacey = Actor::where('name', 'Kevin Spacey')->first();
+        $robertjr = Actor::where('name', 'Robert Downey Jr.')->first();
 
         $dune->actors()->attach($chalamet);
         $dune->actors()->attach($zendaya);
@@ -231,16 +240,24 @@ class MoviesTableSeeder extends Seeder
         $dune2->actors()->attach($javierbardem);
 
         $enemy->actors()->attach($gyllenhaal);
+        $enemy->actors()->attach($sarahgadon);
+        $enemy->actors()->attach($melanielaurent);
 
         $lebowski->actors()->attach($jeffbridges);
+        $lebowski->actors()->attach($johngoodman);
+        $lebowski->actors()->attach($stevebuscemi);
 
         $nocountry->actors()->attach($javierbardem);
         $nocountry->actors()->attach($johjbrolin);
+        $nocountry->actors()->attach($tommyleejones);
 
         $casino->actors()->attach($robertdeniro);
+        $casino->actors()->attach($joepesci);
+        $casino->actors()->attach($sharonsone);
 
         $seven->actors()->attach($bradpitt);
         $seven->actors()->attach($freeman);
+        $seven->actors()->attach($kevinspacey);
 
         $django->actors()->attach($dicaprio);
         $django->actors()->attach($waltz);
@@ -253,6 +270,7 @@ class MoviesTableSeeder extends Seeder
 
         $oppenheimer->actors()->attach($cyllianmurphy);
         $oppenheimer->actors()->attach($emilyblunt);
+        $oppenheimer->actors()->attach($robertjr);
     }
 
     private function createMovie($title, $releaseDate, $posterURL, $synopsis, $backgroundImageLink, $trailerLink ): Movie

@@ -19,7 +19,7 @@ class ActorsSeeder extends Seeder
             'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Timoth%C3%A9e_Chalamet_2017_Berlinale.jpg/800px-Timoth%C3%A9e_Chalamet_2017_Berlinale.jpg');
         $this->createActor('Jake Gyllenhaal',
             'Jake Gyllenhaal is an American actor known for his roles in films like "Donnie Darko", "Brokeback Mountain", and "Nightcrawler".',
-            'https://static.wikia.nocookie.net/doblaje/images/d/d2/MV5BNjA0MTU2NDY3MF5BMl5BanBnXkFtZTgwNDU4ODkzMzE%40._V1_.jpg/revision/latest?cb=20190131011010&path-prefix=es');
+            'https://es.web.img2.acsta.net/pictures/15/05/18/10/03/374503.jpg');
         $this->createActor('Javier Bardem',
             'Javier Bardem is a Spanish actor and environmental activist. He won the Academy Award for Best Supporting Actor for his role in "No Country for Old Men".',
             'https://m.media-amazon.com/images/M/MV5BMTY1NTc4NTYzMF5BMl5BanBnXkFtZTcwNDIwOTY1NA@@._V1_.jpg');
@@ -65,6 +65,33 @@ class ActorsSeeder extends Seeder
         $this->createActor('Emily Blunt',
             'Emily Blunt is a British-American actress. She is the recipient of several accolades, including a Golden Globe Award and a Screen Actors Guild Award, and has been nominated for two British Academy Film Awards.',
             'https://m.media-amazon.com/images/M/MV5BMTUxNDY4MTMzM15BMl5BanBnXkFtZTcwMjg5NzM2Ng@@._V1_FMjpg_UX1000_.jpg');
+        $this->createActor('Sarah Gadon',
+            'Sarah Gadon is a Canadian actress. She first gained recognition for her performances in David Cronenberg\'s films "A Dangerous Method" and "Cosmopolis".',
+            'https://es.web.img3.acsta.net/pictures/16/02/10/11/30/216380.jpg');
+        $this->createActor('Mélanie Laurent',
+            'Mélanie Laurent is a French actress, filmmaker, singer, and pianist. The recipient of two César Awards and a Lumières Award, she has established herself as an accomplished actress in the French film industry.',
+            'https://medias.unifrance.org/medias/99/251/129891/format_page/melanie-laurent.jpg');
+        $this->createActor('John Goodman',
+            'John Goodman is an American actor. He played Dan Conner on the ABC television series "Roseanne" (1988–1997; 2018), for which he won a Golden Globe Award for Best Actor in 1993.',
+            'https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/John_Goodman_by_Gage_Skidmore.jpg/640px-John_Goodman_by_Gage_Skidmore.jpg');
+        $this->createActor('Steve Buscemi',
+            'Steve Buscemi is an American actor, director, writer, producer, and former firefighter. He has starred in a number of successful movies, including "Reservoir Dogs", "Fargo", "Con Air", "The Big Lebowski", "Ghost World", and "Big Fish".',
+            'https://m.media-amazon.com/images/M/MV5BODc0NTU3NDA4M15BMl5BanBnXkFtZTcwNDkxNzQxNA@@._V1_FMjpg_UX1000_.jpg');
+        $this->createActor('Tommy Lee Jones',
+            'Tommy Lee Jones is an American actor and filmmaker. He has received four Academy Award nominations, winning Best Supporting Actor for his performance as U.S. Marshal Samuel Gerard in the 1993 thriller film "The Fugitive".',
+            'https://m.media-amazon.com/images/M/MV5BMTkyNjc4MDc0OV5BMl5BanBnXkFtZTcwOTc5OTUwOQ@@._V1_.jpg');
+        $this->createActor('Joe Pesci',
+            'Joe Pesci is an American actor and musician. He is known for portraying tough, volatile characters in a variety of genres and for his collaborations with Robert De Niro and Martin Scorsese.',
+            'https://m.media-amazon.com/images/M/MV5BMzc3MTcxNDYxNV5BMl5BanBnXkFtZTcwOTI3NjE1Mw@@._V1_.jpg');
+        $this->createActor('Sharon Stone',
+            'Sharon Stone is an American actress, producer, and former fashion model. She is the recipient of a Primetime Emmy Award and a Golden Globe Award, as well as having received nominations for an Academy Award and a Screen Actors Guild Award.',
+            'https://m.media-amazon.com/images/M/MV5BMTg0MDU1ODQwNF5BMl5BanBnXkFtZTcwOTc3MjQwNA@@._V1_FMjpg_UX1000_.jpg');
+        $this->createActor('Kevin Spacey',
+            'Kevin Spacey is an American actor, producer, and singer. He began his career as a stage actor during the 1980s, obtaining supporting roles in film and television.',
+            'https://upload.wikimedia.org/wikipedia/commons/7/73/Kevin_Spacey%2C_May_2013_%28cropped%29.jpg');
+        $this->createActor('Robert Downey Jr.',
+            'Robert Downey Jr. is an American actor and producer. His career has been characterized by critical and popular success in his youth, followed by a period of substance abuse and legal troubles, before a resurgence of commercial success in middle age.',
+            'https://m.media-amazon.com/images/M/MV5BNzg1MTUyNDYxOF5BMl5BanBnXkFtZTgwNTQ4MTE2MjE@._V1_.jpg');
     }
 
     private function createActor($name, $description, $photoURL)
