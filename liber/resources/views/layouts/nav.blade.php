@@ -3,7 +3,7 @@
         <a href="{{route('welcome')}}" class="logo d-flex align-items-center me-5">
             <h1>Liber<span>.</span></h1>
         </a>
-        <nav id="navbar" class="navbar ms-5 me-5">
+        <nav id="navbar" class="navbar ms-5 me-lg-5">
                 <ul>
                     <li><a href="{{route('welcome')}}">Home</a></li>
                     <li><a href="{{route('forumPage')}}">Forum</a></li>
