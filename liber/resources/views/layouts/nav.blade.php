@@ -33,7 +33,7 @@
                             <button class="btn btn-username btn-sm dropdown-toggle"
                                     type="button" id="dropdownMenuButton"
                                     data-bs-toggle="dropdown" aria-expanded="false">
-                                {{ Auth::user()->name }}
+                                {{ Illuminate\Support\Str::limit(Auth::user()->name, 10) }}
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton"
                                 id="userNameDropDown">

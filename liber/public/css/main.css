@@ -1602,6 +1602,7 @@ p .text-primary-strong {
 
 .follower-img {
     width: 100px;
+    height: 100px;
     border-radius: 50%;
 }
 

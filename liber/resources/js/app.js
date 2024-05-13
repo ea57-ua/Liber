@@ -13,9 +13,9 @@ import Editor from '@toast-ui/editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
 
 var editorElement = document.querySelector('#advancedEditor');
-
+var editor;
 if (editorElement) {
-    const editor = new Editor({
+    editor = new Editor({
         el: editorElement,
         height: '500px',
         initialEditType: 'markdown',
