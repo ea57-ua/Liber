@@ -28,13 +28,13 @@
                     <div class="row">
                         <div class="col-sm-12 col-md-6 d-flex justify-content-center">
                             <div class="movie-details-text d-flex flex-column align-items-center">
-                                <p class="movie-ratings-text">{{$averageRatingCritics}}/10</p>
+                                <p class="movie-ratings-text">{{ round($averageRatingCritics, 1) }}/10</p>
                                 <p class="movie-rating-legend">Critics average</p>
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-6 d-flex justify-content-center">
                             <div class="movie-details-text d-flex flex-column align-items-center">
-                                <p class="movie-ratings-text">{{$averageRatingGlobal}}/10</p>
+                                <p class="movie-ratings-text">{{ round($averageRatingGlobal, 1) }}/10</p>
                                 <p class="movie-rating-legend">Global average</p>
                             </div>
                         </div>
